@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        frameLayout = findViewById(R.id.frame);
+        // frameLayout = findViewById(R.id.frame);
 
         header = navigationView.getHeaderView(0);
         imageView = header.findViewById(R.id.imageView);

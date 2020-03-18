@@ -1,31 +1,38 @@
 package ck.edu.com.hockey_tracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import ck.edu.com.hockey_tracker.Data.ModelList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link homeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link homeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class homeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ArrayList<ModelList> arrayList;
+    RecyclerView recyclerView;
+    String pname[] = {"Printer", "Mic", "Guitar", "School Bag", "Badminton", "Cricket Bat", "Hockey Stick", "Pen", "Guitar"};
+    String prating[] = {"3.4", "4.3", "3.0", "3.0", "4.5", "4.0", "4.5", "4.0", "3.5"};
+    String pprice[] = {"100$", "50$", "40$", "60$", "20$", "35$", "55$", "60$", "45$"};
+    ArrayList<String> list;
+    Spinner spinner;
+    CustomAdapter customAdapter;
+    private Context mContext;
 
     // private OnFragmentInteractionListener mListener;
 
@@ -44,27 +51,92 @@ public class homeFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static homeFragment newInstance(String param1, String param2) {
         homeFragment fragment = new homeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+//        Bundle args = new Bundle();
+////        args.putString(ARG_PARAM1, param1);
+////        args.putString(ARG_PARAM2, param2);
+////        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recyclerView = view.findViewById(R.id.recycleView);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+
+        arrayList = new ArrayList<>();
+        list = new ArrayList<>();
+
+        list.add("Vertical List");
+        list.add("Horizontal List");
+        list.add("Grid Layout Manager");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_list, list);
+        spinner.setAdapter(adapter);
+
+        addItems();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void  onItemSelected(AdapterView parent, View view, int position, long id) {
+                if(position == 0) {
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }else if (position == 1) {
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }else {
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }
+
+            }
+            @Override
+            public void  onNothingSelected(AdapterView parent) {
+
+            }
+        });
+
+        return view;
+    }
+
+    public void addItems() {
+        arrayList.clear();
+        for (int i = 0; i < pname.length; i++) {
+            ModelList modelList = new ModelList();
+            modelList.setPname(pname[i]);
+            modelList.setPprice(pprice[i]);
+            modelList.setPrating(prating[i]);
+            arrayList.add(modelList);
+        }
+
+        customAdapter = new CustomAdapter(getActivity().getApplicationContext(), arrayList);
+        recyclerView.setAdapter(customAdapter);
+
+        customAdapter.setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Toast.makeText(getActivity().getApplicationContext(), arrayList.get(position).getPname(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 //    // TODO: Rename method, update argument and hook method into UI event
