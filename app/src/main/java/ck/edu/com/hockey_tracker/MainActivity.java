@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity
 
     DrawerLayout drawer;
     NavigationView navigationView;
-    FrameLayout frameLayout;
     ActionBarDrawerToggle toggle;
     ImageView imageView;
     Toolbar toolbar;
@@ -69,14 +69,12 @@ public class MainActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 // Handle navigation view item clicks here.
                 int id = menuItem.getItemId();
-
                 if (id == R.id.nav_home) {
                     loadFragment(new homeFragment());
                 } else if (id == R.id.nav_new_match) {
                     loadFragment(new newMatchFragment());
                 } else if (id == R.id.nav_previous_match) {
                     loadFragment(new matchFragment());
-
                 } else if (id == R.id.nav_rules) {
                     loadFragment(new Fragment());
                 } else if (id == R.id.nav_settings) {
@@ -88,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
+
     }
 
     @Override
@@ -113,6 +112,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        boolean visible = false;
+        MenuItem menuItemSave = menu.findItem(R.id.action_save);
+        MenuItem menuItemCamera = menu.findItem(R.id.action_picture);
+        menuItemSave.setVisible(visible);
+        menuItemCamera.setVisible(visible);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -121,6 +131,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_picture) {
             return true;
         }
 

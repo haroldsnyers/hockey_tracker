@@ -5,29 +5,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
+import ck.edu.com.hockey_tracker.Data.MatchModel;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link newMatchFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link newMatchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class newMatchFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    EditText homeTeamName;
+    EditText awayTeamName;
+    EditText scoreTeamHome;
+    EditText scoreTeamAway;
+    EditText date;
 
-    // private OnFragmentInteractionListener mListener;
+    Button submit;
+
+    DatabaseHelper databaseHelper;
 
     public newMatchFragment() {
         // Required empty public constructor
@@ -44,65 +45,72 @@ public class newMatchFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static newMatchFragment newInstance(String param1, String param2) {
         newMatchFragment fragment = new newMatchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_match, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_match, container, false);
+
+        homeTeamName = view.findViewById(R.id.home_team);
+        awayTeamName = view.findViewById(R.id.away_team);
+        scoreTeamHome = view.findViewById(R.id.score_home_team);
+        scoreTeamAway = view.findViewById(R.id.score_away_team);
+        date = view.findViewById(R.id.date);
+
+        submit = view.findViewById(R.id.submit);
+
+        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
+
+        submit.setOnClickListener(new View.OnClickListener() {;
+            @Override
+            public void onClick(View v) {
+                if (homeTeamName.getText().toString().isEmpty()) {
+                    homeTeamName.setError("Please Enter Title");
+                }else if(awayTeamName.getText().toString().isEmpty()) {
+                    awayTeamName.setError("Please Enter Description");
+                }else if(scoreTeamHome.getText().toString().isEmpty()) {
+                    scoreTeamHome.setError("Please Enter Description");
+                }else if(scoreTeamAway.getText().toString().isEmpty()) {
+                    scoreTeamAway.setError("Please Enter Description");
+                }else if(date.getText().toString().isEmpty()) {
+                    date.setError("Please Enter Description");
+                }else {
+                    databaseHelper.addmatch(
+                            homeTeamName.getText().toString(),
+                            awayTeamName.getText().toString(),
+                            Integer.parseInt(scoreTeamHome.getText().toString()),
+                            Integer.parseInt(scoreTeamAway.getText().toString()),
+                            date.getText().toString());
+                }
+            }
+        });
+
+        setHasOptionsMenu(true);
+
+        return view;
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+        MenuItem menuItemSave = menu.findItem(R.id.action_save);
+        MenuItem menuItemCamera = menu.findItem(R.id.action_picture);
+        MenuItem menuItemSettings = menu.findItem(R.id.action_settings);
+
+        menuItemSettings.setVisible(false);
+        menuItemSave.setVisible(true);
+        menuItemCamera.setVisible(true);
+
+        getActivity().setTitle(getString(R.string.new_match));
+    }
 }

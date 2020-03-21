@@ -1,16 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:tag="newMatchFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:layout_margin="15dp"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".newMatchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/home_team"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="new Match"
-        android:textSize="@dimen/text_size"
-        android:gravity="center"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="20sp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:hint="Enter home team name"
+        android:inputType="text"
+        android:padding="15dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/away_team"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20sp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:hint="Enter away team name"
+        android:inputType="text"
+        android:padding="15dp"/>
+
+    <EditText
+        android:id="@+id/score_home_team"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20sp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:hint="Enter home team score"
+        android:inputType="number"
+        android:padding="15dp"/>
+
+    <EditText
+        android:id="@+id/score_away_team"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20sp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:hint="Enter away team score"
+        android:inputType="number"
+        android:padding="15dp"/>
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20sp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:hint="Enter date"
+        android:inputType="date"
+        android:padding="15dp"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/submit"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:text="Submit"-->
+        <!--android:textColor="@color/white"/>-->
+
+</LinearLayout>

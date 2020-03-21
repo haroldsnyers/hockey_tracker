@@ -1,10 +1,10 @@
 package ck.edu.com.hockey_tracker;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,24 +15,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import ck.edu.com.hockey_tracker.Data.ModelList;
+import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
+import ck.edu.com.hockey_tracker.Data.MatchModel;
 
 
 public class homeFragment extends Fragment {
 
-    ArrayList<ModelList> arrayList;
+    ArrayList<MatchModel> arrayList;
     RecyclerView recyclerView;
-    String pname[] = {"Printer", "Mic", "Guitar", "School Bag", "Badminton", "Cricket Bat", "Hockey Stick", "Pen", "Guitar"};
-    String prating[] = {"3.4", "4.3", "3.0", "3.0", "4.5", "4.0", "4.5", "4.0", "3.5"};
-    String pprice[] = {"100$", "50$", "40$", "60$", "20$", "35$", "55$", "60$", "45$"};
     ArrayList<String> list;
     Spinner spinner;
-    CustomAdapter customAdapter;
-    private Context mContext;
+    HomePageMatchAdapter homePageMatchAdapter;
+    DatabaseHelper databaseHelper;
+
+    FloatingActionButton floatingActionButtonAdd;
 
     // private OnFragmentInteractionListener mListener;
 
@@ -40,47 +39,38 @@ public class homeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment homeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static homeFragment newInstance(String param1, String param2) {
         homeFragment fragment = new homeFragment();
-//        Bundle args = new Bundle();
-////        args.putString(ARG_PARAM1, param1);
-////        args.putString(ARG_PARAM2, param2);
-////        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        floatingActionButtonAdd = view.findViewById(R.id.new_match_button);
+
+        floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new newMatchFragment());
+            }
+        });
+
         recyclerView = view.findViewById(R.id.recycleView);
         spinner = (Spinner) view.findViewById(R.id.spinner);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
-
-
-        arrayList = new ArrayList<>();
+        arrayList = new ArrayList<>(databaseHelper.getMatches());
         list = new ArrayList<>();
 
         list.add("Vertical List");
@@ -118,63 +108,15 @@ public class homeFragment extends Fragment {
         return view;
     }
 
-    public void addItems() {
-        arrayList.clear();
-        for (int i = 0; i < pname.length; i++) {
-            ModelList modelList = new ModelList();
-            modelList.setPname(pname[i]);
-            modelList.setPprice(pprice[i]);
-            modelList.setPrating(prating[i]);
-            arrayList.add(modelList);
-        }
-
-        customAdapter = new CustomAdapter(getActivity().getApplicationContext(), arrayList);
-        recyclerView.setAdapter(customAdapter);
-
-        customAdapter.setOnItemClickListener(new CustomAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Toast.makeText(getActivity().getApplicationContext(), arrayList.get(position).getPname(), Toast.LENGTH_LONG).show();
-            }
-        });
+    public void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame, fragment);
+        transaction.commit();
     }
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
+    public void addItems() {
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+        homePageMatchAdapter = new HomePageMatchAdapter(getActivity().getApplicationContext(), arrayList);
+        recyclerView.setAdapter(homePageMatchAdapter);
+    }
 }
