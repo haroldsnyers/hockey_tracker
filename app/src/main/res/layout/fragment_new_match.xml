@@ -9,7 +9,7 @@
     android:layout_margin="15dp"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".newMatchFragment">
+    tools:context=".Fragments.newMatchFragment">
 
     <EditText
         android:id="@+id/home_team"

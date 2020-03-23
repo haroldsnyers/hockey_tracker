@@ -21,5 +21,9 @@
     <string name="away_team_crest" translatable="true">Away Team Crest</string>
     <string name="save_match">Save Match</string>
     <string name="take_a_picture">Take a picture</string>
-    <string name="new_match">New Match</string>
+    <string name="view_detail">View detail match</string>
+
+    <string name="text_french" translatable="false">Français</string>
+    <string name="text_english" translatable="false">English</string>
+    <string name="languages">Languages</string>
 </resources>

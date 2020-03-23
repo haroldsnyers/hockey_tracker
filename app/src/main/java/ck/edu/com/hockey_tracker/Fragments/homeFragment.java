@@ -1,6 +1,5 @@
-package ck.edu.com.hockey_tracker;
+package ck.edu.com.hockey_tracker.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.Adapters.HomePageMatchAdapter;
+import ck.edu.com.hockey_tracker.R;
 
 
 public class homeFragment extends Fragment {
@@ -32,6 +34,7 @@ public class homeFragment extends Fragment {
     DatabaseHelper databaseHelper;
 
     FloatingActionButton floatingActionButtonAdd;
+    LinearLayout linearLayoutMatch;
 
     // private OnFragmentInteractionListener mListener;
 

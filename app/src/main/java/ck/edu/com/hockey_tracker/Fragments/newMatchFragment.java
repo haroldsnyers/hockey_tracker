@@ -1,7 +1,5 @@
-package ck.edu.com.hockey_tracker;
+package ck.edu.com.hockey_tracker.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
-import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.R;
 
 
 public class newMatchFragment extends Fragment {
@@ -29,6 +26,8 @@ public class newMatchFragment extends Fragment {
     Button submit;
 
     DatabaseHelper databaseHelper;
+
+    // private OnFragmentInteractionListener mListener;
 
     public newMatchFragment() {
         // Required empty public constructor
@@ -65,33 +64,8 @@ public class newMatchFragment extends Fragment {
         scoreTeamAway = view.findViewById(R.id.score_away_team);
         date = view.findViewById(R.id.date);
 
-        submit = view.findViewById(R.id.submit);
 
         databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
-
-        submit.setOnClickListener(new View.OnClickListener() {;
-            @Override
-            public void onClick(View v) {
-                if (homeTeamName.getText().toString().isEmpty()) {
-                    homeTeamName.setError("Please Enter Title");
-                }else if(awayTeamName.getText().toString().isEmpty()) {
-                    awayTeamName.setError("Please Enter Description");
-                }else if(scoreTeamHome.getText().toString().isEmpty()) {
-                    scoreTeamHome.setError("Please Enter Description");
-                }else if(scoreTeamAway.getText().toString().isEmpty()) {
-                    scoreTeamAway.setError("Please Enter Description");
-                }else if(date.getText().toString().isEmpty()) {
-                    date.setError("Please Enter Description");
-                }else {
-                    databaseHelper.addmatch(
-                            homeTeamName.getText().toString(),
-                            awayTeamName.getText().toString(),
-                            Integer.parseInt(scoreTeamHome.getText().toString()),
-                            Integer.parseInt(scoreTeamAway.getText().toString()),
-                            date.getText().toString());
-                }
-            }
-        });
 
         setHasOptionsMenu(true);
 
@@ -111,6 +85,55 @@ public class newMatchFragment extends Fragment {
         menuItemSave.setVisible(true);
         menuItemCamera.setVisible(true);
 
-        getActivity().setTitle(getString(R.string.new_match));
+        getActivity().setTitle(getString(R.string.menu_new_match));
     }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        mListener = null;
+//    }
+
+    public void newMatch() {
+        if (homeTeamName.getText().toString().isEmpty()) {
+            homeTeamName.setError("Please Enter Title");
+        }else if(awayTeamName.getText().toString().isEmpty()) {
+            awayTeamName.setError("Please Enter Description");
+        }else if(scoreTeamHome.getText().toString().isEmpty()) {
+            scoreTeamHome.setError("Please Enter Description");
+        }else if(scoreTeamAway.getText().toString().isEmpty()) {
+            scoreTeamAway.setError("Please Enter Description");
+        }else if(date.getText().toString().isEmpty()) {
+            date.setError("Please Enter Description");
+        }else {
+            databaseHelper.addmatch(
+                    homeTeamName.getText().toString(),
+                    awayTeamName.getText().toString(),
+                    Integer.parseInt(scoreTeamHome.getText().toString()),
+                    Integer.parseInt(scoreTeamAway.getText().toString()),
+                    date.getText().toString());
+        }
+    }
+
+//    /**
+//     * This interface must be implemented by activities that contain this
+//     * fragment_first to allow an interaction in this fragment_first to be communicated
+//     * to the activity and potentially other fragments contained in that
+//     * activity.
+//     */
+//    public interface OnFragmentInteractionListener {
+//        // TODO: Update argument type and name
+//        void onTextChange(String editText);
+//    }
 }

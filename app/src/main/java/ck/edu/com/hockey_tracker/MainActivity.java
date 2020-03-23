@@ -1,14 +1,10 @@
 package ck.edu.com.hockey_tracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,14 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import ck.edu.com.hockey_tracker.Fragments.homeFragment;
+import ck.edu.com.hockey_tracker.Fragments.matchFragment;
+import ck.edu.com.hockey_tracker.Fragments.newMatchFragment;
 import ck.edu.com.hockey_tracker.dummy.DummyContent;
 
-public class MainActivity extends AppCompatActivity
-        implements matchFragment.OnListFragmentInteractionListener {
+public class MainActivity extends BaseActivity
+        implements
+            matchFragment.OnListFragmentInteractionListener,
+            SettingsFragment.OnFragmentInteractionListenerSettings {
 
     DrawerLayout drawer;
     NavigationView navigationView;
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     ImageView imageView;
     Toolbar toolbar;
     View header;
+
+    ck.edu.com.hockey_tracker.Fragments.newMatchFragment newMatchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity
 
         // set default fragment
         loadFragment(new homeFragment());
+        newMatchFragment = new newMatchFragment();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -72,13 +74,13 @@ public class MainActivity extends AppCompatActivity
                 if (id == R.id.nav_home) {
                     loadFragment(new homeFragment());
                 } else if (id == R.id.nav_new_match) {
-                    loadFragment(new newMatchFragment());
+                    loadFragment(newMatchFragment);
                 } else if (id == R.id.nav_previous_match) {
                     loadFragment(new matchFragment());
                 } else if (id == R.id.nav_rules) {
                     loadFragment(new Fragment());
                 } else if (id == R.id.nav_settings) {
-                    loadFragment(new Fragment());
+                    loadFragment(new SettingsFragment());
                 } else if (id == R.id.nav_info) {
                     loadFragment(new Fragment());
                 }
@@ -134,13 +136,31 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.action_picture) {
             return true;
+        } else if (id == R.id.action_save) {
+            newMatchFragment.newMatch();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void setNewLocale(AppCompatActivity mContext, @LocaleManager.LocaleDef String language) {
+        LocaleManager.setNewLocale(this, language);
+        Intent intent = mContext.getIntent();
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(String language) {
+        if (language.equals("French")) {
+            setNewLocale(this, LocaleManager.FRENCH);
+        } else if (language.equals("English")) {
+            setNewLocale(this, LocaleManager.ENGLISH);
+        }
 
     }
 }

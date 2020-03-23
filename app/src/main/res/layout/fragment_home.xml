@@ -29,7 +29,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".matchFragment"
+            tools:context=".Fragments.matchFragment"
             tools:listitem="@layout/fragment_home_fragment" />
     </LinearLayout>
 

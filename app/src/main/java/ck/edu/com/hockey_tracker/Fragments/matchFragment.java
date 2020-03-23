@@ -1,4 +1,4 @@
-package ck.edu.com.hockey_tracker;
+package ck.edu.com.hockey_tracker.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ck.edu.com.hockey_tracker.Adapters.PreviousMatchsAdapter;
+import ck.edu.com.hockey_tracker.R;
 import ck.edu.com.hockey_tracker.dummy.DummyContent;
 import ck.edu.com.hockey_tracker.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
