@@ -18,6 +18,8 @@ public class ServerRunnable implements Runnable {
     public void run() {
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+
             BufferedReader br = new BufferedReader(inputStreamReader);
             String content = br.readLine();
             System.out.println(content);
@@ -29,22 +31,21 @@ public class ServerRunnable implements Runnable {
             int scoreHomeTeam = match.getInt("ScoreTeamHome");
             int scoreAwayTeam = match.getInt("ScoreTeamAway");
             String dateMatch = match.getString("DateMatch");
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 
             Server server = new Server();
 
             String status;
             try {
-                System.out.println("adding match");
+
                 server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch);
-                System.out.println("match added");
-                status = "Complete";
+
+                status = "Completed";
             } catch (Exception e) {
-                status = "failed";
+                status = "Failed";
             }
-
+            System.out.println("adding match");
             dos.writeUTF(status);
-
+            System.out.println("match added");
             inputStreamReader.close();
             dos.close();
             sock.close();

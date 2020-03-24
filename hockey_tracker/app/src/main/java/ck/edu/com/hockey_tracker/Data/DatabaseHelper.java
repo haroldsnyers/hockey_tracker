@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query;
         //creating table
-        query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, HomeTeam_score INTEGER, AwayTeam_score, Date_match TEXT)";
+        query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT)";
         db.execSQL(query);
     }
 
@@ -41,14 +44,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addmatch(String hometeam, String awayteam, int scoreteamhome, int scoreteamaway, String date) {
         SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put("HomeTeam", hometeam);
         values.put("AwayTeam", awayteam);
         values.put("HomeTeam_score", scoreteamhome);
         values.put("AwayTeam_score", scoreteamaway);
+
         values.put("Date_match", date);
 
         //inserting new row
         sqLiteDatabase.insert(TABLE_NAME, null , values);
+        deleteLatest();
         //close database connection
         sqLiteDatabase.close();
     }
@@ -77,6 +83,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return arrayList;
+    }
+
+    public void deleteLatest() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_NAME, "id not in (select id from " + TABLE_NAME  + " order by Date_match desc limit 10)", null);
     }
 
     //delete the note

@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.R;
@@ -30,6 +33,8 @@ public class newMatchFragment extends Fragment {
     DatabaseHelper databaseHelper;
 
     private OnFragmentInteractionListener mListener;
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
 
     public newMatchFragment() {
         // Required empty public constructor
@@ -64,7 +69,6 @@ public class newMatchFragment extends Fragment {
         awayTeamName = view.findViewById(R.id.away_team);
         scoreTeamHome = view.findViewById(R.id.score_home_team);
         scoreTeamAway = view.findViewById(R.id.score_away_team);
-        date = view.findViewById(R.id.date);
 
 
         databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
@@ -116,21 +120,21 @@ public class newMatchFragment extends Fragment {
             scoreTeamHome.setError("Please Enter Description");
         }else if(scoreTeamAway.getText().toString().isEmpty()) {
             scoreTeamAway.setError("Please Enter Description");
-        }else if(date.getText().toString().isEmpty()) {
-            date.setError("Please Enter Description");
         }else {
+            LocalDateTime now = LocalDateTime.now();
+            String dateNow = dtf.format(now);
             databaseHelper.addmatch(
                     homeTeamName.getText().toString(),
                     awayTeamName.getText().toString(),
                     Integer.parseInt(scoreTeamHome.getText().toString()),
                     Integer.parseInt(scoreTeamAway.getText().toString()),
-                    date.getText().toString());
+                    dateNow);
             MatchModel matchModel = new MatchModel();
             matchModel.setHometeam(homeTeamName.getText().toString());
             matchModel.setAwayteam(awayTeamName.getText().toString());
             matchModel.setScorehometeam(Integer.parseInt(scoreTeamHome.getText().toString()));
             matchModel.setScoreawayteam(Integer.parseInt(scoreTeamAway.getText().toString()));
-            matchModel.setDate(date.getText().toString());
+            matchModel.setDate(dateNow);
             mListener.onSubmit(matchModel);
         }
     }

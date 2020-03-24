@@ -235,12 +235,7 @@ public class MainActivity extends BaseActivity
                 Log.d("STATES", "connected");
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
 
-                try {
-                    answer = dis.readUTF();
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    // We were cancelled; stop sleeping!
-                }
+                answer = dis.readUTF();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -249,12 +244,13 @@ public class MainActivity extends BaseActivity
 
         protected void onPostExecute(String result) {
             Log.d("STATE", "trying");
-            if (result.equals("Complete")) {
-                mProgressDialog.dismiss();
+            Log.d("STATESS", result);
+
+            mProgressDialog.dismiss();
 //                if (this.mode.equals("GETALL")) {
 //                    matchModelArrayList = arrayList;
 //                }
-            }
+
         }
     }
 }
