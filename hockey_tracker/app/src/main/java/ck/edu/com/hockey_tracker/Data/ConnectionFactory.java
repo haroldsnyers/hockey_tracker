@@ -14,6 +14,14 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * Class to connect to mySQL database
+ *
+ * NOT USED as jdbc driver is not working properly and generates errors that
+ * haven't been solved
+ *
+ * alternative way has been made, socket that sends json object to a server under hibernate
+ */
 public class ConnectionFactory {
     public static final String URL = "jdbc:mysql://127.0.0.1:3004/db_matches";
     public static final String USER = "Harold_admin";
