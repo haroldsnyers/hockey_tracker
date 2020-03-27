@@ -9,8 +9,8 @@ public class MatchModel implements Serializable {
 //    int homecrest;
 //    int awaycrest;
     int ID;
-    String hometeam;
-    String awayteam;
+    String homeTeam;
+    String awayTeam;
     int scorehometeam;
     int scoreawayteam;
     String date;
@@ -40,19 +40,19 @@ public class MatchModel implements Serializable {
 //    }
 
     public String getHometeam() {
-        return hometeam;
+        return homeTeam;
     }
 
     public void setHometeam(String hometeam) {
-        this.hometeam = hometeam;
+        this.homeTeam = hometeam;
     }
 
     public String getAwayteam() {
-        return awayteam;
+        return awayTeam;
     }
 
     public void setAwayteam(String awayteam) {
-        this.awayteam = awayteam;
+        this.awayTeam = awayteam;
     }
 
     public String getDate() {
@@ -83,6 +83,7 @@ public class MatchModel implements Serializable {
 
         JSONObject jsonObject= new JSONObject();
         try {
+            jsonObject.put("mode", "insert");
             jsonObject.put("HomeTeam", getHometeam());
             jsonObject.put("AwayTeam", getAwayteam());
             jsonObject.put("ScoreTeamHome", getScorehometeam());

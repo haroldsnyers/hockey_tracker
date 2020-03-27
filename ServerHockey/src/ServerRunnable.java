@@ -2,6 +2,10 @@ import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.*;
 
 public class ServerRunnable implements Runnable {
@@ -18,7 +22,6 @@ public class ServerRunnable implements Runnable {
     public void run() {
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(sock.getInputStream());
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 
             BufferedReader br = new BufferedReader(inputStreamReader);
             String content = br.readLine();
@@ -26,28 +29,48 @@ public class ServerRunnable implements Runnable {
 
             JSONObject match = new JSONObject(content);
             System.out.println(match.toString());
-            String homeTeam = match.getString("HomeTeam");
-            String awayTeam = match.getString("AwayTeam");
-            int scoreHomeTeam = match.getInt("ScoreTeamHome");
-            int scoreAwayTeam = match.getInt("ScoreTeamAway");
-            String dateMatch = match.getString("DateMatch");
+
+            String mode = match.getString("mode");
+            String status = "";
 
             Server server = new Server();
 
-            String status;
-            try {
+            if (mode.equals("insert")) {
+                String homeTeam = match.getString("HomeTeam");
+                String awayTeam = match.getString("AwayTeam");
+                int scoreHomeTeam = match.getInt("ScoreTeamHome");
+                int scoreAwayTeam = match.getInt("ScoreTeamAway");
+                String dateMatch = match.getString("DateMatch");
 
-                server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch);
+                try {
+                    server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch);
+                    status = "Completed";
+                    System.out.println("match added");
+                } catch (Exception e) {
+                    status = "Failed";
+                    System.out.println("match not added");
+                }
+                DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+                dos.writeUTF(status);
+                dos.close();
+            } else if (mode.equals("getAll")) {
+                List<Match> matchList = server.listMatchs();
 
-                status = "Completed";
-            } catch (Exception e) {
-                status = "Failed";
+                ObjectMapper mapper = new ObjectMapper();
+                String matchListJson = mapper.writeValueAsString(matchList);
+                System.out.println(matchListJson);
+
+                try (OutputStreamWriter out = new OutputStreamWriter(
+                        sock.getOutputStream(), StandardCharsets.UTF_8)) {
+                    out.write(matchListJson);
+                    System.out.println("Success");
+                } catch (Exception e){
+                    System.out.println("Failed");
+                    System.out.println(e.toString());
+                }
             }
-            System.out.println("adding match");
-            dos.writeUTF(status);
-            System.out.println("match added");
+
             inputStreamReader.close();
-            dos.close();
             sock.close();
 
         } catch (Exception e) {

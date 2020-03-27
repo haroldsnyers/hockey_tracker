@@ -19,13 +19,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.ArrayType;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -52,12 +61,10 @@ public class MainActivity extends BaseActivity
     Toolbar toolbar;
     View header;
 
-    ck.edu.com.hockey_tracker.Fragments.newMatchFragment newMatchFragment;
+    newMatchFragment newMatchFragment;
 
-    static final String url = "jdbc:mysql://127.0.0.1:3004/db_matches";
-    static final String user = "client";
-    static final String pass = "password";
-    ArrayList<MatchModel> matchModelArrayList;
+    ArrayList<MatchModel> matchModelArrayList = new ArrayList<>();
+    String matchList;
     MatchModel matchModel;
 
     @Override
@@ -101,7 +108,7 @@ public class MainActivity extends BaseActivity
                 } else if (id == R.id.nav_new_match) {
                     loadFragment(newMatchFragment);
                 } else if (id == R.id.nav_previous_match) {
-                    loadFragmentExt(new matchFragment());
+                    new Download(MainActivity.this, "GETALL").execute();
                 } else if (id == R.id.nav_rules) {
                     loadFragment(new Fragment());
                 } else if (id == R.id.nav_settings) {
@@ -131,13 +138,12 @@ public class MainActivity extends BaseActivity
         transaction.commit();
     }
 
-    public void loadFragmentExt(matchFragment fragment) {
+    public void loadFragmentExt() {
+        matchFragment matchFragment = ck.edu.com.hockey_tracker.Fragments.matchFragment.newInstance(matchList);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame, fragment);
+        transaction.replace(R.id.frame, matchFragment);
         transaction.commit();
-        new Download(this, "GETALL").execute();
 
-        fragment.setMatchModel(matchModelArrayList);
     }
 
     @Override
@@ -203,6 +209,7 @@ public class MainActivity extends BaseActivity
         Context context;
         private String mode;
         private ArrayList<MatchModel> arrayList;
+        private String matchListLoader;
 
         public Download(Context context, String mode) {
             this.context = context;
@@ -225,31 +232,67 @@ public class MainActivity extends BaseActivity
 //                     arrayList = connectionFactory.getAllUsers();
 //                }
             String answer = "failed";
-
-            try {
-                Socket socket = new Socket("192.168.1.61", 9876);
-                try (OutputStreamWriter out = new OutputStreamWriter(
-                        socket.getOutputStream(), StandardCharsets.UTF_8)) {
-                    out.write(matchModel.toJSONNew());
-                }
-                Log.d("STATES", "connected");
+            try (Socket socket = new Socket("192.168.1.61", 9876)){
+                String message = "";
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
+                DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+                PrintWriter pw = new PrintWriter(dos);
+                if (this.mode.equals("INSERT")) {
+                    message = matchModel.toJSONNew();
+                    pw.println(message);
+                    pw.flush();
+                    try {
+                        answer = dis.readUTF();
+                        Log.d("ASNWER", answer);
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        // We were cancelled; stop sleeping!
+                    }
 
-                answer = dis.readUTF();
+                } else if (this.mode.equals("GETALL")) {
+                    String messageGet = "";
+                    JSONObject jsonObject= new JSONObject();
+                    try {
+                        jsonObject.put("mode", "getAll");
+                        messageGet = jsonObject.toString();
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        return "";
+                    }
+
+                    pw.println(messageGet);
+                    pw.flush();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(dis));
+                    String jsonMatchArray = in.readLine();
+                    matchListLoader = jsonMatchArray;
+                    Log.d("JSONMATCH", jsonMatchArray);
+                }
+                dis.close();
+                dos.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.d("ERROR", e.toString());
             }
+
             return answer;
         }
 
-        protected void onPostExecute(String result) {
-            Log.d("STATE", "trying");
-            Log.d("STATESS", result);
-
+        protected void onPostExecute(String answer) {
             mProgressDialog.dismiss();
-//                if (this.mode.equals("GETALL")) {
-//                    matchModelArrayList = arrayList;
-//                }
+            if (this.mode.equals("INSERT")) {
+                if (answer.equals("Completed")) {
+                    Toast.makeText(getApplicationContext(), "Match Added", Toast.LENGTH_SHORT).show();
+                    loadFragment(new homeFragment());
+                } else {
+                    Toast.makeText(getApplicationContext(), "An error occured while adding match", Toast.LENGTH_SHORT).show();
+                }
+            } else if (this.mode.equals("GETALL")) {
+                matchList = matchListLoader;
+                loadFragmentExt();
+            }
 
         }
     }

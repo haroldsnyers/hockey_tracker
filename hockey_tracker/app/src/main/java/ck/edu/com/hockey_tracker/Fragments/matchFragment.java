@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ck.edu.com.hockey_tracker.Adapters.HomePageMatchAdapter;
@@ -32,8 +37,12 @@ public class matchFragment extends Fragment {
     HomePageMatchAdapter homePageMatchAdapter;
 
     FloatingActionButton floatingActionButtonAdd;
+    ObjectMapper objectMapper;
 
     private OnFragmentInteractionListener mListener;
+
+    private static final String ARG_PARAM1 = "";
+    private String mParam1 = "";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,14 +53,20 @@ public class matchFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static matchFragment newInstance() {
+    public static matchFragment newInstance(String param1) {
         matchFragment fragment = new matchFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            mParam1 = getArguments().getString(ARG_PARAM1);
+        }
     }
 
     @Override
@@ -68,13 +83,14 @@ public class matchFragment extends Fragment {
             }
         });
 
+        arrayList = new ArrayList<>();
+        objectMapper = new ObjectMapper();
+
         recyclerView = view.findViewById(R.id.recycleViewPrevious);
         spinner = (Spinner) view.findViewById(R.id.spinner);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-
 
         list = new ArrayList<>();
 
@@ -121,10 +137,16 @@ public class matchFragment extends Fragment {
 
     public void setMatchModel(ArrayList<MatchModel> matchModelArrayList) {
         arrayList = matchModelArrayList;
+        Log.d("TEST1", arrayList.toString());
     }
 
     public void addItems() {
-
+        Log.d("TEST2", arrayList.toString());
+        try {
+            arrayList = objectMapper.readValue(mParam1, new TypeReference<ArrayList<MatchModel>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         homePageMatchAdapter = new HomePageMatchAdapter(getActivity().getApplicationContext(), arrayList, R.layout.layout_match_view_model);
         recyclerView.setAdapter(homePageMatchAdapter);
     }

@@ -61,7 +61,7 @@ public class ConnectionFactory {
         return matchModel;
     }
 
-    public ArrayList<MatchModel> getAllUsers() {
+    public ArrayList<MatchModel> getAllMatches() {
         ConnectionFactory connector = new ConnectionFactory();
         Connection connection = getConnection();
         try {
@@ -80,7 +80,7 @@ public class ConnectionFactory {
         return null;
     }
 
-    public boolean insertUser(MatchModel match) {
+    public boolean insertMatch(MatchModel match) {
         ConnectionFactory connector = new ConnectionFactory();
         Connection connection = getConnection();
         try {

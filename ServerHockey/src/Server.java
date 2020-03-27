@@ -113,7 +113,7 @@ public class Server {
     }
 
     /* Method to READ ALL the Matchs */
-    private List<Match> listMatchs(){
+    public List<Match> listMatchs(){
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
 
@@ -124,8 +124,6 @@ public class Server {
             Matchs = (List<Match>) session.createQuery("FROM Match").list();
             for (Iterator iterator = Matchs.iterator(); iterator.hasNext();){
                 Match Match = (Match) iterator.next();
-                System.out.print("  Home: " + Match.getHomeTeam());
-                System.out.println("  Away: " + Match.getAwayTeam());
             }
             tx.commit();
         } catch (HibernateException e) {

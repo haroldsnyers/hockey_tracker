@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     // Use current library version
+    // implementation files ('libs/jackson-all-1.9.0.jar')
 }
