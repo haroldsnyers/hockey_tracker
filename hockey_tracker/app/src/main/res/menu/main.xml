@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_picture"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="@string/take_a_picture"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/action_save"
         android:title="@string/save_match"
         android:icon="@drawable/menu_save"
@@ -11,9 +16,4 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_picture"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="@string/take_a_picture"
-        app:showAsAction="never"/>
 </menu>

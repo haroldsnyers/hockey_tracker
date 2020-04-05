@@ -2,11 +2,13 @@ package ck.edu.com.hockey_tracker.Adapters;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import java.util.Formatter;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.DetailActivity;
+import ck.edu.com.hockey_tracker.MainActivity;
 import ck.edu.com.hockey_tracker.R;
 
 public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdapter.viewHolder> {
@@ -65,12 +69,16 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
         ImageView homeCrest, awayCrest;
         TextView homeTeam, score, date, awayTeam, location, test;
         LinearLayout matchDetail;
+        Button buttonDetail;
 
         private int mOriginalHeight = 0;
         private boolean mIsViewExpanded = false;
+        private final Context context;
 
         public viewHolder(final View itemView) {
             super(itemView);
+            context = itemView.getContext();
+
             homeTeam = (TextView) itemView.findViewById(R.id.home_name);
             score = (TextView) itemView.findViewById(R.id.score_textview);
             date = (TextView) itemView.findViewById(R.id.date_textview);
@@ -78,6 +86,7 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
             location = (TextView) itemView.findViewById(R.id.matchday_textview);
             test = (TextView) itemView.findViewById(R.id.league_textview);
             matchDetail = (LinearLayout) itemView.findViewById(R.id.match_detail);
+            buttonDetail = itemView.findViewById(R.id.detail_match_button);
 //            homeCrest = (ImageView) itemView.findViewById(R.id.home_crest);
 //            awayCrest = (ImageView) itemView.findViewById(R.id.away_crest);
 
@@ -107,6 +116,16 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
                         }
                     });
                     valueAnimator.start();
+                }
+            });
+
+            buttonDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Class destinationActivity = DetailActivity.class;
+                    Intent startChildActivityintent = new Intent(context, destinationActivity);
+                    // getting text entered and passing along as an extra under the name of EXTRA_TEXT
+                    context.startActivity(startChildActivityintent);
                 }
             });
 

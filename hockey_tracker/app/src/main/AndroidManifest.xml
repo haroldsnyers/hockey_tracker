@@ -13,6 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".DetailActivity"
+            android:theme="@style/AppTheme"
+            android:label="Detail Match"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ck.edu.com.hockey_tracker.MainActivity" />
+        </activity>
+        <activity
+            android:name=".RecordActivity"
+            android:theme="@style/AppTheme1"
+            android:label="Detail Match"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ck.edu.com.hockey_tracker.MainActivity" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">

@@ -40,7 +40,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-import ck.edu.com.hockey_tracker.Data.ConnectionFactory;
+import ck.edu.com.hockey_tracker.Data.DownloadModel;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Fragments.SettingsFragment;
 import ck.edu.com.hockey_tracker.Fragments.homeFragment;
@@ -178,6 +178,11 @@ public class MainActivity extends BaseActivity
             return true;
         } else if (id == R.id.action_save) {
             newMatchFragment.newMatch();
+            Context context = MainActivity.this;
+            Class destinationActivity = RecordActivity.class;
+            Intent startChildActivityintent = new Intent(context, destinationActivity);
+            // getting text entered and passing along as an extra under the name of EXTRA_TEXT
+            startActivity(startChildActivityintent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -201,83 +206,30 @@ public class MainActivity extends BaseActivity
     @Override
     public void onSubmit(MatchModel match) {
         matchModel = match;
-        new Download(this, "INSERT").execute();
+        new Download(MainActivity.this, "INSERT", matchModel).execute();
     }
 
-    public class Download extends AsyncTask<Void, Void, String> {
+    public class Download extends DownloadModel {
         ProgressDialog mProgressDialog;
         Context context;
         private String mode;
-        private ArrayList<MatchModel> arrayList;
-        private String matchListLoader;
+
+        public Download(Context context, String mode, MatchModel matchModel) {
+            super(context, mode, matchModel);
+            this.context = context;
+            this.mode = mode;
+        }
 
         public Download(Context context, String mode) {
+            super(context, mode);
             this.context = context;
             this.mode = mode;
         }
 
         protected void onPreExecute() {
             super.onPreExecute();
-            mProgressDialog = ProgressDialog.show(context, "",
+            mProgressDialog = ProgressDialog.show(this.context, "",
                     "Please wait, getting database...");
-        }
-
-        protected String doInBackground(Void... params) {
-
-//            try {
-//                ConnectionFactory connectionFactory = new ConnectionFactory();
-//                if (this.mode.equals("INSERT")) {
-//                    connectionFactory.insertUser(matchModel);
-//                } else if (this.mode.equals("GETALL")) {
-//                     arrayList = connectionFactory.getAllUsers();
-//                }
-            String answer = "failed";
-            try (Socket socket = new Socket("192.168.1.61", 9876)){
-                String message = "";
-                DataInputStream dis = new DataInputStream(socket.getInputStream());
-                DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-                PrintWriter pw = new PrintWriter(dos);
-                if (this.mode.equals("INSERT")) {
-                    message = matchModel.toJSONNew();
-                    pw.println(message);
-                    pw.flush();
-                    try {
-                        answer = dis.readUTF();
-                        Log.d("ASNWER", answer);
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        // We were cancelled; stop sleeping!
-                    }
-
-                } else if (this.mode.equals("GETALL")) {
-                    String messageGet = "";
-                    JSONObject jsonObject= new JSONObject();
-                    try {
-                        jsonObject.put("mode", "getAll");
-                        messageGet = jsonObject.toString();
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                        return "";
-                    }
-
-                    pw.println(messageGet);
-                    pw.flush();
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(dis));
-                    String jsonMatchArray = in.readLine();
-                    matchListLoader = jsonMatchArray;
-                    Log.d("JSONMATCH", jsonMatchArray);
-                }
-                dis.close();
-                dos.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("ERROR", e.toString());
-            }
-
-            return answer;
         }
 
         protected void onPostExecute(String answer) {
@@ -290,7 +242,7 @@ public class MainActivity extends BaseActivity
                     Toast.makeText(getApplicationContext(), "An error occured while adding match", Toast.LENGTH_SHORT).show();
                 }
             } else if (this.mode.equals("GETALL")) {
-                matchList = matchListLoader;
+                matchList = answer;
                 loadFragmentExt();
             }
 

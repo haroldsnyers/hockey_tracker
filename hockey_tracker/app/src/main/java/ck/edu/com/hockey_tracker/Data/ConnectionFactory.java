@@ -22,6 +22,7 @@ import java.util.Set;
  *
  * alternative way has been made, socket that sends json object to a server under hibernate
  */
+@Deprecated
 public class ConnectionFactory {
     public static final String URL = "jdbc:mysql://127.0.0.1:3004/db_matches";
     public static final String USER = "Harold_admin";

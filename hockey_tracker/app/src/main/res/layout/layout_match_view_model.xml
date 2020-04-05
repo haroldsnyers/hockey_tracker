@@ -133,7 +133,7 @@
                 android:layout_marginTop="20dp">
 
                 <Button
-                    android:id="@+id/share_button"
+                    android:id="@+id/detail_match_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

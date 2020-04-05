@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/cell_shape_bottom">
+
+        <TextView
+            android:id="@+id/team_away_record"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:padding="5dip"
+            android:layout_marginStart="20dp"
+            android:text="Quarter Recording"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/current_quarter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Current quarter : Q"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/next_quarter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/button_shape"
+            android:onClick="updateQuarters"
+            android:text="PREVIOUS"/>
+
+        <Button
+            android:id="@+id/previous_quarter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/button_shape"
+            android:onClick="updateQuarters"
+            android:text="NEXT"/>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

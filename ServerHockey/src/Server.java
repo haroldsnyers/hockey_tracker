@@ -100,7 +100,6 @@ public class Server {
                 Match = (Match) iterator.next();
                 System.out.print("  Home: " + Match.getHomeTeam());
                 System.out.println("  Away: " + Match.getAwayTeam());
-
             }
             tx.commit();
         } catch (HibernateException e) {

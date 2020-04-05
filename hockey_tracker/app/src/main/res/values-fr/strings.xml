@@ -23,4 +23,18 @@
     <string name="take_a_picture">Prendre une photo</string>
     <string name="view_detail">Voir détail match</string>
     <string name="languages">Languages</string>
+
+    <string name="current_quarter_text">Quart-temps actuel : Q</string>
+    <string name="title_activity_record">enregistrement</string>
+    <string name="title_activity_detail">Detail match</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="pc">PC</string>
+    <string name="goal">GOAL</string>
+    <string name="stroke">STROKE</string>
+    <string name="fault">FAULT</string>
+    <string name="outside">OUTSIDE</string>
+    <string name="team_away">Équipe à extérieur</string>
+    <string name="team_home">Équipe à domicile</string>
 </resources>
