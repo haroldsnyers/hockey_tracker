@@ -251,10 +251,10 @@ public class RecordActivity extends AppCompatActivity {
         Log.d("INTERNAL", "internal done");
 
 
-        Log.d("EXTERNAL", "external begin");
-        new Download(RecordActivity.this, "INSERT", matchModel, quarterModel1, quarterModel2,
-                quarterModel3, quarterModel4);
 
+        new Download(RecordActivity.this, "INSERT", matchModel, quarterModel1, quarterModel2,
+                quarterModel3, quarterModel4).execute();
+        Log.d("EXTERNAL", "external begin");
 
     }
 

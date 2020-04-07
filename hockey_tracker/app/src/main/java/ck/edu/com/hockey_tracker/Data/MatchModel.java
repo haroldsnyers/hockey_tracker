@@ -16,6 +16,8 @@ public class MatchModel implements Serializable {
     private String date;
     private String location;
 
+    public MatchModel(){}
+
     public MatchModel(String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
                       String date, String location) {
 
@@ -101,6 +103,7 @@ public class MatchModel implements Serializable {
             jsonObject.put("ScoreTeamHome", getScorehometeam());
             jsonObject.put("ScoreTeamAway", getScoreawayteam());
             jsonObject.put("DateMatch", getDate());
+            jsonObject.put("Location", getLocation());
 
             return jsonObject.toString();
         } catch (JSONException e) {

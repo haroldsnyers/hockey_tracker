@@ -166,6 +166,7 @@ public class MainActivity extends BaseActivity
         MenuItem menuItemCamera = menu.findItem(R.id.action_picture);
         menuItemSave.setVisible(visible);
         menuItemCamera.setVisible(visible);
+        menuItemCamera.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
         return true;
     }
 

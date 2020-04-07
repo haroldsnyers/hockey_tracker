@@ -1,8 +1,11 @@
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "quarters")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Quarter implements Serializable {
     @Id @GeneratedValue
     @Column(name="idquarter")

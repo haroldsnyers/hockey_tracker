@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc1581e8-5546-4e75-9a93-9edafdbba9eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Match.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Quarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Quarter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DatabaseHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DatabaseHelperQuarter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/RecordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/RecordActivity.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,16 +19,16 @@
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="304">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ServerRunnable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="64" column="17" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="64" selection-end-column="17" />
+            <state relative-caret-position="263">
+              <caret line="48" column="55" lean-forward="true" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,30 +39,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Match.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="340">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1553#1554#0" expanded="true" />
-                <element signature="e#1597#1598#0" expanded="true" />
-                <element signature="e#1631#1632#0" expanded="true" />
-                <element signature="e#1664#1665#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Quarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="179" column="5" lean-forward="true" selection-start-line="120" selection-start-column="4" selection-end-line="179" selection-end-column="5" />
+            <state relative-caret-position="-1615">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7206#7207#0" expanded="true" />
-                <element signature="e#7248#7249#0" expanded="true" />
-                <element signature="e#9040#9041#0" expanded="true" />
-                <element signature="e#9088#9089#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,9 +89,9 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/NewMatch.java" />
         <option value="$PROJECT_DIR$/src/MatchModel.java" />
-        <option value="$PROJECT_DIR$/src/ServerRunnable.java" />
         <option value="$PROJECT_DIR$/src/Match.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
+        <option value="$PROJECT_DIR$/src/ServerRunnable.java" />
         <option value="$PROJECT_DIR$/src/Quarter.java" />
       </list>
     </option>
@@ -129,7 +115,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -164,7 +150,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -258,11 +244,12 @@
       <workItem from="1586010065698" duration="599000" />
       <workItem from="1586129084067" duration="923000" />
       <workItem from="1586244357798" duration="12385000" />
+      <workItem from="1586288045118" duration="1794000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43144000" />
+    <option name="totallyTimeSpent" value="44938000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -277,7 +264,7 @@
     <frame x="56" y="-6" width="1871" height="1093" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.090457805" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09100938" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" side_tool="true" />
@@ -350,13 +337,7 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/MatchModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MatchModel.java" />
     <entry file="file://$PROJECT_DIR$/out/production/ServerHockey/Match.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -375,14 +356,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Match.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="340">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1553#1554#0" expanded="true" />
-            <element signature="e#1597#1598#0" expanded="true" />
-            <element signature="e#1631#1632#0" expanded="true" />
-            <element signature="e#1664#1665#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -390,28 +367,24 @@
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Quarter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="179" column="5" lean-forward="true" selection-start-line="120" selection-start-column="4" selection-end-line="179" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7206#7207#0" expanded="true" />
-            <element signature="e#7248#7249#0" expanded="true" />
-            <element signature="e#9040#9041#0" expanded="true" />
-            <element signature="e#9088#9089#0" expanded="true" />
-          </folding>
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ServerRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="64" column="17" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="64" selection-end-column="17" />
+        <state relative-caret-position="263">
+          <caret line="48" column="55" lean-forward="true" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Quarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1615">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

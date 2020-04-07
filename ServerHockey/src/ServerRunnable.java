@@ -51,6 +51,7 @@ public class ServerRunnable implements Runnable {
                 for (int q = 0; q < 4; q++) {
                     if (q == 0) {
                         String quarter1 = br.readLine();
+                        System.out.println(quarter1);
                         quarter1Object = objectMapper.readValue(quarter1, new TypeReference<Quarter>(){});
                     } else if (q == 1) {
                         String quarter2 = br.readLine();
