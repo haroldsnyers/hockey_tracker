@@ -23,6 +23,7 @@
       <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.17.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/json-20190722.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jackson-all-1.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../hockey_tracker/app/libs/jackson-all-1.9.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

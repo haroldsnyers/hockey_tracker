@@ -1,5 +1,7 @@
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "matches")
@@ -22,6 +24,20 @@ public class Match implements Serializable {
 
     @Column(name="DateMatch")
     private String date;
+
+    @OneToMany(mappedBy="match", cascade = CascadeType.ALL)
+    Set subQuarter = new HashSet();
+
+    public Match() {
+    }
+
+    public Match(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.scorehometeam = scoreTeamHome;
+        this.scoreawayteam = scoreTeamAway;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -65,5 +81,13 @@ public class Match implements Serializable {
 
     public String getDate() {
         return date;
+    }
+
+    public void setSubQuarter(Set subQuarter) {
+        this.subQuarter = subQuarter;
+    }
+
+    public Set getSubQuarter() {
+        return subQuarter;
     }
 }

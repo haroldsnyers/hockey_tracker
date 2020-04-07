@@ -8,12 +8,13 @@ import java.io.Serializable;
 public class MatchModel implements Serializable {
 //    int homecrest;
 //    int awaycrest;
-    int ID;
-    String homeTeam;
-    String awayTeam;
-    int scorehometeam;
-    int scoreawayteam;
-    String date;
+    private int ID;
+    private String homeTeam;
+    private String awayTeam;
+    private int scorehometeam;
+    private int scoreawayteam;
+    private String date;
+    private String location;
 
     public int getID() {
         return ID;
@@ -97,5 +98,13 @@ public class MatchModel implements Serializable {
             return "";
         }
 
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

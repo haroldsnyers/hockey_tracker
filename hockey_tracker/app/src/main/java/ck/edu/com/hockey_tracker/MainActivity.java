@@ -67,6 +67,11 @@ public class MainActivity extends BaseActivity
     String matchList;
     MatchModel matchModel;
 
+    String mhomeTeam;
+    String mawayTeam;
+    String mdate;
+    String mlocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +187,10 @@ public class MainActivity extends BaseActivity
             Class destinationActivity = RecordActivity.class;
             Intent startChildActivityintent = new Intent(context, destinationActivity);
             // getting text entered and passing along as an extra under the name of EXTRA_TEXT
+            startChildActivityintent.putExtra("HOME", mhomeTeam);
+            startChildActivityintent.putExtra("AWAY", mawayTeam);
+            startChildActivityintent.putExtra("DATE", mdate);
+            startChildActivityintent.putExtra("LOC", mlocation);
             startActivity(startChildActivityintent);
         }
         return super.onOptionsItemSelected(item);
@@ -204,21 +213,18 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onSubmit(MatchModel match) {
-        matchModel = match;
-        new Download(MainActivity.this, "INSERT", matchModel).execute();
+    public void onSubmit(String homeTeam, String awayTeam, String date, String location) {
+        mhomeTeam = homeTeam;
+        mawayTeam = awayTeam;
+        mdate = date;
+        mlocation = location;
+
     }
 
     public class Download extends DownloadModel {
         ProgressDialog mProgressDialog;
         Context context;
         private String mode;
-
-        public Download(Context context, String mode, MatchModel matchModel) {
-            super(context, mode, matchModel);
-            this.context = context;
-            this.mode = mode;
-        }
 
         public Download(Context context, String mode) {
             super(context, mode);
@@ -234,14 +240,7 @@ public class MainActivity extends BaseActivity
 
         protected void onPostExecute(String answer) {
             mProgressDialog.dismiss();
-            if (this.mode.equals("INSERT")) {
-                if (answer.equals("Completed")) {
-                    Toast.makeText(getApplicationContext(), "Match Added", Toast.LENGTH_SHORT).show();
-                    loadFragment(new homeFragment());
-                } else {
-                    Toast.makeText(getApplicationContext(), "An error occured while adding match", Toast.LENGTH_SHORT).show();
-                }
-            } else if (this.mode.equals("GETALL")) {
+            if (this.mode.equals("GETALL")) {
                 matchList = answer;
                 loadFragmentExt();
             }

@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.json.*;
 
 public class ServerRunnable implements Runnable {
@@ -42,8 +43,30 @@ public class ServerRunnable implements Runnable {
                 int scoreAwayTeam = match.getInt("ScoreTeamAway");
                 String dateMatch = match.getString("DateMatch");
 
+                ObjectMapper objectMapper = new ObjectMapper();
+                Quarter quarter1Object = new Quarter();
+                Quarter quarter2Object = new Quarter();
+                Quarter quarter3Object = new Quarter();
+                Quarter quarter4Object = new Quarter();
+
+                for (int q = 0; q < 4; q++) {
+                    if (q == 0) {
+                        String quarter1 = br.readLine();
+                        quarter1Object = objectMapper.readValue(quarter1, new TypeReference<Quarter>(){});
+                    } else if (q == 1) {
+                        String quarter2 = br.readLine();
+                        quarter2Object = objectMapper.readValue(quarter2, new TypeReference<Quarter>(){});
+                    } else if (q == 2) {
+                        String quarter3 = br.readLine();
+                        quarter3Object = objectMapper.readValue(quarter3, new TypeReference<Quarter>(){});
+                    } else {
+                        String quarter4 = br.readLine();
+                        quarter4Object = objectMapper.readValue(quarter4, new TypeReference<Quarter>(){});
+                    }
+                }
+
                 try {
-                    server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch);
+                    server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch, quarter1Object, quarter2Object, quarter3Object, quarter4Object);
                     status = "Completed";
                     System.out.println("match added");
                 } catch (Exception e) {

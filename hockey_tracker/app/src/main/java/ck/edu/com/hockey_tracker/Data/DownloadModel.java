@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,11 +21,21 @@ public class DownloadModel extends AsyncTask<Void, Void, String> {
     Context context;
     private String mode;
     private MatchModel matchModel;
+    private QuarterModel quarterModelQ1;
+    private QuarterModel quarterModelQ2;
+    private QuarterModel quarterModelQ3;
+    private QuarterModel quarterModelQ4;
 
-    public DownloadModel(Context context, String mode, MatchModel matchModel) {
+    public DownloadModel(Context context, String mode, MatchModel matchModel, QuarterModel quarterModel1,
+                         QuarterModel quarterModel2, QuarterModel quarterModel3, QuarterModel quarterModel4) {
         this.context = context;
         this.mode = mode;
         this.matchModel = matchModel;
+
+        this.quarterModelQ1 = quarterModel1;
+        this.quarterModelQ2 = quarterModel2;
+        this.quarterModelQ3 = quarterModel3;
+        this.quarterModelQ4 = quarterModel4;
     }
 
     public DownloadModel(Context context, String mode) {
@@ -39,13 +50,21 @@ public class DownloadModel extends AsyncTask<Void, Void, String> {
         String IP_COMPUTER = "192.168.1.3";
         String IP_Mobile = "10.0.2.2";
         try (Socket socket = new Socket(IP_COMPUTER, 9876)){
-            String message = "";
             DataInputStream dis = new DataInputStream(socket.getInputStream());
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
             PrintWriter pw = new PrintWriter(dos);
             if (this.mode.equals("INSERT")) {
-                message = matchModel.toJSONNew();
-                pw.println(message);
+                String match = matchModel.toJSONNew();
+                ObjectMapper objectMapper = new ObjectMapper();
+                String quarter1 = objectMapper.writeValueAsString(quarterModelQ1);
+                String quarter2 = objectMapper.writeValueAsString(quarterModelQ2);
+                String quarter3 = objectMapper.writeValueAsString(quarterModelQ3);
+                String quarter4 = objectMapper.writeValueAsString(quarterModelQ4);
+                pw.println(match);
+                pw.println(quarter1);
+                pw.println(quarter2);
+                pw.println(quarter3);
+                pw.println(quarter4);
                 pw.flush();
                 try {
                     answer = dis.readUTF();

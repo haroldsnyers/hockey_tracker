@@ -4,9 +4,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Server {
     private static final SessionFactory ourSessionFactory;
@@ -42,20 +40,33 @@ public class Server {
         }
 
     /* Method to CREATE an Match in the database */
-    public void addMatch(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date){
+    public void addMatch(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date,
+                         Quarter quarter1, Quarter quarter2, Quarter quarter3, Quarter quarter4){
         System.out.println("adding matche");
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            Match Match = new Match();
-            Match.setHomeTeam(homeTeam);
-            Match.setAwayTeam(awayTeam);
-            Match.setScorehometeam(scoreTeamHome);
-            Match.setScoreawayteam(scoreTeamAway);
-            Match.setDate(date);
-            session.save(Match);
+            Match match = new Match(homeTeam, awayTeam, scoreTeamHome, scoreTeamAway, date);;
+
+            Set subQuarters = new HashSet<Quarter>();
+            for (int q = 0; q < 4; q++) {
+                Quarter quarter;
+                if (q == 0) {
+                    quarter = quarter1;
+                } else if (q == 1) {
+                    quarter = quarter2;
+                } else if (q == 2) {
+                    quarter = quarter3;
+                } else {
+                    quarter = quarter4;
+                }
+                quarter.setID_MATCH(match);
+                subQuarters.add(quarter);
+            }
+            match.setSubQuarter(subQuarters);
+            session.save(match);
             tx.commit();
             System.out.println("added");
         } catch (HibernateException e) {
@@ -66,24 +77,33 @@ public class Server {
         }
     }
 
-    /* Method to READ ONE Match */
-    private Match getMatch(Integer MatchID) {
-        Session session = ourSessionFactory.openSession();
-        Transaction tx = null;
-        Match Match = null;
-
-        try {
-            Match = (Match) session.get(Match.class, MatchID);
-            System.out.print("  Home: " + Match.getHomeTeam());
-            System.out.println("  Away: " + Match.getAwayTeam());
-        } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-            return Match;
-        }
-    }
+//    private Quarter addQuarter(int quarter, int goalsHome, int goalsAway, int shotsHome, int shotsHomeMissed,
+//                            int shotsHomeMissedKeeper, int shotsAway, int shotsAwayMissed, int shotsAwayMissedKeeper,
+//                            int homeGreenCards, int homeYellowCards, int homeRedCards, int awayGreenCards,
+//                            int awayYellowCards, int awayRedCards, int strokeConvertedHome, int strokeNotConvertedHome,
+//                            int strokeConvertedAway, int strokeNotConvertedAway, int faultHomeBackstick, int faultHomeKick,
+//                            int faultHomeUndercutting, int faultHomeStick, int faultHomeObstruction, int faultAwayBackstick,
+//                            int faultAwayKick, int faultAwayUndercutting, int faultAwayStick, int faultAwayObstruction,
+//                            int pcConvertedHome, int pcNotConvertedHome, int pcConvertedAway, int pcNotConvertedAway,
+//                            int faultPosition25Home, int faultPosition50Home, int faultPosition75Home, int faultPosition100Home,
+//                            int faultPosition25Away, int faultPosition50Away, int faultPosition75Away, int faultPosition100Away,
+//                            int outsideHomeSide, int outsideHomeClearance, int outsideHomeCorner, int outsideAwaySide,
+//                            int outsideAwayClearance, int outsideAwayCorner) {
+//
+//        final Quarter quarterMatch = new Quarter(quarter, goalsHome, goalsAway, shotsHome, shotsHomeMissed,
+//                shotsHomeMissedKeeper, shotsAway, shotsAwayMissed, shotsAwayMissedKeeper,
+//                homeGreenCards, homeYellowCards, homeRedCards, awayGreenCards,
+//                awayYellowCards, awayRedCards, strokeConvertedHome, strokeNotConvertedHome,
+//                strokeConvertedAway, strokeNotConvertedAway, faultHomeBackstick, faultHomeKick,
+//                faultHomeUndercutting, faultHomeStick, faultHomeObstruction, faultAwayBackstick,
+//                faultAwayKick, faultAwayUndercutting, faultAwayStick, faultAwayObstruction,
+//                pcConvertedHome, pcNotConvertedHome, pcConvertedAway, pcNotConvertedAway,
+//                faultPosition25Home, faultPosition50Home, faultPosition75Home, faultPosition100Home,
+//                faultPosition25Away, faultPosition50Away, faultPosition75Away, faultPosition100Away,
+//                outsideHomeSide, outsideHomeClearance, outsideHomeCorner, outsideAwaySide,
+//                outsideAwayClearance, outsideAwayCorner);
+//        return quarterMatch;
+//    }
 
     private Match getMatchQuery(Integer MatchID) {
         Session session = ourSessionFactory.openSession();

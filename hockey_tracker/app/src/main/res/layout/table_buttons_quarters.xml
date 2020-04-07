@@ -48,7 +48,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/next_quarter"
+            android:id="@+id/previous_quarter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="25dp"
@@ -57,7 +57,7 @@
             android:text="PREVIOUS"/>
 
         <Button
-            android:id="@+id/previous_quarter"
+            android:id="@+id/next_quarter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="25dp"

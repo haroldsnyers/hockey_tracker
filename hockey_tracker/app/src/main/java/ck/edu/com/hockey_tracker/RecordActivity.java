@@ -1,6 +1,8 @@
 package ck.edu.com.hockey_tracker;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
+import ck.edu.com.hockey_tracker.Data.DatabaseHelperQuarter;
+import ck.edu.com.hockey_tracker.Data.DownloadModel;
+import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.Data.QuarterModel;
+import ck.edu.com.hockey_tracker.Fragments.homeFragment;
+
 public class RecordActivity extends AppCompatActivity {
 
     private int CURRENT_QUARTER = 1;
@@ -28,6 +37,9 @@ public class RecordActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
 
     private PopupWindow mPopupWindow;
+
+    private int totalHome;
+    private int totalAway;
 
     private int[] goalsHome = {0, 0, 0, 0};
     private int[] goalsAway = {0, 0, 0, 0};
@@ -83,6 +95,27 @@ public class RecordActivity extends AppCompatActivity {
     private int[] outsideAwayClearance = {0, 0, 0, 0};
     private int[] outsideAwayCorner = {0, 0, 0, 0};
 
+    private TextView homeTeam;
+    private TextView awayTeam;
+
+    private TextView homeTotal;
+    private TextView homeQ1;
+    private TextView homeQ2;
+    private TextView homeQ3;
+    private TextView homeQ4;
+
+    private TextView awayTotal;
+    private TextView awayQ1;
+    private TextView awayQ2;
+    private TextView awayQ3;
+    private TextView awayQ4;
+
+    private String date;
+    private String location;
+
+    DatabaseHelper databaseHelper;
+    DatabaseHelperQuarter databaseHelperQuarter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +124,48 @@ public class RecordActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.arrow_left);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mContext = getApplicationContext();
 
         currentQuarterTextView = findViewById(R.id.current_quarter);
+        linearLayout = findViewById(R.id.main_area);
 
+        homeTeam = findViewById(R.id.team_home_name);
+        awayTeam = findViewById(R.id.team_away_name);
+        homeTotal = findViewById(R.id.home_total);
+        homeQ1 = findViewById(R.id.home_Q1);
+        homeQ2 = findViewById(R.id.home_Q2);
+        homeQ3 = findViewById(R.id.home_Q3);
+        homeQ4 = findViewById(R.id.home_Q4);
+        awayTotal = findViewById(R.id.away_total);
+        awayQ1 = findViewById(R.id.away_Q1);
+        awayQ2 = findViewById(R.id.away_Q2);
+        awayQ3 = findViewById(R.id.away_Q3);
+        awayQ4 = findViewById(R.id.away_Q4);
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        databaseHelperQuarter = new DatabaseHelperQuarter(getApplicationContext());
+
+        Intent intentThatStartedThisActivity = getIntent();
+
+        // we shouldn't assume that every intent has a data in it thus getting the extra
+        // with an if statement
+        // checks if intent has an extra data called EXTRA_TEXT
+        if (intentThatStartedThisActivity.hasExtra("HOME")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("HOME");
+            homeTeam.setText(queryEntered);
+        }
+        if (intentThatStartedThisActivity.hasExtra("AWAY")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("AWAY");
+            awayTeam.setText(queryEntered);
+        }
+        if (intentThatStartedThisActivity.hasExtra("DATE")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("DATE");
+            date = queryEntered;
+        }
+        if (intentThatStartedThisActivity.hasExtra("DATE")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("DATE");
+            location = queryEntered;
+        }
     }
 
     @Override
@@ -121,14 +191,82 @@ public class RecordActivity extends AppCompatActivity {
         } else if (id == R.id.action_save){
             return true;
         } else if (id == R.id.action_picture) {
-
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void safeMatch() {
+        long id_match = databaseHelper.addmatch(
+                homeTeam.getText().toString(),
+                awayTeam.getText().toString(),
+                totalHome,
+                totalAway,
+                date,
+                location);
+        for (int q = 1; q < 4; q++) {
+            databaseHelperQuarter.addQuarter();
+        }
 
+        MatchModel matchModel = new MatchModel();
+        QuarterModel quarterModel1 = new QuarterModel();
+        QuarterModel quarterModel2 = new QuarterModel();
+        QuarterModel quarterModel3 = new QuarterModel();
+        QuarterModel quarterModel4 = new QuarterModel();
+        new Download(RecordActivity.this, "INSERT", matchModel, quarterModel1, quarterModel2,
+                quarterModel3, quarterModel4);
+
+    }
+
+    public class Download extends DownloadModel {
+        ProgressDialog mProgressDialog;
+        Context context;
+        private String mode;
+
+        public Download(Context context, String mode, MatchModel matchModel, QuarterModel quarterModel1,
+                        QuarterModel quarterModel2, QuarterModel quarterModel3, QuarterModel quarterModel4) {
+            super(context, mode, matchModel, quarterModel1, quarterModel2, quarterModel3, quarterModel4);
+            this.context = context;
+            this.mode = mode;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = ProgressDialog.show(this.context, "",
+                    "Please wait, getting database...");
+        }
+
+        protected void onPostExecute(String answer) {
+            mProgressDialog.dismiss();
+            if (this.mode.equals("INSERT")) {
+                if (answer.equals("Completed")) {
+                    Toast.makeText(getApplicationContext(), "Match Added", Toast.LENGTH_SHORT).show();
+                    Context context = RecordActivity.this;
+                    Class destinationActivity = MainActivity.class;
+                    Intent startChildActivityintent = new Intent(context, destinationActivity);
+                    // getting text entered and passing along as an extra under the name of EXTRA_TEXT
+                    startActivity(startChildActivityintent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "An error occured while adding match", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    public void updateScore() {
+        totalHome = goalsHome[0] + goalsHome[1] + goalsHome[2] + goalsHome[3];
+        totalAway = goalsAway[0] + goalsAway[1] + goalsAway[2] + goalsAway[3];
+        homeTotal.setText(String.format("%d", totalHome));
+        homeQ1.setText(String.format("%d", goalsHome[0]));
+        homeQ2.setText(String.format("%d", goalsHome[1]));
+        homeQ3.setText(String.format("%d", goalsHome[2]));
+        homeQ4.setText(String.format("%d", goalsHome[3]));
+        awayTotal.setText(String.format("%d", totalAway));
+        awayQ1.setText(String.format("%d", goalsAway[0]));
+        awayQ2.setText(String.format("%d", goalsAway[1]));
+        awayQ3.setText(String.format("%d", goalsAway[2]));
+        awayQ4.setText(String.format("%d", goalsAway[3]));
     }
 
     public void stroke(View viewParent) {
@@ -137,7 +275,7 @@ public class RecordActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.layout_stroke,null);
+        View strokeView = inflater.inflate(R.layout.layout_stroke,null);
 
                 /*
                     public PopupWindow (View contentView, int width, int height)
@@ -154,21 +292,21 @@ public class RecordActivity extends AppCompatActivity {
                 */
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(
-                customView,
+                strokeView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                true
         );
+        mPopupWindow.setOutsideTouchable(false);
 
         // Set an elevation value for popup window
         // Call requires API level 21
-        if(Build.VERSION.SDK_INT>=21){
-            mPopupWindow.setElevation(5.0f);
-        }
+        mPopupWindow.setElevation(5.0f);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.stroke_radio_group_cards);
-        Switch switchConverted = (Switch) findViewById(R.id.switch_converted);
+        RadioGroup radioGroup = strokeView.findViewById(R.id.stroke_radio_group_cards);
+        Switch switchConverted = strokeView.findViewById(R.id.switch_converted);
 
-        Button buttonConfirm = (Button)findViewById(R.id.stroke_confirm);
+        Button buttonConfirm = strokeView.findViewById(R.id.stroke_confirm);
         buttonConfirm.setOnClickListener(v -> {
             int checkedId = radioGroup.getCheckedRadioButtonId();
 
@@ -185,6 +323,7 @@ public class RecordActivity extends AppCompatActivity {
                 if (switchConverted.isChecked()) {
                     goalsHome[CURRENT_QUARTER - 1] =+ 1;
                     strokeConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else {
                     strokeNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
                 }
@@ -200,6 +339,7 @@ public class RecordActivity extends AppCompatActivity {
                 if (switchConverted.isChecked()) {
                     goalsAway[CURRENT_QUARTER - 1] =+ 1;
                     strokeConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else {
                     strokeNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
                 }
@@ -207,7 +347,7 @@ public class RecordActivity extends AppCompatActivity {
             mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = (Button) findViewById(R.id.shot_cancel);
+        Button buttonCancel = strokeView.findViewById(R.id.shot_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
                 /*
                     public void showAtLocation (View parent, int gravity, int x, int y)
@@ -233,39 +373,41 @@ public class RecordActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.layout_shot,null);
+        View shotView = inflater.inflate(R.layout.layout_shot,null);
 
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(
-                customView,
+                shotView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                true
         );
+        mPopupWindow.setOutsideTouchable(false);
 
         // Set an elevation value for popup window
-        // Call requires API level 21
-        if(Build.VERSION.SDK_INT>=21){
-            mPopupWindow.setElevation(5.0f);
-        }
+        mPopupWindow.setElevation(5.0f);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.shot_radio_group);
+        RadioGroup radioGroup = shotView.findViewById(R.id.shot_radio_group);
 
-        Button buttonConfirm = (Button)findViewById(R.id.shot_confirm);
+        Button buttonConfirm = shotView.findViewById(R.id.shot_confirm);
         buttonConfirm.setOnClickListener(v -> {
             int checkedId = radioGroup.getCheckedRadioButtonId();
-            shotsHome[CURRENT_QUARTER - 1] =+ 1;
             // find which radioButton is checked by id
-            if (idButton == R.id.stroke_team_home_record) {
+            if (idButton == R.id.shot_team_home_record) {
+                shotsHome[CURRENT_QUARTER - 1] =+ 1;
                 if(checkedId == R.id.shot_goal) {
                     goalsHome[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else if(checkedId == R.id.shot_missed_outside) {
                     shotsHomeMissed[CURRENT_QUARTER - 1] =+ 1;
                 } else if(checkedId == R.id.shot_missed_keeper) {
                     shotsHomeMissedKeeper[CURRENT_QUARTER - 1] =+ 1;
                 }
-            } else if (idButton == R.id.stroke_team_away_record) {
+            } else if (idButton == R.id.shot_team_away_record) {
+                shotsAway[CURRENT_QUARTER - 1] =+ 1;
                 if(checkedId == R.id.shot_goal) {
                     goalsAway[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else if(checkedId == R.id.shot_missed_outside) {
                     shotsAwayMissed[CURRENT_QUARTER - 1] =+ 1;
                 } else if(checkedId == R.id.shot_missed_keeper) {
@@ -275,7 +417,7 @@ public class RecordActivity extends AppCompatActivity {
             mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = (Button) findViewById(R.id.shot_cancel);
+        Button buttonCancel = shotView.findViewById(R.id.shot_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
 
         // Finally, show the popup window at the center location of root relative layout
@@ -288,92 +430,93 @@ public class RecordActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.layout_stroke,null);
+        View pcView = inflater.inflate(R.layout.layout_pc,null);
 
-                /*
-                    public PopupWindow (View contentView, int width, int height)
-                        Create a new non focusable popup window which can display the contentView.
-                        The dimension of the window must be passed to this constructor.
-
-                        The popup does not provide any background. This should be handled by
-                        the content view.
-
-                    Parameters
-                        contentView : the popup's content
-                        width : the popup's width
-                        height : the popup's height
-                */
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(
-                customView,
+                pcView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                true
         );
+        mPopupWindow.setOutsideTouchable(false);
 
         // Set an elevation value for popup window
-        // Call requires API level 21
-        if(Build.VERSION.SDK_INT>=21){
-            mPopupWindow.setElevation(5.0f);
-        }
+        mPopupWindow.setElevation(5.0f);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.stroke_radio_group_cards);
-        Switch switchConverted = (Switch) findViewById(R.id.switch_converted);
+        RadioGroup radioGroupCards = pcView.findViewById(R.id.pc_radio_group_cards);
+        RadioGroup radioGroupFault = pcView.findViewById(R.id.pc_radio_group_fault);
+        Switch switchConverted = pcView.findViewById(R.id.switch_converted);
 
-        Button buttonConfirm = (Button)findViewById(R.id.stroke_confirm);
+        Button buttonConfirm = pcView.findViewById(R.id.pc_confirm);
         buttonConfirm.setOnClickListener(v -> {
-            int checkedId = radioGroup.getCheckedRadioButtonId();
+            int checkedIdCards = radioGroupCards.getCheckedRadioButtonId();
+            int checkedIdfault = radioGroupFault.getCheckedRadioButtonId();
 
             // find which radioButton is checked by id
-            if (idButton == R.id.stroke_team_home_record) {
-                if(checkedId == R.id.card_green) {
+            if (idButton == R.id.pc_team_home_record) {
+                if(checkedIdCards == R.id.card_green) {
                     homeGreenCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_yellow) {
+                } else if(checkedIdCards == R.id.card_yellow) {
                     homeYellowCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_red) {
+                } else if(checkedIdCards == R.id.card_red) {
                     homeRedCards[CURRENT_QUARTER - 1] =+ 1;
+                }
+
+                if(checkedIdfault == R.id.fault_kick) {
+                    faultHomeKick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_backstick) {
+                    faultHomeBackstick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_stick) {
+                    faultHomeStick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_undercutting) {
+                    faultHomeUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_obstruction) {
+                    faultHomeObstruction[CURRENT_QUARTER - 1] =+ 1;
                 }
 
                 if (switchConverted.isChecked()) {
                     goalsHome[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    pcConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else {
-                    strokeNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    pcNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
                 }
-            } else if (idButton == R.id.stroke_team_away_record) {
-                if(checkedId == R.id.card_green) {
+            } else if (idButton == R.id.pc_team_away_record) {
+                if(checkedIdCards == R.id.card_green) {
                     awayGreenCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_yellow) {
+                } else if(checkedIdCards == R.id.card_yellow) {
                     awayYellowCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_red) {
+                } else if(checkedIdCards == R.id.card_red) {
                     awayRedCards[CURRENT_QUARTER - 1] =+ 1;
+                }
+
+                if(checkedIdfault == R.id.fault_kick) {
+                    faultAwayKick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_backstick) {
+                    faultAwayBackstick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_stick) {
+                    faultAwayStick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_undercutting) {
+                    faultAwayUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_obstruction) {
+                    faultAwayObstruction[CURRENT_QUARTER - 1] =+ 1;
                 }
 
                 if (switchConverted.isChecked()) {
                     goalsAway[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    pcConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    updateScore();
                 } else {
-                    strokeNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    pcNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
                 }
             }
             mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = (Button) findViewById(R.id.shot_cancel);
+        Button buttonCancel = pcView.findViewById(R.id.pc_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
-                /*
-                    public void showAtLocation (View parent, int gravity, int x, int y)
-                        Display the content view in a popup window at the specified location. If the
-                        popup window cannot fit on screen, it will be clipped.
-                        Learn WindowManager.LayoutParams for more information on how gravity and the x
-                        and y parameters are related. Specifying a gravity of NO_GRAVITY is similar
-                        to specifying Gravity.LEFT | Gravity.TOP.
 
-                    Parameters
-                        parent : a parent view to get the getWindowToken() token from
-                        gravity : the gravity which controls the placement of the popup window
-                        x : the popup's x location offset
-                        y : the popup's y location offset
-                */
         // Finally, show the popup window at the center location of root relative layout
         mPopupWindow.showAtLocation(linearLayout, Gravity.CENTER,0,0);
     }
@@ -384,49 +527,48 @@ public class RecordActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.layout_shot,null);
+        View outsideView = inflater.inflate(R.layout.layout_outside,null);
 
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(
-                customView,
+                outsideView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                true
         );
+        mPopupWindow.setOutsideTouchable(false);
 
         // Set an elevation value for popup window
-        // Call requires API level 21
-        if(Build.VERSION.SDK_INT>=21){
-            mPopupWindow.setElevation(5.0f);
-        }
+        mPopupWindow.setElevation(5.0f);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.shot_radio_group);
+        RadioGroup radioGroup = outsideView.findViewById(R.id.outside_radio_group);
 
-        Button buttonConfirm = (Button)findViewById(R.id.shot_confirm);
+        Button buttonConfirm = outsideView.findViewById(R.id.outside_confirm);
         buttonConfirm.setOnClickListener(v -> {
             int checkedId = radioGroup.getCheckedRadioButtonId();
             shotsHome[CURRENT_QUARTER - 1] =+ 1;
             // find which radioButton is checked by id
-            if (idButton == R.id.stroke_team_home_record) {
-                if(checkedId == R.id.shot_goal) {
-                    goalsHome[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.shot_missed_outside) {
-                    shotsHomeMissed[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.shot_missed_keeper) {
-                    shotsHomeMissedKeeper[CURRENT_QUARTER - 1] =+ 1;
+            if (idButton == R.id.outside_team_home_record) {
+                if(checkedId == R.id.outside_clearance) {
+                    outsideHomeClearance[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedId == R.id.outside_side) {
+                    outsideHomeSide[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedId == R.id.outside_corner) {
+                    outsideHomeCorner[CURRENT_QUARTER - 1] =+ 1;
                 }
-            } else if (idButton == R.id.stroke_team_away_record) {
-                if(checkedId == R.id.shot_goal) {
-                    goalsAway[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.shot_missed_outside) {
-                    shotsAwayMissed[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.shot_missed_keeper) {
-                    shotsAwayMissedKeeper[CURRENT_QUARTER - 1] =+ 1;
+            } else if (idButton == R.id.outside_team_away_record) {
+                if(checkedId == R.id.outside_clearance) {
+                    outsideAwayClearance[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedId == R.id.outside_side) {
+                    outsideAwaySide[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedId == R.id.outside_corner) {
+                    outsideAwayCorner[CURRENT_QUARTER - 1] =+ 1;
                 }
             }
             mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = (Button) findViewById(R.id.shot_cancel);
+        Button buttonCancel = outsideView.findViewById(R.id.outside_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
 
         // Finally, show the popup window at the center location of root relative layout
@@ -439,79 +581,99 @@ public class RecordActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
-        View customView = inflater.inflate(R.layout.layout_stroke,null);
+        View faultView = inflater.inflate(R.layout.layout_fault,null);
 
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(
-                customView,
+                faultView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                true
         );
+        mPopupWindow.setOutsideTouchable(false);
 
         // Set an elevation value for popup window
-        // Call requires API level 21
-        if(Build.VERSION.SDK_INT>=21){
-            mPopupWindow.setElevation(5.0f);
-        }
+        mPopupWindow.setElevation(5.0f);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.stroke_radio_group_cards);
-        Switch switchConverted = (Switch) findViewById(R.id.switch_converted);
+        RadioGroup radioGroupCards = faultView.findViewById(R.id.fault_radio_group_cards);
+        RadioGroup radioGroupFault = faultView.findViewById(R.id.fault_radio_group_fault);
+        RadioGroup radioGroupPosition = faultView.findViewById(R.id.fault_radio_group_position);
 
-        Button buttonConfirm = (Button)findViewById(R.id.stroke_confirm);
+        Button buttonConfirm = faultView.findViewById(R.id.fault_confirm);
         buttonConfirm.setOnClickListener(v -> {
-            int checkedId = radioGroup.getCheckedRadioButtonId();
+            int checkedIdCards = radioGroupCards.getCheckedRadioButtonId();
+            int checkedIdfault = radioGroupFault.getCheckedRadioButtonId();
+            int checkedIdPosition = radioGroupPosition.getCheckedRadioButtonId();
 
             // find which radioButton is checked by id
-            if (idButton == R.id.stroke_team_home_record) {
-                if(checkedId == R.id.card_green) {
+            if (idButton == R.id.fault_team_home_record) {
+                if(checkedIdCards == R.id.card_green) {
                     homeGreenCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_yellow) {
+                } else if(checkedIdCards == R.id.card_yellow) {
                     homeYellowCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_red) {
+                } else if(checkedIdCards == R.id.card_red) {
                     homeRedCards[CURRENT_QUARTER - 1] =+ 1;
                 }
 
-                if (switchConverted.isChecked()) {
-                    goalsHome[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedHome[CURRENT_QUARTER - 1] =+ 1;
-                } else {
-                    strokeNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                if(checkedIdfault == R.id.fault_kick) {
+                    faultHomeKick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_backstick) {
+                    faultHomeBackstick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_stick) {
+                    faultHomeStick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_undercutting) {
+                    faultHomeUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_obstruction) {
+                    faultHomeObstruction[CURRENT_QUARTER - 1] =+ 1;
                 }
-            } else if (idButton == R.id.stroke_team_away_record) {
-                if(checkedId == R.id.card_green) {
+
+                if(checkedIdPosition == R.id.position1) {
+                    faultPosition25Home[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position2) {
+                    faultPosition50Home[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position3) {
+                    faultPosition75Home[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position4) {
+                    faultPosition100Home[CURRENT_QUARTER - 1] =+ 1;
+                }
+
+
+            } else if (idButton == R.id.fault_team_away_record) {
+                if(checkedIdCards == R.id.card_green) {
                     awayGreenCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_yellow) {
+                } else if(checkedIdCards == R.id.card_yellow) {
                     awayYellowCards[CURRENT_QUARTER - 1] =+ 1;
-                } else if(checkedId == R.id.card_red) {
+                } else if(checkedIdCards == R.id.card_red) {
                     awayRedCards[CURRENT_QUARTER - 1] =+ 1;
                 }
 
-                if (switchConverted.isChecked()) {
-                    goalsAway[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedAway[CURRENT_QUARTER - 1] =+ 1;
-                } else {
-                    strokeNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                if(checkedIdfault == R.id.fault_kick) {
+                    faultAwayKick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_backstick) {
+                    faultAwayBackstick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_stick) {
+                    faultAwayStick[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_undercutting) {
+                    faultAwayUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdfault == R.id.fault_obstruction) {
+                    faultAwayObstruction[CURRENT_QUARTER - 1] =+ 1;
+                }
+
+                if(checkedIdPosition == R.id.position1) {
+                    faultPosition25Away[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position2) {
+                    faultPosition50Away[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position3) {
+                    faultPosition75Away[CURRENT_QUARTER - 1] =+ 1;
+                } else if(checkedIdPosition == R.id.position4) {
+                    faultPosition100Away[CURRENT_QUARTER - 1] =+ 1;
                 }
             }
-            mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = (Button) findViewById(R.id.shot_cancel);
+        Button buttonCancel = faultView.findViewById(R.id.fault_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
-                /*
-                    public void showAtLocation (View parent, int gravity, int x, int y)
-                        Display the content view in a popup window at the specified location. If the
-                        popup window cannot fit on screen, it will be clipped.
-                        Learn WindowManager.LayoutParams for more information on how gravity and the x
-                        and y parameters are related. Specifying a gravity of NO_GRAVITY is similar
-                        to specifying Gravity.LEFT | Gravity.TOP.
 
-                    Parameters
-                        parent : a parent view to get the getWindowToken() token from
-                        gravity : the gravity which controls the placement of the popup window
-                        x : the popup's x location offset
-                        y : the popup's y location offset
-                */
         // Finally, show the popup window at the center location of root relative layout
         mPopupWindow.showAtLocation(linearLayout, Gravity.CENTER,0,0);
     }
@@ -523,14 +685,12 @@ public class RecordActivity extends AppCompatActivity {
             if (CURRENT_QUARTER < 4) {
                 CURRENT_QUARTER = CURRENT_QUARTER + 1;
             }
-
-
         } else if (id == R.id.previous_quarter) {
             if (CURRENT_QUARTER > 1) {
                 CURRENT_QUARTER = CURRENT_QUARTER - 1;
             }
         }
-        currentQuarterTextView.setText(R.string.current_quarter_text + CURRENT_QUARTER);
+        currentQuarterTextView.setText(mContext.getResources().getString(R.string.current_quarter_text) + Integer.toString(CURRENT_QUARTER));
     }
 
 

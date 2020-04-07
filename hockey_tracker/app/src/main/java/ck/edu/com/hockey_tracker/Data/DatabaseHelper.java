@@ -29,7 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query;
         //creating table
-        query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT)";
+        query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, " +
+                "HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT, Location TEXT)";
         db.execSQL(query);
     }
 
@@ -41,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //add the new note
-    public void addmatch(String hometeam, String awayteam, int scoreteamhome, int scoreteamaway, String date) {
+    public long addmatch(String hometeam, String awayteam, int scoreteamhome, int scoreteamaway,
+                         String date, String location) {
         SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -51,12 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("AwayTeam_score", scoreteamaway);
 
         values.put("Date_match", date);
+        values.put("Location", location);
 
         //inserting new row
-        sqLiteDatabase.insert(TABLE_NAME, null , values);
+        long lastrow = sqLiteDatabase.insert(TABLE_NAME, null , values);
         deleteLatest();
         //close database connection
         sqLiteDatabase.close();
+        return lastrow;
     }
 
     //get the all notes
@@ -79,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 matchModel.setScorehometeam(Integer.parseInt(cursor.getString(3)));
                 matchModel.setScoreawayteam(Integer.parseInt(cursor.getString(4)));
                 matchModel.setDate(cursor.getString(5));
+                matchModel.setLocation(cursor.getString(6));
                 arrayList.add(matchModel);
             }while (cursor.moveToNext());
         }

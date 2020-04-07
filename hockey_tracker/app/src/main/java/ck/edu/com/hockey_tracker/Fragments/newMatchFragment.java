@@ -24,8 +24,7 @@ public class newMatchFragment extends Fragment {
 
     EditText homeTeamName;
     EditText awayTeamName;
-    EditText scoreTeamHome;
-    EditText scoreTeamAway;
+    EditText location;
     EditText date;
 
     Button submit;
@@ -67,8 +66,7 @@ public class newMatchFragment extends Fragment {
 
         homeTeamName = view.findViewById(R.id.home_team);
         awayTeamName = view.findViewById(R.id.away_team);
-        scoreTeamHome = view.findViewById(R.id.score_home_team);
-        scoreTeamAway = view.findViewById(R.id.score_away_team);
+        location = view.findViewById(R.id.location);
 
 
         databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
@@ -113,29 +111,17 @@ public class newMatchFragment extends Fragment {
 
     public void newMatch() {
         if (homeTeamName.getText().toString().isEmpty()) {
-            homeTeamName.setError("Please Enter Title");
+            homeTeamName.setError("Please Enter home Team name");
         }else if(awayTeamName.getText().toString().isEmpty()) {
-            awayTeamName.setError("Please Enter Description");
-        }else if(scoreTeamHome.getText().toString().isEmpty()) {
-            scoreTeamHome.setError("Please Enter Description");
-        }else if(scoreTeamAway.getText().toString().isEmpty()) {
-            scoreTeamAway.setError("Please Enter Description");
+            awayTeamName.setError("Please Enter away Team name");
+        }else if(location.getText().toString().isEmpty()) {
+            location.setError("Please Enter Location");
         }else {
             LocalDateTime now = LocalDateTime.now();
             String dateNow = dtf.format(now);
-            databaseHelper.addmatch(
-                    homeTeamName.getText().toString(),
-                    awayTeamName.getText().toString(),
-                    Integer.parseInt(scoreTeamHome.getText().toString()),
-                    Integer.parseInt(scoreTeamAway.getText().toString()),
-                    dateNow);
-            MatchModel matchModel = new MatchModel();
-            matchModel.setHometeam(homeTeamName.getText().toString());
-            matchModel.setAwayteam(awayTeamName.getText().toString());
-            matchModel.setScorehometeam(Integer.parseInt(scoreTeamHome.getText().toString()));
-            matchModel.setScoreawayteam(Integer.parseInt(scoreTeamAway.getText().toString()));
-            matchModel.setDate(dateNow);
-            mListener.onSubmit(matchModel);
+
+            mListener.onSubmit(homeTeamName.getText().toString(), awayTeamName.getText().toString(),
+                    dateNow, homeTeamName.getText().toString());
         }
     }
 
@@ -147,6 +133,6 @@ public class newMatchFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onSubmit(MatchModel matchModel);
+        void onSubmit(String homeTeam, String awayTeam, String date, String location);
     }
 }
