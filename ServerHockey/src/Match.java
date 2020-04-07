@@ -26,7 +26,7 @@ public class Match implements Serializable {
     private String date;
 
     @OneToMany(mappedBy="match", cascade = CascadeType.ALL)
-    Set subQuarter = new HashSet();
+    private Set<Quarter> subQuarter;
 
     public Match() {
     }

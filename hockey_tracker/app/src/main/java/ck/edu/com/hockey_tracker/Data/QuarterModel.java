@@ -61,6 +61,69 @@ public class QuarterModel {
 
     private int ID_MATCH;
 
+    public QuarterModel() {}
+
+    public QuarterModel(int quarter, int goalsHome, int goalsAway, int shotsHome, int shotsHomeMissed,
+                   int shotsHomeMissedKeeper, int shotsAway, int shotsAwayMissed, int shotsAwayMissedKeeper,
+                   int homeGreenCards, int homeYellowCards, int homeRedCards, int awayGreenCards,
+                   int awayYellowCards, int awayRedCards, int strokeConvertedHome, int strokeNotConvertedHome,
+                   int strokeConvertedAway, int strokeNotConvertedAway, int faultHomeBackstick, int faultHomeKick,
+                   int faultHomeUndercutting, int faultHomeStick, int faultHomeObstruction, int faultAwayBackstick,
+                   int faultAwayKick, int faultAwayUndercutting, int faultAwayStick, int faultAwayObstruction,
+                   int pcConvertedHome, int pcNotConvertedHome, int pcConvertedAway, int pcNotConvertedAway,
+                   int faultPosition25Home, int faultPosition50Home, int faultPosition75Home, int faultPosition100Home,
+                   int faultPosition25Away, int faultPosition50Away, int faultPosition75Away, int faultPosition100Away,
+                   int outsideHomeSide, int outsideHomeClearance, int outsideHomeCorner, int outsideAwaySide,
+                   int outsideAwayClearance, int outsideAwayCorner) {
+        this.quarterNumber = quarter;
+        this.goalsHome = goalsHome;
+        this.goalsAway = goalsAway;
+        this.shotsHome = shotsHome;
+        this.shotsHomeMissed = shotsHomeMissed;
+        this.shotsHomeMissedKeeper = shotsHomeMissedKeeper;
+        this.shotsAway = shotsAway;
+        this.shotsAwayMissed = shotsAwayMissed;
+        this.shotsAwayMissedKeeper = shotsAwayMissedKeeper;
+        this.homeGreenCards = homeGreenCards;
+        this.homeYellowCards = homeYellowCards;
+        this.homeRedCards = homeRedCards;
+        this.awayGreenCards = awayGreenCards;
+        this.awayYellowCards = awayYellowCards;
+        this.awayRedCards = awayRedCards;
+        this.strokeConvertedHome = strokeConvertedHome;
+        this.strokeNotConvertedHome = strokeNotConvertedHome;
+        this.strokeConvertedAway = strokeConvertedAway;
+        this.strokeNotConvertedAway = strokeNotConvertedAway;
+        this.faultHomeBackstick = faultHomeBackstick;
+        this.faultHomeKick = faultHomeKick;
+        this.faultHomeUndercutting = faultHomeUndercutting;
+        this.faultHomeStick = faultHomeStick;
+        this.faultHomeObstruction = faultHomeObstruction;
+        this.faultAwayBackstick = faultAwayBackstick;
+        this.faultAwayKick = faultAwayKick;
+        this.faultAwayUndercutting = faultAwayUndercutting;
+        this.faultAwayStick = faultAwayStick;
+        this.faultAwayObstruction = faultAwayObstruction;
+        this.pcConvertedHome = pcConvertedHome;
+        this.pcNotConvertedHome = pcNotConvertedHome;
+        this.pcConvertedAway = pcConvertedAway;
+        this.pcNotConvertedAway = pcNotConvertedAway;
+        this.faultPosition25Home = faultPosition25Home;
+        this.faultPosition50Home = faultPosition50Home;
+        this.faultPosition75Home = faultPosition75Home;
+        this.faultPosition100Home = faultPosition100Home;
+        this.faultPosition25Away = faultPosition25Away;
+        this.faultPosition50Away = faultPosition50Away;
+        this.faultPosition75Away = faultPosition75Away;
+        this.faultPosition100Away = faultPosition100Away;
+        this.outsideHomeSide = outsideHomeSide;
+        this.outsideHomeClearance = outsideHomeClearance;
+        this.outsideHomeCorner = outsideHomeCorner;
+        this.outsideAwaySide = outsideAwaySide;
+        this.outsideAwayClearance = outsideAwayClearance;
+        this.outsideAwayCorner = outsideAwayCorner;
+    }
+
     public int getID() {
         return ID;
     }

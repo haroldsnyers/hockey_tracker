@@ -16,6 +16,17 @@ public class MatchModel implements Serializable {
     private String date;
     private String location;
 
+    public MatchModel(String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
+                      String date, String location) {
+
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.scorehometeam = scorehometeam;
+        this.scoreawayteam = scoreawayteam;
+        this.date = date;
+        this.location = location;
+    }
+
     public int getID() {
         return ID;
     }

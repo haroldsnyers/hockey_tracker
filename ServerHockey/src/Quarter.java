@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "quarters")
-public class Quarter {
+public class Quarter implements Serializable {
     @Id @GeneratedValue
     @Column(name="idquarter")
     private int ID;
@@ -13,107 +13,107 @@ public class Quarter {
 
     @Column(name="goalsHome")
     private int goalsHome;
-    @Column(name="goalsHome")
+    @Column(name="goalsAway")
     private int goalsAway;
 
-    @Column(name="goalsHome")
+    @Column(name="shotsHome")
     private int shotsHome;
-    @Column(name="goalsHome")
+    @Column(name="shotsHomeMissed")
     private int shotsHomeMissed;
-    @Column(name="goalsHome")
+    @Column(name="shotsHomeMissedKeeper")
     private int shotsHomeMissedKeeper;
-    @Column(name="goalsHome")
+    @Column(name="shotsAway")
     private int shotsAway;
-    @Column(name="goalsHome")
+    @Column(name="shotsAwayMissed")
     private int shotsAwayMissed;
-    @Column(name="goalsHome")
+    @Column(name="shotsAwayMissedKeeper")
     private int shotsAwayMissedKeeper;
 
-    @Column(name="goalsHome")
+    @Column(name="homeGreenCards")
     private int homeGreenCards;
-    @Column(name="goalsHome")
+    @Column(name="homeYellowCards")
     private int homeYellowCards;
-    @Column(name="goalsHome")
+    @Column(name="homeRedCards")
     private int homeRedCards;
-    @Column(name="goalsHome")
+    @Column(name="awayGreenCards")
     private int awayGreenCards;
-    @Column(name="goalsHome")
+    @Column(name="awayYellowCards")
     private int awayYellowCards;
-    @Column(name="goalsHome")
+    @Column(name="awayRedCards")
     private int awayRedCards;
 
-    @Column(name="goalsHome")
+    @Column(name="strokeConvertedHome")
     private int strokeConvertedHome;
-    @Column(name="goalsHome")
+    @Column(name="strokeNotConvertedHome")
     private int strokeNotConvertedHome;
-    @Column(name="goalsHome")
+    @Column(name="strokeConvertedAway")
     private int strokeConvertedAway;
-    @Column(name="goalsHome")
+    @Column(name="strokeNotConvertedAway")
     private int strokeNotConvertedAway;
 
-    @Column(name="goalsHome")
+    @Column(name="faultHomeBackstick")
     private int faultHomeBackstick;
-    @Column(name="goalsHome")
+    @Column(name="faultHomeKick")
     private int faultHomeKick;
-    @Column(name="goalsHome")
+    @Column(name="faultHomeUndercutting")
     private int faultHomeUndercutting;
-    @Column(name="goalsHome")
+    @Column(name="faultHomeStick")
     private int faultHomeStick;
-    @Column(name="goalsHome")
+    @Column(name="faultHomeObstruction")
     private int faultHomeObstruction;
-    @Column(name="goalsHome")
+    @Column(name="faultAwayBackstick")
     private int faultAwayBackstick;
-    @Column(name="goalsHome")
+    @Column(name="faultAwayKick")
     private int faultAwayKick;
-    @Column(name="goalsHome")
+    @Column(name="faultAwayUndercutting")
     private int faultAwayUndercutting;
-    @Column(name="goalsHome")
+    @Column(name="faultAwayStick")
     private int faultAwayStick;
-    @Column(name="goalsHome")
+    @Column(name="faultAwayObstruction")
     private int faultAwayObstruction;
-    @Column(name="goalsHome")
 
+    @Column(name="pcConvertedHome")
     private int pcConvertedHome;
-    @Column(name="goalsHome")
+    @Column(name="pcNotConvertedHome")
     private int pcNotConvertedHome;
-    @Column(name="goalsHome")
+    @Column(name="pcConvertedAway")
     private int pcConvertedAway;
-    @Column(name="goalsHome")
+    @Column(name="pcNotConvertedAway")
     private int pcNotConvertedAway;
-    @Column(name="goalsHome")
 
+    @Column(name="faultPosition25Home")
     private int faultPosition25Home;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition50Home")
     private int faultPosition50Home;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition75Home")
     private int faultPosition75Home;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition100Home")
     private int faultPosition100Home;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition25Away")
     private int faultPosition25Away;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition50Away")
     private int faultPosition50Away;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition75Away")
     private int faultPosition75Away;
-    @Column(name="goalsHome")
+    @Column(name="faultPosition100Away")
     private int faultPosition100Away;
 
-    @Column(name="goalsHome")
+    @Column(name="outsideHomeSide")
     private int outsideHomeSide;
-    @Column(name="goalsHome")
+    @Column(name="outsideHomeClearance")
     private int outsideHomeClearance;
-    @Column(name="goalsHome")
+    @Column(name="outsideHomeCorner")
     private int outsideHomeCorner;
-    @Column(name="goalsHome")
+    @Column(name="outsideAwaySide")
     private int outsideAwaySide;
-    @Column(name="goalsHome")
+    @Column(name="outsideAwayClearance")
     private int outsideAwayClearance;
-    @Column(name="goalsHome")
+    @Column(name="outsideAwayCorner")
     private int outsideAwayCorner;
 
-    @ManyToOne
-    @JoinColumn(name ="FK_Match")
-    private Match ID_MATCH;
+    @ManyToOne(targetEntity=Match.class)
+    @JoinColumn(name ="idmatches")
+    private Match match;
 
     public Quarter() {
     }
@@ -551,12 +551,12 @@ public class Quarter {
         this.outsideAwayCorner = outsideAwayCorner;
     }
 
-    public Match getID_MATCH() {
-        return ID_MATCH;
+    public Match getMatch() {
+        return match;
     }
 
-    public void setID_MATCH(Match ID_MATCH) {
-        this.ID_MATCH = ID_MATCH;
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     public int getQuarterNumber() {

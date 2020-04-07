@@ -3,10 +3,10 @@ package ck.edu.com.hockey_tracker;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,11 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
-import ck.edu.com.hockey_tracker.Data.DatabaseHelperQuarter;
 import ck.edu.com.hockey_tracker.Data.DownloadModel;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Data.QuarterModel;
-import ck.edu.com.hockey_tracker.Fragments.homeFragment;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -114,7 +112,6 @@ public class RecordActivity extends AppCompatActivity {
     private String location;
 
     DatabaseHelper databaseHelper;
-    DatabaseHelperQuarter databaseHelperQuarter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +140,7 @@ public class RecordActivity extends AppCompatActivity {
         awayQ4 = findViewById(R.id.away_Q4);
 
         databaseHelper = new DatabaseHelper(getApplicationContext());
-        databaseHelperQuarter = new DatabaseHelperQuarter(getApplicationContext());
+        databaseHelper = new DatabaseHelper(getApplicationContext());
 
         Intent intentThatStartedThisActivity = getIntent();
 
@@ -189,6 +186,7 @@ public class RecordActivity extends AppCompatActivity {
         if (id == R.id.home) {
             this.finish();
         } else if (id == R.id.action_save){
+            safeMatch();
             return true;
         } else if (id == R.id.action_picture) {
             return true;
@@ -205,17 +203,58 @@ public class RecordActivity extends AppCompatActivity {
                 totalAway,
                 date,
                 location);
-        for (int q = 1; q < 4; q++) {
-            databaseHelperQuarter.addQuarter();
-        }
-
-        MatchModel matchModel = new MatchModel();
+        MatchModel matchModel = new MatchModel(homeTeam.getText().toString(), awayTeam.getText().toString(),
+                totalHome, totalAway, date, location);
         QuarterModel quarterModel1 = new QuarterModel();
         QuarterModel quarterModel2 = new QuarterModel();
         QuarterModel quarterModel3 = new QuarterModel();
         QuarterModel quarterModel4 = new QuarterModel();
+        for (int q = 0; q < 4; q++) {
+            databaseHelper.addQuarter(q+1, goalsHome[q], goalsAway[q], shotsHome[q], shotsHomeMissed[q],
+                shotsHomeMissedKeeper[q], shotsAway[q], shotsAwayMissed[q], shotsAwayMissedKeeper[q],
+                homeGreenCards[q], homeYellowCards[q], homeRedCards[q], awayGreenCards[q],
+                awayYellowCards[q], awayRedCards[q], strokeConvertedHome[q], strokeNotConvertedHome[q],
+                strokeConvertedAway[q], strokeNotConvertedAway[q], faultHomeBackstick[q], faultHomeKick[q],
+                faultHomeUndercutting[q], faultHomeStick[q], faultHomeObstruction[q], faultAwayBackstick[q],
+                faultAwayKick[q], faultAwayUndercutting[q], faultAwayStick[q], faultAwayObstruction[q],
+                pcConvertedHome[q], pcNotConvertedHome[q], pcConvertedAway[q], pcNotConvertedAway[q],
+                faultPosition25Home[q], faultPosition50Home[q], faultPosition75Home[q], faultPosition100Home[q],
+                faultPosition25Away[q], faultPosition50Away[q], faultPosition75Away[q], faultPosition100Away[q],
+                outsideHomeSide[q], outsideHomeClearance[q], outsideHomeCorner[q], outsideAwaySide[q],
+                outsideAwayClearance[q], outsideAwayCorner[q], id_match);
+
+            QuarterModel quarterModel = new QuarterModel(q+1, goalsHome[q], goalsAway[q], shotsHome[q], shotsHomeMissed[q],
+                    shotsHomeMissedKeeper[q], shotsAway[q], shotsAwayMissed[q], shotsAwayMissedKeeper[q],
+                    homeGreenCards[q], homeYellowCards[q], homeRedCards[q], awayGreenCards[q],
+                    awayYellowCards[q], awayRedCards[q], strokeConvertedHome[q], strokeNotConvertedHome[q],
+                    strokeConvertedAway[q], strokeNotConvertedAway[q], faultHomeBackstick[q], faultHomeKick[q],
+                    faultHomeUndercutting[q], faultHomeStick[q], faultHomeObstruction[q], faultAwayBackstick[q],
+                    faultAwayKick[q], faultAwayUndercutting[q], faultAwayStick[q], faultAwayObstruction[q],
+                    pcConvertedHome[q], pcNotConvertedHome[q], pcConvertedAway[q], pcNotConvertedAway[q],
+                    faultPosition25Home[q], faultPosition50Home[q], faultPosition75Home[q], faultPosition100Home[q],
+                    faultPosition25Away[q], faultPosition50Away[q], faultPosition75Away[q], faultPosition100Away[q],
+                    outsideHomeSide[q], outsideHomeClearance[q], outsideHomeCorner[q], outsideAwaySide[q],
+                    outsideAwayClearance[q], outsideAwayCorner[q]);
+
+
+            if (q == 0) {
+                quarterModel1 = quarterModel;
+            } else if (q == 1) {
+                quarterModel2 = quarterModel;
+            } else if (q == 2) {
+                quarterModel3 = quarterModel;
+            } else {
+                quarterModel4 = quarterModel;
+            }
+
+        }
+        Log.d("INTERNAL", "internal done");
+
+
+        Log.d("EXTERNAL", "external begin");
         new Download(RecordActivity.this, "INSERT", matchModel, quarterModel1, quarterModel2,
                 quarterModel3, quarterModel4);
+
 
     }
 
@@ -233,6 +272,8 @@ public class RecordActivity extends AppCompatActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
+            Log.d("EXTERNAL", "external begin 1");
+
             mProgressDialog = ProgressDialog.show(this.context, "",
                     "Please wait, getting database...");
         }
@@ -347,7 +388,7 @@ public class RecordActivity extends AppCompatActivity {
             mPopupWindow.dismiss();
         });
 
-        Button buttonCancel = strokeView.findViewById(R.id.shot_cancel);
+        Button buttonCancel = strokeView.findViewById(R.id.stroke_cancel);
         buttonCancel.setOnClickListener(v -> mPopupWindow.dismiss());
                 /*
                     public void showAtLocation (View parent, int gravity, int x, int y)
@@ -669,6 +710,7 @@ public class RecordActivity extends AppCompatActivity {
                     faultPosition100Away[CURRENT_QUARTER - 1] =+ 1;
                 }
             }
+            mPopupWindow.dismiss();
         });
 
         Button buttonCancel = faultView.findViewById(R.id.fault_cancel);

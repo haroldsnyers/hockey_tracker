@@ -12,7 +12,6 @@ import org.json.*;
 public class ServerRunnable implements Runnable {
 
     private Socket sock;
-    private Server server;
 
     public ServerRunnable(Socket s) {
         sock = s;

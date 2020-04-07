@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //database version
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_NAME = "matches";
+    public static final String TABLE_NAME1 = "quarters";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,12 +33,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, " +
                 "HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT, Location TEXT)";
         db.execSQL(query);
+        query = "CREATE TABLE " + TABLE_NAME1 +
+                "(ID INTEGER PRIMARY KEY, Quarter INTEGER, GoalsHome INTEGER, GoalsAway INTEGER, ShotsHome INTEGER, " +
+                "ShotsHomeMissed INTEGER, ShotsHomeMissedKeeper INTEGER, ShotsAway INTEGER, ShotsAwayMissed INTEGER, " +
+                "ShotsAwayMissedKeeper INTEGER, HomeGreenCards INTEGER, HomeYellowCards INTEGER, HomeRedCards INTEGER, " +
+                "AwayGreenCards INTEGER, AwayYellowCards INTEGER, AwayRedCards INTEGER, StrokeConvertedHome INTEGER, " +
+                "StrokeNotConvertedHome INTEGER, StrokeConvertedAway INTEGER, StrokeNotConvertedAway INTEGER, " +
+                "FaultHomeKick INTEGER, FaultHomeBackstick INTEGER, FaultHomeStick INTEGER, FaultHomeUndercutting INTEGER, " +
+                "FaultHomeObstruction INTEGER, FaultAwayKick INTEGER, FaultAwayBackstick INTEGER, FaultAwayStick INTEGER, " +
+                "FaultAwayUndercutting INTEGER, FaultAwayObstruction INTEGER, pcConvertedHome INTEGER, " +
+                "pcNotConvertedHome INTEGER, pcConvertedAway INTEGER, pcNotConvertedAway INTEGER,  " +
+                "FaultPosition25Home INTEGER, FaultPosition50Home INTEGER, FaultPosition75Home INTEGER, " +
+                "FaultPosition100Home INTEGER, FaultPosition25Away INTEGER, FaultPosition50Away INTEGER, " +
+                "FaultPosition75Away INTEGER, FaultPosition100Away INTEGER, outsideHomeSide INTEGER, " +
+                "outsideHomeClearance INTEGER, outsideHomeCorner INTEGER, outsideAwaySide INTEGER, " +
+                "outsideAwayClearance INTEGER, outsideAwayCorner INTEGER, id_match_fk INTEGER)";
+        db.execSQL(query);
     }
 
     //upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
         onCreate(db);
     }
 
@@ -61,6 +79,79 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //close database connection
         sqLiteDatabase.close();
         return lastrow;
+    }
+
+    //add the new note
+    public void addQuarter(int quarter, int goalsHome, int goalsAway, int shotsHome, int shotsHomeMissed,
+                           int shotsHomeMissedKeeper, int shotsAway, int shotsAwayMissed, int shotsAwayMissedKeeper,
+                           int homeGreenCards, int homeYellowCards, int homeRedCards, int awayGreenCards,
+                           int awayYellowCards, int awayRedCards, int strokeConvertedHome, int strokeNotConvertedHome,
+                           int strokeConvertedAway, int strokeNotConvertedAway, int faultHomeBackstick, int faultHomeKick,
+                           int faultHomeUndercutting, int faultHomeStick, int faultHomeObstruction, int faultAwayBackstick,
+                           int faultAwayKick, int faultAwayUndercutting, int faultAwayStick, int faultAwayObstruction,
+                           int pcConvertedHome, int pcNotConvertedHome, int pcConvertedAway, int pcNotConvertedAway,
+                           int faultPosition25Home, int faultPosition50Home, int faultPosition75Home, int faultPosition100Home,
+                           int faultPosition25Away, int faultPosition50Away, int faultPosition75Away, int faultPosition100Away,
+                           int outsideHomeSide, int outsideHomeClearance, int outsideHomeCorner, int outsideAwaySide,
+                           int outsideAwayClearance, int outsideAwayCorner, long idMatch) {
+        SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("Quarter", quarter);
+        values.put("GoalsHome", goalsHome);
+        values.put("GoalsAway", goalsAway);
+        values.put("ShotsHome", shotsHome);
+        values.put("ShotsHomeMissed", shotsHomeMissed);
+        values.put("ShotsHomeMissedKeeper", shotsHomeMissedKeeper);
+        values.put("ShotsAway", shotsAway);
+        values.put("ShotsAwayMissed", shotsAwayMissed);
+        values.put("ShotsAwayMissedKeeper", shotsAwayMissedKeeper);
+        values.put("HomeGreenCards", homeGreenCards);
+        values.put("HomeYellowCards", homeYellowCards);
+        values.put("HomeRedCards", homeRedCards);
+        values.put("AwayGreenCards", awayGreenCards);
+        values.put("AwayYellowCards", awayYellowCards);
+        values.put("AwayRedCards", awayRedCards);
+        values.put("StrokeConvertedHome", strokeConvertedHome);
+        values.put("StrokeNotConvertedHome", strokeNotConvertedHome);
+        values.put("StrokeConvertedAway", strokeConvertedAway);
+        values.put("StrokeNotConvertedAway", strokeNotConvertedAway);
+        values.put("FaultHomeKick", faultHomeKick);
+        values.put("FaultHomeBackstick", faultHomeBackstick);
+        values.put("FaultHomeStick", faultHomeStick);
+        values.put("FaultHomeUndercutting", faultHomeUndercutting);
+        values.put("FaultHomeObstruction", faultHomeObstruction);
+        values.put("FaultAwayKick", faultAwayKick);
+        values.put("FaultAwayBackstick", faultAwayBackstick);
+        values.put("FaultAwayStick", faultAwayStick);
+        values.put("FaultAwayUndercutting", faultAwayUndercutting);
+        values.put("FaultAwayObstruction", faultAwayObstruction);
+        values.put("pcConvertedHome", pcConvertedHome);
+        values.put("pcNotConvertedHome", pcNotConvertedHome);
+        values.put("pcConvertedAway", pcConvertedAway);
+        values.put("pcNotConvertedAway", pcNotConvertedAway);
+        values.put("FaultPosition25Home", faultPosition25Home);
+        values.put("FaultPosition50Home", faultPosition50Home);
+        values.put("FaultPosition75Home", faultPosition75Home);
+        values.put("FaultPosition100Home", faultPosition100Home);
+        values.put("FaultPosition25Away", faultPosition25Away);
+        values.put("FaultPosition50Away", faultPosition50Away);
+        values.put("FaultPosition75Away", faultPosition75Away);
+        values.put("FaultPosition100Away", faultPosition100Away);
+        values.put("outsideHomeSide", outsideHomeSide);
+        values.put("outsideHomeClearance", outsideHomeClearance);
+        values.put("outsideHomeCorner", outsideHomeCorner);
+        values.put("outsideAwaySide", outsideAwaySide);
+        values.put("outsideAwayClearance", outsideAwayClearance);
+        values.put("outsideAwayCorner", outsideAwayCorner);
+        values.put("id_match_fk", idMatch);
+
+
+        //inserting new row
+        sqLiteDatabase.insert(TABLE_NAME1, null , values);
+        // deleteLatest();
+        //close database connection
+        sqLiteDatabase.close();
     }
 
     //get the all notes

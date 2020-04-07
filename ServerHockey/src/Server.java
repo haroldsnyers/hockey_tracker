@@ -14,6 +14,7 @@ public class Server {
             Configuration configuration = new Configuration();
             configuration.configure();
             configuration.addAnnotatedClass(Match.class);
+            configuration.addAnnotatedClass(Quarter.class);
 
             ourSessionFactory = configuration.buildSessionFactory();
         } catch (Throwable ex) {
@@ -50,7 +51,7 @@ public class Server {
             tx = session.beginTransaction();
             Match match = new Match(homeTeam, awayTeam, scoreTeamHome, scoreTeamAway, date);;
 
-            Set subQuarters = new HashSet<Quarter>();
+            Set<Quarter> subQuarters = new HashSet<>();
             for (int q = 0; q < 4; q++) {
                 Quarter quarter;
                 if (q == 0) {
@@ -62,7 +63,7 @@ public class Server {
                 } else {
                     quarter = quarter4;
                 }
-                quarter.setID_MATCH(match);
+                quarter.setMatch(match);
                 subQuarters.add(quarter);
             }
             match.setSubQuarter(subQuarters);
