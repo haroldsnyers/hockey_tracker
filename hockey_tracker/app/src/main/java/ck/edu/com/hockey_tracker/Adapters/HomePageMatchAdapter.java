@@ -27,7 +27,6 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
     Context context;
     ArrayList<MatchModel> arrayList;
     int layoutId;
-    DatabaseHelper databaseHelper;
 
     public static OnItemClickListener onItemClickListener;
 

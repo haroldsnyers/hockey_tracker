@@ -1,9 +1,18 @@
 package ck.edu.com.hockey_tracker;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,6 +28,12 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.DownloadModel;
@@ -113,6 +128,20 @@ public class RecordActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
 
+    private static final String TAG = "RecordActivityCamera";
+
+    private static final int IMAGE_CAPTURE_CODE = 1001;
+
+    ArrayList<String> imagePathList = new ArrayList<>();
+
+    String FILE_AUTHORITY_PROVIDER = "com.example.android.fileprovider";
+
+    Uri image_uri;
+
+    public static final int REQUEST_CODE = 1000;
+
+    public static final int IMG_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,9 +200,10 @@ public class RecordActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem menuItemSave = menu.findItem(R.id.action_save);
         MenuItem menuItemCamera = menu.findItem(R.id.action_picture);
-
+        MenuItem menuItemSettings = menu.findItem(R.id.action_settings);
         menuItemSave.setVisible(true);
         menuItemCamera.setVisible(true);
+        menuItemSettings.setVisible(false);
 
         return true;
     }
@@ -183,12 +213,15 @@ public class RecordActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         int id = item.getItemId();
 
-        if (id == R.id.home) {
-            this.finish();
-        } else if (id == R.id.action_save){
+//        if (id == R.id.home) {
+//            this.finish();
+//        } else
+        if (id == R.id.action_save){
             safeMatch();
             return true;
         } else if (id == R.id.action_picture) {
+            Log.d("CAMERA", "start");
+            captureImage();
             return true;
         }
 
@@ -196,15 +229,26 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     public void safeMatch() {
+        String imagePathString = "None";
+
+        if (imagePathList.size() > 0) {
+            imagePathString = imagePathList.get(0);
+            for(int i = 1; i < imagePathList.size(); i++) {
+                imagePathString += "," + imagePathList.get(i);
+
+            }
+        }
+        Log.d("IMAGELIST", imagePathString);
+
         long id_match = databaseHelper.addmatch(
                 homeTeam.getText().toString(),
                 awayTeam.getText().toString(),
                 totalHome,
                 totalAway,
                 date,
-                location);
+                location, imagePathString);
         MatchModel matchModel = new MatchModel(homeTeam.getText().toString(), awayTeam.getText().toString(),
-                totalHome, totalAway, date, location);
+                totalHome, totalAway, date, location, imagePathList );
         QuarterModel quarterModel1 = new QuarterModel();
         QuarterModel quarterModel2 = new QuarterModel();
         QuarterModel quarterModel3 = new QuarterModel();
@@ -735,5 +779,78 @@ public class RecordActivity extends AppCompatActivity {
         currentQuarterTextView.setText(mContext.getResources().getString(R.string.current_quarter_text) + Integer.toString(CURRENT_QUARTER));
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    }
+
+    public void captureImage() {
+        Log.d("START1", "begin");
+        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED ||
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(RecordActivity.this,
+                    new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        } else {
+            Log.d("START2", "begin");
+
+            openCamera();
+        }
+
+    }
+
+    private void openCamera() {
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the camera");
+
+        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+        Log.d("START3", "begin");
+
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+
+        if (camera_intent.resolveActivity(getPackageManager()) != null) {
+            File image_file = null;
+
+            try {
+                image_file = getImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (image_file != null) {
+                image_uri = FileProvider.getUriForFile(this,
+                        FILE_AUTHORITY_PROVIDER, image_file);
+
+                camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
+
+                startActivityForResult(camera_intent, IMG_REQUEST);
+            }
+        }
+    }
+
+    private File getImageFile() throws IOException {
+        String time_stamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String image_name = "jpg_" + time_stamp + "_";
+        File storage_dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        File image_file = File.createTempFile(image_name, ".jpg", storage_dir);
+        Log.d(TAG, "getImageFile: " + image_file);
+        imagePathList.add(image_file.getAbsolutePath());
+        return image_file;
+    }
 
 }

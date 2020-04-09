@@ -72,6 +72,8 @@ public class MainActivity extends BaseActivity
     String mdate;
     String mlocation;
 
+    int currentFrag = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +95,10 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+        if (savedInstanceState != null) {
+            currentFrag = savedInstanceState.getInt("CurrentFrag");
+            Log.d("CURRENT", String.valueOf(currentFrag));
+        }
 
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,8 +106,21 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         // set default fragment
-        loadFragment(new homeFragment());
         newMatchFragment = new newMatchFragment();
+
+        if (currentFrag == 0) {
+            loadFragment(new homeFragment(), 0);
+        } else if (currentFrag == 1) {
+            loadFragment(newMatchFragment, 1);
+        } else if (currentFrag == 2) {
+            new Download(MainActivity.this, "GETALL").execute();
+        } else if (currentFrag == 3) {
+            loadFragment(new Fragment(), 3);
+        } else if (currentFrag == 4) {
+            loadFragment(new SettingsFragment(), 4);
+        } else {
+            loadFragment(new Fragment(), 5);
+        }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -109,22 +128,23 @@ public class MainActivity extends BaseActivity
                 // Handle navigation view item clicks here.
                 int id = menuItem.getItemId();
                 if (id == R.id.nav_home) {
-                    loadFragment(new homeFragment());
+                    loadFragment(new homeFragment(), 0);
                 } else if (id == R.id.nav_new_match) {
-                    loadFragment(newMatchFragment);
+                    loadFragment(newMatchFragment, 1);
                 } else if (id == R.id.nav_previous_match) {
                     new Download(MainActivity.this, "GETALL").execute();
                 } else if (id == R.id.nav_rules) {
-                    loadFragment(new Fragment());
+                    loadFragment(new Fragment(), 3);
                 } else if (id == R.id.nav_settings) {
-                    loadFragment(new SettingsFragment());
+                    loadFragment(new SettingsFragment(), 4);
                 } else if (id == R.id.nav_info) {
-                    loadFragment(new Fragment());
+                    loadFragment(new Fragment(), 5);
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
+        Log.d("CURRENTFRAG", String.valueOf(currentFrag));
 
     }
 
@@ -137,13 +157,15 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    public void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment, int currentFragment) {
+        currentFrag = currentFragment;
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, fragment);
         transaction.commit();
     }
 
-    public void loadFragmentExt() {
+    public void loadFragmentExt(int currentFragment) {
+        currentFrag = currentFragment;
         matchFragment matchFragment = ck.edu.com.hockey_tracker.Fragments.matchFragment.newInstance(matchList);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame, matchFragment);
@@ -161,12 +183,22 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        boolean visible = false;
         MenuItem menuItemSave = menu.findItem(R.id.action_save);
         MenuItem menuItemCamera = menu.findItem(R.id.action_picture);
-        menuItemSave.setVisible(visible);
-        menuItemCamera.setVisible(visible);
+        MenuItem menuItemSettings = menu.findItem(R.id.action_settings);
+
+        menuItemCamera.setVisible(false);
         menuItemCamera.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
+        if (currentFrag == 1) {
+            menuItemSave.setVisible(true);
+            menuItemSettings.setVisible(false);
+        } else {
+            menuItemSave.setVisible(false);
+            menuItemSettings.setVisible(true);
+        }
+
+
         return true;
     }
 
@@ -201,6 +233,20 @@ public class MainActivity extends BaseActivity
         LocaleManager.setNewLocale(this, language);
         Intent intent = mContext.getIntent();
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("CurrentFrag", currentFrag);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        currentFrag = savedInstanceState.getInt("CurrentFrag");
     }
 
     @Override
@@ -243,7 +289,7 @@ public class MainActivity extends BaseActivity
             mProgressDialog.dismiss();
             if (this.mode.equals("GETALL")) {
                 matchList = answer;
-                loadFragmentExt();
+                loadFragmentExt(2);
             }
 
         }

@@ -41,7 +41,7 @@ public class Server {
         }
 
     /* Method to CREATE an Match in the database */
-    public void addMatch(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date,
+    public void addMatch(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date, String location, ArrayList<String> imagePathList,
                          Quarter quarter1, Quarter quarter2, Quarter quarter3, Quarter quarter4){
         System.out.println("adding matche");
         Session session = ourSessionFactory.openSession();
@@ -49,7 +49,7 @@ public class Server {
 
         try {
             tx = session.beginTransaction();
-            Match match = new Match(homeTeam, awayTeam, scoreTeamHome, scoreTeamAway, date);;
+            Match match = new Match(homeTeam, awayTeam, scoreTeamHome, scoreTeamAway, date, location, imagePathList);;
 
             Set<Quarter> subQuarters = new HashSet<>();
             for (int q = 0; q < 4; q++) {
@@ -142,9 +142,6 @@ public class Server {
         try {
             tx = session.beginTransaction();
             Matchs = (List<Match>) session.createQuery("FROM Match").list();
-            for (Iterator iterator = Matchs.iterator(); iterator.hasNext();){
-                Match Match = (Match) iterator.next();
-            }
             tx.commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();

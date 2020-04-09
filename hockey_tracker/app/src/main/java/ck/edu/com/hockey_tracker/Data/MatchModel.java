@@ -1,9 +1,11 @@
 package ck.edu.com.hockey_tracker.Data;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MatchModel implements Serializable {
 //    int homecrest;
@@ -15,11 +17,12 @@ public class MatchModel implements Serializable {
     private int scoreawayteam;
     private String date;
     private String location;
+    private ArrayList<String> imagePathList;
 
     public MatchModel(){}
 
     public MatchModel(String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
-                      String date, String location) {
+                      String date, String location, ArrayList<String> imagePathList) {
 
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -27,6 +30,7 @@ public class MatchModel implements Serializable {
         this.scoreawayteam = scoreawayteam;
         this.date = date;
         this.location = location;
+        this.imagePathList = imagePathList;
     }
 
     public int getID() {
@@ -104,6 +108,8 @@ public class MatchModel implements Serializable {
             jsonObject.put("ScoreTeamAway", getScoreawayteam());
             jsonObject.put("DateMatch", getDate());
             jsonObject.put("Location", getLocation());
+            JSONArray jsonArray = new JSONArray(getImagePathList());
+            jsonObject.put("ImagePath", jsonArray);
 
             return jsonObject.toString();
         } catch (JSONException e) {
@@ -120,5 +126,13 @@ public class MatchModel implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public ArrayList<String> getImagePathList() {
+        return imagePathList;
+    }
+
+    public void setImagePathList(ArrayList<String> imagePathList) {
+        this.imagePathList = imagePathList;
     }
 }

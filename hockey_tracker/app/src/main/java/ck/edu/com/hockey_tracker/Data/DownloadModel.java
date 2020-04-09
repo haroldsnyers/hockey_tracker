@@ -47,7 +47,7 @@ public class DownloadModel extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String matchListLoader;
         String answer = "failed";
-        String IP_COMPUTER = "192.168.1.3";
+        String IP_COMPUTER = "192.168.1.61";
         String IP_Mobile = "10.0.2.2";
         try (Socket socket = new Socket(IP_COMPUTER, 9876)){
             DataInputStream dis = new DataInputStream(socket.getInputStream());

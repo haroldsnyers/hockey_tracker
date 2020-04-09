@@ -3,6 +3,7 @@ import jdk.nashorn.internal.parser.JSONParser;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -41,6 +42,15 @@ public class ServerRunnable implements Runnable {
                 int scoreHomeTeam = match.getInt("ScoreTeamHome");
                 int scoreAwayTeam = match.getInt("ScoreTeamAway");
                 String dateMatch = match.getString("DateMatch");
+                String location = match.getString("Location");
+                ArrayList<String> imagePath = new ArrayList<>();
+
+                JSONArray jArray = match.getJSONArray("ImagePath");
+                if (jArray != null) {
+                    for (int i=0; i < jArray.length(); i++) {
+                        imagePath.add(jArray.getString(i));
+                    }
+                }
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Quarter quarter1Object = new Quarter();
@@ -66,7 +76,7 @@ public class ServerRunnable implements Runnable {
                 }
 
                 try {
-                    server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch, quarter1Object, quarter2Object, quarter3Object, quarter4Object);
+                    server.addMatch(homeTeam, awayTeam, scoreHomeTeam, scoreAwayTeam, dateMatch, location, imagePath, quarter1Object, quarter2Object, quarter3Object, quarter4Object);
                     status = "Completed";
                     System.out.println("match added");
                 } catch (Exception e) {

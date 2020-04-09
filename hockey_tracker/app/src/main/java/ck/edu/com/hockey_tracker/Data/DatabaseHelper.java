@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query;
         //creating table
         query = "CREATE TABLE " + TABLE_NAME + "(ID INTEGER PRIMARY KEY, HomeTeam TEXT, AwayTeam TEXT, " +
-                "HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT, Location TEXT)";
+                "HomeTeam_score INTEGER, AwayTeam_score INTEGER, Date_match TEXT, Location TEXT, ImagePath TEXT)";
         db.execSQL(query);
         query = "CREATE TABLE " + TABLE_NAME1 +
                 "(ID INTEGER PRIMARY KEY, Quarter INTEGER, GoalsHome INTEGER, GoalsAway INTEGER, ShotsHome INTEGER, " +
@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //add the new note
     public long addmatch(String hometeam, String awayteam, int scoreteamhome, int scoreteamaway,
-                         String date, String location) {
+                         String date, String location, String imagePathList) {
         SQLiteDatabase sqLiteDatabase = this .getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -72,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put("Date_match", date);
         values.put("Location", location);
+        values.put("ImagePath", imagePathList);
 
         //inserting new row
         long lastrow = sqLiteDatabase.insert(TABLE_NAME, null , values);
