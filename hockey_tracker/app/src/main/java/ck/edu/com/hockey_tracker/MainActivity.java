@@ -166,9 +166,9 @@ public class MainActivity extends BaseActivity
 
     public void loadFragmentExt(int currentFragment) {
         currentFrag = currentFragment;
-        matchFragment matchFragment = ck.edu.com.hockey_tracker.Fragments.matchFragment.newInstance(matchList);
+        matchFragment matchFragmentm = matchFragment.newInstance(matchList);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame, matchFragment);
+        transaction.replace(R.id.frame, matchFragmentm);
         transaction.commit();
 
     }
@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity
             startChildActivityintent.putExtra("HOME", mhomeTeam);
             startChildActivityintent.putExtra("AWAY", mawayTeam);
             startChildActivityintent.putExtra("DATE", mdate);
-            startChildActivityintent.putExtra("LOC", mlocation);
+            startChildActivityintent.putExtra("LOCATION", mlocation);
             startActivity(startChildActivityintent);
         }
         return super.onOptionsItemSelected(item);

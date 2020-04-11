@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -51,12 +54,9 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
         Formatter fmt = new Formatter(sbuf);
         fmt.format("%d - %d", arrayList.get(i).getScorehometeam() , arrayList.get(i).getScoreawayteam());
         viewHolder.score.setText(sbuf.toString());
-        viewHolder.location.setText(arrayList.get(i).getHometeam());
-        viewHolder.test.setText(arrayList.get(i).getHometeam());
-
-//        databaseHelper = new DatabaseHelper(context);
-//
-//        viewHolder
+        viewHolder.location.setText(arrayList.get(i).getLocation());
+        viewHolder.imagePath = String.valueOf(arrayList.get(i).getImagePathList());
+        viewHolder.id_match = String.valueOf(arrayList.get(i).getID());
     }
 
     @Override
@@ -69,6 +69,8 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
         TextView homeTeam, score, date, awayTeam, location, test;
         LinearLayout matchDetail;
         Button buttonDetail;
+        String imagePath;
+        String id_match;
 
         private int mOriginalHeight = 0;
         private boolean mIsViewExpanded = false;
@@ -124,6 +126,12 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
                     Class destinationActivity = DetailActivity.class;
                     Intent startChildActivityintent = new Intent(context, destinationActivity);
                     // getting text entered and passing along as an extra under the name of EXTRA_TEXT
+                    startChildActivityintent.putExtra("HOMENAME", homeTeam.getText());
+                    startChildActivityintent.putExtra("AWAYNAME", homeTeam.getText());
+                    startChildActivityintent.putExtra("LOCATION", homeTeam.getText());
+                    startChildActivityintent.putExtra("DATE", homeTeam.getText());
+                    startChildActivityintent.putExtra("IMAGES", imagePath);
+                    startChildActivityintent.putExtra("ID", id_match);
                     context.startActivity(startChildActivityintent);
                 }
             });

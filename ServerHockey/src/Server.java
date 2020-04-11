@@ -1,7 +1,13 @@
 import org.hibernate.*;
+import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.transform.Transformers;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -42,7 +48,7 @@ public class Server {
 
     /* Method to CREATE an Match in the database */
     public void addMatch(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date, String location, ArrayList<String> imagePathList,
-                         Quarter quarter1, Quarter quarter2, Quarter quarter3, Quarter quarter4){
+                         Quarter quarterT, Quarter quarter1, Quarter quarter2, Quarter quarter3, Quarter quarter4){
         System.out.println("adding matche");
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
@@ -52,13 +58,15 @@ public class Server {
             Match match = new Match(homeTeam, awayTeam, scoreTeamHome, scoreTeamAway, date, location, imagePathList);;
 
             Set<Quarter> subQuarters = new HashSet<>();
-            for (int q = 0; q < 4; q++) {
+            for (int q = 0; q < 5; q++) {
                 Quarter quarter;
                 if (q == 0) {
-                    quarter = quarter1;
+                    quarter = quarterT;
                 } else if (q == 1) {
-                    quarter = quarter2;
+                    quarter = quarter1;
                 } else if (q == 2) {
+                    quarter = quarter2;
+                } else if (q == 3) {
                     quarter = quarter3;
                 } else {
                     quarter = quarter4;
@@ -106,30 +114,24 @@ public class Server {
 //        return quarterMatch;
 //    }
 
-    private Match getMatchQuery(Integer MatchID) {
+    public List<Quarter> getMatchQuery(Integer MatchID) {
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;
 
-        Match Match = null;
+        List<Quarter> Quarters = new ArrayList<>();
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("FROM Match P WHERE P.id = " + MatchID);
-            List results = query.list();
-
-            for (Iterator iterator = results.iterator(); iterator.hasNext();){
-                Match = (Match) iterator.next();
-                System.out.print("  Home: " + Match.getHomeTeam());
-                System.out.println("  Away: " + Match.getAwayTeam());
-            }
+            Quarters = (List<Quarter>) session.createQuery(
+                    "FROM Quarter P WHERE P.match.id = " + MatchID).list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx!=null) tx.rollback();
             e.printStackTrace();
         } finally {
             session.close();
-            return Match;
         }
+        return Quarters;
     }
 
     /* Method to READ ALL the Matchs */
@@ -149,6 +151,7 @@ public class Server {
         } finally {
             session.close();
         }
+
         return Matchs;
     }
 

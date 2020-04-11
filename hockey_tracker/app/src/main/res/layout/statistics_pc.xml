@@ -47,7 +47,6 @@
         android:paddingRight="5dp">
 
         <TextView
-            android:id="@+id/team_home_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -60,7 +59,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/home_total"
+            android:id="@+id/pc_statistics_total_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -72,7 +71,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/home_Q1"
+            android:id="@+id/pc_statistics_total_away"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -93,7 +92,6 @@
         android:paddingRight="5dp">
 
         <TextView
-            android:id="@+id/team_away_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -106,7 +104,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/away_total"
+            android:id="@+id/pc_statistics_converted_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -118,7 +116,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/away_Q1"
+            android:id="@+id/pc_statistics_converted_away"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -2,46 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc1581e8-5546-4e75-9a93-9edafdbba9eb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_annotation_annotation_1_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_core_core_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_base_16_0_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_16_0_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_16_1_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_maps_17_0_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_16_0_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Adapters/ImageRecyclerViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/ImageViewFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/dummy/DummyContent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_item_list.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Match.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Quarter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Quarter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/newMatchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/newMatchFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Adapters/DetailMatchAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Adapters/DetailMatchAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Adapters/HomePageMatchAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Adapters/HomePageMatchAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DatabaseHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DownloadModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/DownloadModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/MatchModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Data/MatchModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/DetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/DetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/Detailfragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/Detailfragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/ImageFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/matchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/Fragments/matchFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/RecordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/java/ck/edu/com/hockey_tracker/RecordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_new_match.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_new_match.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_detailfragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_detailfragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/fragment_image.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_fault.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_fault.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_fault_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_fault_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_outside.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_outside.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_pc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_pc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_pc_faults_and_cards.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_pc_faults_and_cards.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_shots.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_shots.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_stroke.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hockey_tracker/app/src/main/res/layout/statistics_stroke.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,33 +47,20 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="793">
-              <caret line="151" column="22" lean-forward="true" selection-start-line="151" selection-start-column="22" selection-end-line="151" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ServerRunnable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="70" column="106" lean-forward="true" selection-start-line="70" selection-start-column="106" selection-end-line="70" selection-end-column="106" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Match.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+            <state relative-caret-position="391">
+              <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2750#2751#0" expanded="true" />
+                <element signature="e#2790#2791#0" expanded="true" />
+                <element signature="e#2825#2826#0" expanded="true" />
+                <element signature="e#2856#2857#0" expanded="true" />
+                <element signature="e#2907#2908#0" expanded="true" />
+                <element signature="e#2943#2944#0" expanded="true" />
+                <element signature="e#3012#3013#0" expanded="true" />
+                <element signature="e#3062#3063#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +69,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Quarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="6664">
+              <caret line="574" selection-start-line="574" selection-end-line="574" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1726">
+              <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ServerRunnable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="498">
+              <caret line="54" column="21" lean-forward="true" selection-start-line="46" selection-start-column="20" selection-end-line="54" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,8 +128,8 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/NewMatch.java" />
         <option value="$PROJECT_DIR$/src/MatchModel.java" />
-        <option value="$PROJECT_DIR$/src/Quarter.java" />
         <option value="$PROJECT_DIR$/src/Match.java" />
+        <option value="$PROJECT_DIR$/src/Quarter.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
         <option value="$PROJECT_DIR$/src/ServerRunnable.java" />
       </list>
@@ -140,10 +142,11 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="114" />
-    <option name="width" value="1880" />
-    <option name="height" value="2172" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="927" />
+    <option name="y" value="-1080" />
+    <option name="width" value="972" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -151,7 +154,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,6 +189,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -199,7 +202,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -282,11 +285,12 @@
       <workItem from="1586244357798" duration="12385000" />
       <workItem from="1586288045118" duration="2260000" />
       <workItem from="1586340631495" duration="4570000" />
+      <workItem from="1586446711180" duration="14907000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49974000" />
+    <option name="totallyTimeSpent" value="64881000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -298,10 +302,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="56" y="-6" width="1871" height="1093" extended-state="6" />
+    <frame x="927" y="-1080" width="972" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09211252" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12609649" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" side_tool="true" />
@@ -312,19 +316,19 @@
       <window_info id="Learn" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33852544" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3531961" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32917964" />
       <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32917964" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32917964" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32824427" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.32917964" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32824427" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -391,20 +395,28 @@
     <entry file="file://$PROJECT_DIR$/ServerHockey.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Quarter.java">
+    <entry file="file://$PROJECT_DIR$/src/Match.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        <state relative-caret-position="391">
+          <caret line="110" column="4" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2750#2751#0" expanded="true" />
+            <element signature="e#2790#2791#0" expanded="true" />
+            <element signature="e#2825#2826#0" expanded="true" />
+            <element signature="e#2856#2857#0" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#2943#2944#0" expanded="true" />
+            <element signature="e#3012#3013#0" expanded="true" />
+            <element signature="e#3062#3063#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Match.java">
+    <entry file="file://$PROJECT_DIR$/src/Quarter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+        <state relative-caret-position="6664">
+          <caret line="574" selection-start-line="574" selection-end-line="574" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -413,15 +425,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="151" column="22" lean-forward="true" selection-start-line="151" selection-start-column="22" selection-end-line="151" selection-end-column="22" />
+        <state relative-caret-position="-1726">
+          <caret line="65" column="39" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ServerRunnable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="70" column="106" lean-forward="true" selection-start-line="70" selection-start-column="106" selection-end-line="70" selection-end-column="106" />
+        <state relative-caret-position="498">
+          <caret line="54" column="21" lean-forward="true" selection-start-line="46" selection-start-column="20" selection-end-line="54" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

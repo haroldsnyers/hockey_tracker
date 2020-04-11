@@ -1,5 +1,6 @@
 package ck.edu.com.hockey_tracker.Data;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,10 +8,11 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MatchModel implements Serializable {
 //    int homecrest;
 //    int awaycrest;
-    private int ID;
+    private int id;
     private String homeTeam;
     private String awayTeam;
     private int scorehometeam;
@@ -22,7 +24,7 @@ public class MatchModel implements Serializable {
     public MatchModel(){}
 
     public MatchModel(String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
-                      String date, String location, ArrayList<String> imagePathList) {
+                       String date, String location, ArrayList<String> imagePathList) {
 
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -33,12 +35,24 @@ public class MatchModel implements Serializable {
         this.imagePathList = imagePathList;
     }
 
-    public int getID() {
-        return ID;
+    public MatchModel(int id, String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
+                      String date, String location, ArrayList<String> imagePathList) {
+        this.id = id;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.scorehometeam = scorehometeam;
+        this.scoreawayteam = scoreawayteam;
+        this.date = date;
+        this.location = location;
+        this.imagePathList = imagePathList;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
     //    public int getHomecrest() {

@@ -47,7 +47,6 @@
         android:paddingRight="5dp">
 
         <TextView
-            android:id="@+id/team_home_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -60,7 +59,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/home_total"
+            android:id="@+id/outside_statistics_total_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -72,7 +71,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/home_Q1"
+            android:id="@+id/outside_statistics_total_away"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -92,7 +91,6 @@
         android:paddingRight="5dp">
 
         <TextView
-            android:id="@+id/team_home_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -105,7 +103,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/home_total"
+            android:id="@+id/outside_statistics_clearance_home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -117,7 +115,49 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/home_Q1"
+            android:id="@+id/outside_statistics_clearance_away"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/cell_shape_all_darker"
+            android:gravity="center"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_weight="2"
+            android:background="@drawable/cell_shape_except_left"
+            android:padding="10dip"
+            android:text="Outside's on the side"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/outside_statistics_side_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/cell_shape_all"
+            android:gravity="center"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/outside_statistics_side_away"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -129,5 +169,47 @@
             android:textSize="15sp" />
 
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_weight="2"
+            android:background="@drawable/cell_shape_except_left"
+            android:padding="10dip"
+            android:text="Corners"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/outside_statistics_corner_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/cell_shape_all"
+            android:gravity="center"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/outside_statistics_corner_away"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/cell_shape_all_darker"
+            android:gravity="center"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
     </TableRow>
 </TableLayout>

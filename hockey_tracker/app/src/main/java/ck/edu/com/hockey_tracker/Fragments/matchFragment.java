@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -38,8 +39,6 @@ public class matchFragment extends Fragment {
 
     FloatingActionButton floatingActionButtonAdd;
     ObjectMapper objectMapper;
-
-    private OnFragmentInteractionListener mListener;
 
     private static final String ARG_PARAM1 = "";
     private String mParam1 = "";
@@ -135,15 +134,16 @@ public class matchFragment extends Fragment {
         transaction.commit();
     }
 
-    public void setMatchModel(ArrayList<MatchModel> matchModelArrayList) {
-        arrayList = matchModelArrayList;
-        Log.d("TEST1", arrayList.toString());
-    }
-
     public void addItems() {
-        Log.d("TEST2", arrayList.toString());
+        Log.d("TEST2", mParam1);
         try {
             arrayList = objectMapper.readValue(mParam1, new TypeReference<ArrayList<MatchModel>>(){});
+            Log.d("BZAR1", String.valueOf(arrayList.get(0).getID()));
+            Log.d("BZAR2", String.valueOf(arrayList.get(0).getHometeam()));
+            Log.d("BZAR3", String.valueOf(arrayList.get(0).getAwayteam()));
+            Log.d("BZAR4", String.valueOf(arrayList.get(0).getDate()));
+            Log.d("BZAR5", String.valueOf(arrayList.get(0).getID()));
+            Log.d("BZAR6", String.valueOf(arrayList.get(0).getID()));
         } catch (IOException e) {
             e.printStackTrace();
         }

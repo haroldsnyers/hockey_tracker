@@ -9,7 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ck.edu.com.hockey_tracker.MainActivity;
 
@@ -176,6 +180,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 matchModel.setScoreawayteam(Integer.parseInt(cursor.getString(4)));
                 matchModel.setDate(cursor.getString(5));
                 matchModel.setLocation(cursor.getString(6));
+                String value = cursor.getString(7); //assign this via Reader
+                ArrayList<String> imagePath = Stream.of(value.split(","))
+                        .collect(Collectors.toCollection(ArrayList<String>::new));
+                matchModel.setImagePathList(imagePath);
                 arrayList.add(matchModel);
             }while (cursor.moveToNext());
         }

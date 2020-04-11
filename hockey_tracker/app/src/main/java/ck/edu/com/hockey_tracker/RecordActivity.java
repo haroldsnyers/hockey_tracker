@@ -188,8 +188,8 @@ public class RecordActivity extends AppCompatActivity {
             String queryEntered = intentThatStartedThisActivity.getStringExtra("DATE");
             date = queryEntered;
         }
-        if (intentThatStartedThisActivity.hasExtra("DATE")) {
-            String queryEntered = intentThatStartedThisActivity.getStringExtra("DATE");
+        if (intentThatStartedThisActivity.hasExtra("LOCATION")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("LOCATION");
             location = queryEntered;
         }
     }
@@ -246,9 +246,13 @@ public class RecordActivity extends AppCompatActivity {
                 totalHome,
                 totalAway,
                 date,
-                location, imagePathString);
+                location, 
+                imagePathString);
+        
         MatchModel matchModel = new MatchModel(homeTeam.getText().toString(), awayTeam.getText().toString(),
                 totalHome, totalAway, date, location, imagePathList );
+        QuarterModel matchTotals = new QuarterModel();
+        matchTotals = getMatchTotals(id_match);
         QuarterModel quarterModel1 = new QuarterModel();
         QuarterModel quarterModel2 = new QuarterModel();
         QuarterModel quarterModel3 = new QuarterModel();
@@ -296,10 +300,99 @@ public class RecordActivity extends AppCompatActivity {
 
 
 
-        new Download(RecordActivity.this, "INSERT", matchModel, quarterModel1, quarterModel2,
+        new Download(RecordActivity.this, "INSERT", matchModel, matchTotals, quarterModel1, quarterModel2,
                 quarterModel3, quarterModel4).execute();
         Log.d("EXTERNAL", "external begin");
 
+    }
+    
+    public QuarterModel getMatchTotals(long idMatch) {
+        int goalsHomeT=0, goalsAwayT=0, shotsHomeT=0, shotsHomeMissedT=0, shotsHomeMissedKeeperT=0, shotsAwayT=0, 
+                shotsAwayMissedT=0, shotsAwayMissedKeeperT=0, homeGreenCardsT=0, homeYellowCardsT=0, homeRedCardsT=0, 
+                awayGreenCardsT=0, awayYellowCardsT=0, awayRedCardsT=0, strokeConvertedHomeT=0, strokeNotConvertedHomeT=0, 
+                strokeConvertedAwayT=0, strokeNotConvertedAwayT=0, faultHomeBackstickT=0, faultHomeKickT=0, faultHomeUndercuttingT=0, 
+                faultHomeStickT=0, faultHomeObstructionT=0, faultAwayBackstickT=0, faultAwayKickT=0, faultAwayUndercuttingT=0, 
+                faultAwayStickT=0, faultAwayObstructionT=0, pcConvertedHomeT=0, pcNotConvertedHomeT=0, pcConvertedAwayT=0, pcNotConvertedAwayT=0, 
+                faultPosition25HomeT=0, faultPosition50HomeT=0, faultPosition75HomeT=0, faultPosition100HomeT=0, faultPosition25AwayT=0, 
+                faultPosition50AwayT=0, faultPosition75AwayT=0, faultPosition100AwayT=0, outsideHomeSideT=0, outsideHomeClearanceT=0, 
+                outsideHomeCornerT=0, outsideAwaySideT=0, outsideAwayCornerT=0, outsideAwayClearanceT = 0;
+        
+        for (int q = 0; q < 4; q++) {
+            goalsHomeT = goalsHome[q];
+            goalsAwayT = goalsAway[q];
+            shotsHomeT = shotsHome[q];
+            shotsHomeMissedT = shotsHomeMissed[q];
+            shotsHomeMissedKeeperT = shotsHomeMissedKeeper[q];
+            shotsAwayT = shotsAway[q];
+            shotsAwayMissedT = shotsAwayMissed[q];
+            shotsAwayMissedKeeperT = shotsAwayMissedKeeper[q];
+            homeGreenCardsT = homeGreenCards[q];
+            homeYellowCardsT = homeYellowCards[q];
+            homeRedCardsT = homeRedCards[q];
+            awayGreenCardsT = awayGreenCards[q];
+            awayYellowCardsT = awayYellowCards[q];
+            awayRedCardsT = awayRedCards[q];
+            strokeConvertedHomeT = strokeConvertedHome[q];
+            strokeNotConvertedHomeT = strokeNotConvertedHome[q];
+            strokeConvertedAwayT = strokeConvertedAway[q];
+            strokeNotConvertedAwayT = strokeNotConvertedAway[q];
+            faultHomeBackstickT = faultHomeBackstick[q];
+            faultHomeKickT = faultHomeKick[q];
+            faultHomeUndercuttingT = faultHomeUndercutting[q];
+            faultHomeStickT = faultHomeStick[q];
+            faultHomeObstructionT = faultHomeObstruction[q];
+            faultAwayBackstickT = faultAwayBackstick[q];
+            faultAwayKickT = faultAwayKick[q];
+            faultAwayUndercuttingT = faultAwayUndercutting[q];
+            faultAwayStickT = faultAwayStick[q];
+            faultAwayObstructionT = faultAwayObstruction[q];
+            pcConvertedHomeT = pcConvertedHome[q];
+            pcNotConvertedHomeT = pcNotConvertedHome[q];
+            pcConvertedAwayT = pcConvertedAway[q];
+            pcNotConvertedAwayT = pcNotConvertedAway[q];
+            faultPosition25HomeT = faultPosition25Home[q];
+            faultPosition50HomeT = faultPosition50Home[q];
+            faultPosition75HomeT = faultPosition75Home[q];
+            faultPosition100HomeT = faultPosition100Home[q];
+            faultPosition25AwayT = faultPosition25Away[q];
+            faultPosition50AwayT = faultPosition50Away[q];
+            faultPosition75AwayT = faultPosition75Away[q];
+            faultPosition100AwayT = faultPosition100Away[q];
+            outsideHomeSideT = outsideHomeSide[q];
+            outsideHomeClearanceT = outsideHomeClearance[q];
+            outsideHomeCornerT = outsideHomeClearance[q];
+            outsideAwaySideT = outsideAwaySide[q];
+            outsideAwayClearanceT = outsideAwayClearance[q];
+            outsideAwayCornerT = outsideAwayCorner[q];
+        }
+
+        databaseHelper.addQuarter(0, goalsHomeT, goalsAwayT, shotsHomeT, shotsHomeMissedT,
+                shotsHomeMissedKeeperT, shotsAwayT, shotsAwayMissedT, shotsAwayMissedKeeperT,
+                homeGreenCardsT, homeYellowCardsT, homeRedCardsT, awayGreenCardsT,
+                awayYellowCardsT, awayRedCardsT, strokeConvertedHomeT, strokeNotConvertedHomeT,
+                strokeConvertedAwayT, strokeNotConvertedAwayT, faultHomeBackstickT, faultHomeKickT,
+                faultHomeUndercuttingT, faultHomeStickT, faultHomeObstructionT, faultAwayBackstickT,
+                faultAwayKickT, faultAwayUndercuttingT, faultAwayStickT, faultAwayObstructionT,
+                pcConvertedHomeT, pcNotConvertedHomeT, pcConvertedAwayT, pcNotConvertedAwayT,
+                faultPosition25HomeT, faultPosition50HomeT, faultPosition75HomeT, faultPosition100HomeT,
+                faultPosition25AwayT, faultPosition50AwayT, faultPosition75AwayT, faultPosition100AwayT,
+                outsideHomeSideT, outsideHomeClearanceT, outsideHomeCornerT, outsideAwaySideT,
+                outsideAwayClearanceT, outsideAwayCornerT, idMatch);
+
+        QuarterModel quarterModel = new QuarterModel(0, goalsHomeT, goalsAwayT, shotsHomeT, shotsHomeMissedT,
+                shotsHomeMissedKeeperT, shotsAwayT, shotsAwayMissedT, shotsAwayMissedKeeperT,
+                homeGreenCardsT, homeYellowCardsT, homeRedCardsT, awayGreenCardsT,
+                awayYellowCardsT, awayRedCardsT, strokeConvertedHomeT, strokeNotConvertedHomeT,
+                strokeConvertedAwayT, strokeNotConvertedAwayT, faultHomeBackstickT, faultHomeKickT,
+                faultHomeUndercuttingT, faultHomeStickT, faultHomeObstructionT, faultAwayBackstickT,
+                faultAwayKickT, faultAwayUndercuttingT, faultAwayStickT, faultAwayObstructionT,
+                pcConvertedHomeT, pcNotConvertedHomeT, pcConvertedAwayT, pcNotConvertedAwayT,
+                faultPosition25HomeT, faultPosition50HomeT, faultPosition75HomeT, faultPosition100HomeT,
+                faultPosition25AwayT, faultPosition50AwayT, faultPosition75AwayT, faultPosition100AwayT,
+                outsideHomeSideT, outsideHomeClearanceT, outsideHomeCornerT, outsideAwaySideT,
+                outsideAwayClearanceT, outsideAwayCornerT);
+        
+        return quarterModel;
     }
 
     public class Download extends DownloadModel {
@@ -307,9 +400,9 @@ public class RecordActivity extends AppCompatActivity {
         Context context;
         private String mode;
 
-        public Download(Context context, String mode, MatchModel matchModel, QuarterModel quarterModel1,
+        public Download(Context context, String mode, MatchModel matchModel, QuarterModel matchTotals, QuarterModel quarterModel1,
                         QuarterModel quarterModel2, QuarterModel quarterModel3, QuarterModel quarterModel4) {
-            super(context, mode, matchModel, quarterModel1, quarterModel2, quarterModel3, quarterModel4);
+            super(context, mode, matchModel, matchTotals, quarterModel1, quarterModel2, quarterModel3, quarterModel4);
             this.context = context;
             this.mode = mode;
         }

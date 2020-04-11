@@ -1,3 +1,5 @@
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +40,17 @@ public class Match implements Serializable {
     }
 
     public Match(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date, String location, ArrayList<String> imagePathList) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.scorehometeam = scoreTeamHome;
+        this.scoreawayteam = scoreTeamAway;
+        this.date = date;
+        this.location = location;
+        this.imagePathList = imagePathList;
+    }
+
+    public Match(int id, String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, ArrayList<String> imagePathList, String date, String location) {
+        this.id = id;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.scorehometeam = scoreTeamHome;
@@ -95,7 +108,24 @@ public class Match implements Serializable {
         this.subQuarter = subQuarter;
     }
 
+    @JsonIgnore
     public Set getSubQuarter() {
         return subQuarter;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public ArrayList<String> getImagePathList() {
+        return imagePathList;
+    }
+
+    public void setImagePathList(ArrayList<String> imagePathList) {
+        this.imagePathList = imagePathList;
     }
 }

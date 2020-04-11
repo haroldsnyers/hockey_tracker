@@ -15,14 +15,14 @@
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recycleViewPrevious"
-        android:name="ck.edu.com.hockey_tracker.matchFragment"
+        android:id="@+id/recycleViewDetail"
+        android:name="detailFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:orientation="horizontal"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".Fragments.matchFragment"
+        tools:context=".Fragment.DetailFragment"
         tools:listitem="@layout/statistics_detail" />
 </LinearLayout>
