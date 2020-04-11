@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,10 @@ public class ImageViewFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+    ArrayList<String> list;
+    Spinner spinner;
+    RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,18 +70,55 @@ public class ImageViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycleViewImage);
+        recyclerView = view.findViewById(R.id.recycleViewImage);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        ArrayList<String> values = getArguments().getStringArrayList("data");
+        list = new ArrayList<>();
 
-        ImageRecyclerViewAdapter adapter = new ImageRecyclerViewAdapter(values);
+        list.add("Vertical List");
+        list.add("Horizontal List");
+        list.add("Grid Layout Manager");
 
-        recyclerView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_list, list);
+        spinner.setAdapter(adapter);
+
+        addItems();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void  onItemSelected(AdapterView parent, View view, int position, long id) {
+                if(position == 0) {
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }else if (position == 1) {
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }else {
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 2));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    addItems();
+                }
+
+            }
+            @Override
+            public void  onNothingSelected(AdapterView parent) {
+
+            }
+        });
+
+
 
         return view;
+    }
+
+    public void addItems() {
+        ArrayList<String> values = getArguments().getStringArrayList("data");
+        ImageRecyclerViewAdapter imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(values);
+
+        recyclerView.setAdapter(imageRecyclerViewAdapter);
     }
 
 
