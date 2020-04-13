@@ -86,34 +86,6 @@ public class Server {
         }
     }
 
-//    private Quarter addQuarter(int quarter, int goalsHome, int goalsAway, int shotsHome, int shotsHomeMissed,
-//                            int shotsHomeMissedKeeper, int shotsAway, int shotsAwayMissed, int shotsAwayMissedKeeper,
-//                            int homeGreenCards, int homeYellowCards, int homeRedCards, int awayGreenCards,
-//                            int awayYellowCards, int awayRedCards, int strokeConvertedHome, int strokeNotConvertedHome,
-//                            int strokeConvertedAway, int strokeNotConvertedAway, int faultHomeBackstick, int faultHomeKick,
-//                            int faultHomeUndercutting, int faultHomeStick, int faultHomeObstruction, int faultAwayBackstick,
-//                            int faultAwayKick, int faultAwayUndercutting, int faultAwayStick, int faultAwayObstruction,
-//                            int pcConvertedHome, int pcNotConvertedHome, int pcConvertedAway, int pcNotConvertedAway,
-//                            int faultPosition25Home, int faultPosition50Home, int faultPosition75Home, int faultPosition100Home,
-//                            int faultPosition25Away, int faultPosition50Away, int faultPosition75Away, int faultPosition100Away,
-//                            int outsideHomeSide, int outsideHomeClearance, int outsideHomeCorner, int outsideAwaySide,
-//                            int outsideAwayClearance, int outsideAwayCorner) {
-//
-//        final Quarter quarterMatch = new Quarter(quarter, goalsHome, goalsAway, shotsHome, shotsHomeMissed,
-//                shotsHomeMissedKeeper, shotsAway, shotsAwayMissed, shotsAwayMissedKeeper,
-//                homeGreenCards, homeYellowCards, homeRedCards, awayGreenCards,
-//                awayYellowCards, awayRedCards, strokeConvertedHome, strokeNotConvertedHome,
-//                strokeConvertedAway, strokeNotConvertedAway, faultHomeBackstick, faultHomeKick,
-//                faultHomeUndercutting, faultHomeStick, faultHomeObstruction, faultAwayBackstick,
-//                faultAwayKick, faultAwayUndercutting, faultAwayStick, faultAwayObstruction,
-//                pcConvertedHome, pcNotConvertedHome, pcConvertedAway, pcNotConvertedAway,
-//                faultPosition25Home, faultPosition50Home, faultPosition75Home, faultPosition100Home,
-//                faultPosition25Away, faultPosition50Away, faultPosition75Away, faultPosition100Away,
-//                outsideHomeSide, outsideHomeClearance, outsideHomeCorner, outsideAwaySide,
-//                outsideAwayClearance, outsideAwayCorner);
-//        return quarterMatch;
-//    }
-
     public List<Quarter> getMatchQuery(Integer MatchID) {
         Session session = ourSessionFactory.openSession();
         Transaction tx = null;

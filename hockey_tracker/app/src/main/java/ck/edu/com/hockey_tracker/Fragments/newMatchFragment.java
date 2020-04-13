@@ -13,16 +13,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,8 +28,6 @@ import java.util.List;
 import java.util.Locale;
 
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
-import ck.edu.com.hockey_tracker.Data.MatchModel;
-import ck.edu.com.hockey_tracker.MainActivity;
 import ck.edu.com.hockey_tracker.R;
 
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -1,24 +1,14 @@
 package ck.edu.com.hockey_tracker.Adapters;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Formatter;
-
-import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Data.QuarterModel;
-import ck.edu.com.hockey_tracker.DetailActivity;
 import ck.edu.com.hockey_tracker.R;
 
 public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.viewHolder> {
@@ -26,8 +16,6 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
     Context context;
     ArrayList<QuarterModel> arrayList;
     int layoutId;
-
-    public static DetailMatchAdapter.OnItemClickListener onItemClickListener;
 
     public DetailMatchAdapter(Context context, ArrayList<QuarterModel> arrayList, int layoutId) {
         this.context = context;
@@ -117,24 +105,6 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
         viewHolder.faultExtended75Away.setText(String.valueOf(arrayList.get(i).getFaultPosition75Away()));
         viewHolder.faultExtended100Home.setText(String.valueOf(arrayList.get(i).getFaultPosition100Home()));
         viewHolder.faultExtended100Away.setText(String.valueOf(arrayList.get(i).getFaultPosition100Away()));
-//        viewHolder.pcExtendedHome.setText(arrayList.get(i).getPcConvertedHome()+arrayList.get(i).getPcNotConvertedHome());
-//        viewHolder.pcExtendedAway.setText(arrayList.get(i).getPcConvertedAway()+arrayList.get(i).getPcNotConvertedAway());
-//        viewHolder.pcExtendedConvertedHome.setText(arrayList.get(i).getPcConvertedHome());
-//        viewHolder.pcExtendedConvertedAway.setText(arrayList.get(i).getPcConvertedAway());
-//        viewHolder.pcExtendedNKHome.setText(arrayList.get(i).pc);
-//        viewHolder.pcExtendedNKAway.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNSHome.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNSAway.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNBHome.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNBAway.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNOHome.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNOAway.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNUHome.setText(arrayList.get(i).);
-//        viewHolder.pcExtendedNUAway.setText(arrayList.get(i).);
-
-//        databaseHelper = new DatabaseHelper(context);
-//
-//        viewHolder
     }
 
     @Override
@@ -217,13 +187,6 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
             faultExtendedNUHome = itemView.findViewById(R.id.fault_extended_statistics_undercutting_home);
             faultExtendedNUAway = itemView.findViewById(R.id.fault_extended_statistics_undercutting_away);
 
-//            faultExtendedGHome = itemView.findViewById(R.id.fault_extended_statistics_green_card_home);
-//            faultExtendedGAway = itemView.findViewById(R.id.fault_extended_statistics_green_card_away);
-//            faultExtendedYHome = itemView.findViewById(R.id.fault_extended_statistics_yellow_card_home);
-//            faultExtendedYAway = itemView.findViewById(R.id.fault_extended_statistics_yellow_card_away);
-//            faultExtendedRHome = itemView.findViewById(R.id.fault_extended_statistics_red_card_home);
-//            faultExtendedRAway = itemView.findViewById(R.id.fault_extended_statistics_red_card_away);
-
             faultExtended25Home = itemView.findViewById(R.id.fault_extended_statistics_25_home);
             faultExtended25Away = itemView.findViewById(R.id.fault_extended_statistics_25_away);
             faultExtended50Home = itemView.findViewById(R.id.fault_extended_statistics_50_home);
@@ -232,45 +195,6 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
             faultExtended75Away = itemView.findViewById(R.id.fault_extended_statistics_75_away);
             faultExtended100Home = itemView.findViewById(R.id.fault_extended_statistics_100_home);
             faultExtended100Away = itemView.findViewById(R.id.fault_extended_statistics_100_away);
-
-//            pcExtendedHome = itemView.findViewById(R.id.pc_extended_statistics_pc_home);
-//            pcExtendedAway = itemView.findViewById(R.id.pc_extended_statistics_pc_away);
-//            pcExtendedConvertedHome = itemView.findViewById(R.id.pc_extended_statistics_pc_converted_home);
-//            pcExtendedConvertedAway = itemView.findViewById(R.id.pc_extended_statistics_pc_converted_away);
-//
-//            pcExtendedNKHome = itemView.findViewById(R.id.pc_extended_statistics_kick_home);
-//            pcExtendedNKAway = itemView.findViewById(R.id.pc_extended_statistics_kick_away);
-//            pcExtendedNSHome = itemView.findViewById(R.id.pc_extended_statistics_stick_home);
-//            pcExtendedNSAway = itemView.findViewById(R.id.pc_extended_statistics_stick_away);
-//            pcExtendedNBHome = itemView.findViewById(R.id.pc_extended_statistics_back_home);
-//            pcExtendedNBAway = itemView.findViewById(R.id.pc_extended_statistics_back_away);
-//            pcExtendedNOHome = itemView.findViewById(R.id.pc_extended_statistics_obstruction_home);
-//            pcExtendedNOAway = itemView.findViewById(R.id.pc_extended_statistics_obstruction_away);
-//            pcExtendedNUHome = itemView.findViewById(R.id.pc_extended_statistics_undercutting_home);
-//            pcExtendedNUAway = itemView.findViewById(R.id.pc_extended_statistics_undercutting_away);
-
-//            pcExtendedGHome = itemView.findViewById(R.id.pc_extended_statistics_green_card_home);
-//            pcExtendedGAway = itemView.findViewById(R.id.pc_extended_statistics_green_card_away);
-//            pcExtendedYHome = itemView.findViewById(R.id.pc_extended_statistics_yellow_card_home);
-//            pcExtendedYAway = itemView.findViewById(R.id.pc_extended_statistics_yellow_card_away);
-//            pcExtendedRHome = itemView.findViewById(R.id.pc_extended_statistics_red_card_home);
-//            pcExtendedRAway = itemView.findViewById(R.id.pc_extended_statistics_red_card_away);
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    onItemClickListener.onItemClick(getAdapterPosition(), v);
-//
-//                }
-//            });
         }
-    }
-
-    public void setOnItemClickListener(DetailMatchAdapter.OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, View v);
     }
 }

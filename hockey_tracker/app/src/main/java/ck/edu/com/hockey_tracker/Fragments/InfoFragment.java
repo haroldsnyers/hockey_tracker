@@ -1,7 +1,6 @@
 package ck.edu.com.hockey_tracker.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

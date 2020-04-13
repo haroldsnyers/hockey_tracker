@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Adapters.HomePageMatchAdapter;
-import ck.edu.com.hockey_tracker.MainActivity;
 import ck.edu.com.hockey_tracker.R;
 
 

@@ -5,18 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import ck.edu.com.hockey_tracker.MainActivity;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -285,15 +277,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteQuarters(long IDMatch, SQLiteDatabase db) {
         boolean ok = db.delete(TABLE_NAME1, "id_match_fk=" + IDMatch, null) >0;
     }
-
-    //update the note
-//    public void updateNote(String title, String des, String ID) {
-//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-//        ContentValues values =  new ContentValues();
-//        values.put("Title", title);
-//        values.put("Description", des);
-//        //updating row
-//        sqLiteDatabase.update(TABLE_NAME, values, "ID=" + ID, null);
-//        sqLiteDatabase.close();
-//    }
 }
