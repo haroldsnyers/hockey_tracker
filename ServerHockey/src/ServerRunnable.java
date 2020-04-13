@@ -65,15 +65,15 @@ public class ServerRunnable implements Runnable {
                         if (q == 0) {
                             String quarter0 = br.readLine();
                             System.out.println(quarter0);
-                            quarter1Object = objectMapper.readValue(quarter0, new TypeReference<Quarter>() {
+                            quarterTotals = objectMapper.readValue(quarter0, new TypeReference<Quarter>() {
                             });
                         } else if (q == 1) {
                             String quarter1 = br.readLine();
-                            quarter2Object = objectMapper.readValue(quarter1, new TypeReference<Quarter>() {
+                            quarter1Object = objectMapper.readValue(quarter1, new TypeReference<Quarter>() {
                             });
                         } else if (q == 2) {
                             String quarter2 = br.readLine();
-                            quarter3Object = objectMapper.readValue(quarter2, new TypeReference<Quarter>() {
+                            quarter2Object = objectMapper.readValue(quarter2, new TypeReference<Quarter>() {
                             });
                         } else if (q == 3) {
                             String quarter3 = br.readLine();

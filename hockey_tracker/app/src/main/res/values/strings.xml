@@ -30,9 +30,9 @@
     <string name="current_quarter_text">Current quarter : Q</string>
     <string name="title_activity_record">Recording</string>
     <string name="title_activity_detail">Detail match</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Resume</string>
+    <string name="title_dashboard">Gallery</string>
+    <string name="title_notifications">Info</string>
     <string name="pc">PC</string>
     <string name="goal">GOAL</string>
     <string name="stroke">STROKE</string>
@@ -40,5 +40,14 @@
     <string name="outside">OUTSIDE</string>
     <string name="team_away">Team Away</string>
     <string name="team_home">Team Home</string>
-    <string name="shot">Shot</string>
+    <string name="shot">SHOT</string>
+    <string name="match_general_detail">Match general detail</string>
+    <string name="match_quarter">Match Quarter </string>
+    <string name="detail"> detail</string>
+    <string name="info_about_the_app">Info about the app</string>
+    <string name="how_the_use_the_app">How the use the app</string>
+    <string name="use_the_navigation_drawer_to_navigate_between_the_different_pages">Use the navigation drawer to navigate between the different pages</string>
+    <string name="further_explanation_will_be_displayed_in_next_update">Further explanation will be displayed in next update</string>
+    <string name="made_by">Made by</string>
+    <string name="project_mobile_programming_ece_2020">Project Mobile programming ECE 2020</string>
 </resources>

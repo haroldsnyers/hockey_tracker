@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:padding="5dip"
             android:text="T"
+            android:textAlignment="center"
             android:textSize="10sp" />
 
         <TextView

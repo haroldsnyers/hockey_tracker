@@ -13,8 +13,8 @@ public class MatchModel implements Serializable {
 //    int homecrest;
 //    int awaycrest;
     private int id;
-    private String homeTeam;
-    private String awayTeam;
+    private String hometeam;
+    private String awayteam;
     private int scorehometeam;
     private int scoreawayteam;
     private String date;
@@ -26,8 +26,8 @@ public class MatchModel implements Serializable {
     public MatchModel(String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
                        String date, String location, ArrayList<String> imagePathList) {
 
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
+        this.hometeam = homeTeam;
+        this.awayteam = awayTeam;
         this.scorehometeam = scorehometeam;
         this.scoreawayteam = scoreawayteam;
         this.date = date;
@@ -38,8 +38,8 @@ public class MatchModel implements Serializable {
     public MatchModel(int id, String homeTeam, String awayTeam, int scorehometeam, int scoreawayteam,
                       String date, String location, ArrayList<String> imagePathList) {
         this.id = id;
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
+        this.hometeam = homeTeam;
+        this.awayteam = awayTeam;
         this.scorehometeam = scorehometeam;
         this.scoreawayteam = scoreawayteam;
         this.date = date;
@@ -72,19 +72,19 @@ public class MatchModel implements Serializable {
 //    }
 
     public String getHometeam() {
-        return homeTeam;
+        return hometeam;
     }
 
     public void setHometeam(String hometeam) {
-        this.homeTeam = hometeam;
+        this.hometeam = hometeam;
     }
 
     public String getAwayteam() {
-        return awayTeam;
+        return awayteam;
     }
 
     public void setAwayteam(String awayteam) {
-        this.awayTeam = awayteam;
+        this.awayteam = awayteam;
     }
 
     public String getDate() {
@@ -131,7 +131,6 @@ public class MatchModel implements Serializable {
             e.printStackTrace();
             return "";
         }
-
     }
 
     public String getLocation() {

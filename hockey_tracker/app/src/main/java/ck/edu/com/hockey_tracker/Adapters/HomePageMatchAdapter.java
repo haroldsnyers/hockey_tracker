@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +13,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Formatter;
 
-import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.DetailActivity;
-import ck.edu.com.hockey_tracker.MainActivity;
 import ck.edu.com.hockey_tracker.R;
 
 public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdapter.viewHolder> {
 
-    Context context;
-    ArrayList<MatchModel> arrayList;
-    int layoutId;
+    private Context context;
+    private ArrayList<MatchModel> arrayList;
+    private int layoutId;
+    private String mode;
 
-    public static OnItemClickListener onItemClickListener;
 
-    public HomePageMatchAdapter(Context context, ArrayList<MatchModel> arrayList, int layoutId) {
+    public HomePageMatchAdapter(Context context, ArrayList<MatchModel> arrayList, int layoutId, String mode) {
         this.context = context;
         this.arrayList = arrayList;
         this.layoutId = layoutId;
+        this.mode = mode;
     }
 
     @Override
@@ -57,6 +54,8 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
         viewHolder.location.setText(arrayList.get(i).getLocation());
         viewHolder.imagePath = String.valueOf(arrayList.get(i).getImagePathList());
         viewHolder.id_match = String.valueOf(arrayList.get(i).getID());
+        viewHolder.mode = mode;
+        viewHolder.context = context;
     }
 
     @Override
@@ -71,21 +70,20 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
         Button buttonDetail;
         String imagePath;
         String id_match;
+        String mode;
 
         private int mOriginalHeight = 0;
         private boolean mIsViewExpanded = false;
-        private final Context context;
+        private Context context;
 
         public viewHolder(final View itemView) {
             super(itemView);
-            context = itemView.getContext();
 
             homeTeam = (TextView) itemView.findViewById(R.id.home_name);
             score = (TextView) itemView.findViewById(R.id.score_textview);
             date = (TextView) itemView.findViewById(R.id.date_textview);
             awayTeam = (TextView) itemView.findViewById(R.id.away_name);
             location = (TextView) itemView.findViewById(R.id.matchday_textview);
-            test = (TextView) itemView.findViewById(R.id.league_textview);
             matchDetail = (LinearLayout) itemView.findViewById(R.id.match_detail);
             buttonDetail = itemView.findViewById(R.id.detail_match_button);
 //            homeCrest = (ImageView) itemView.findViewById(R.id.home_crest);
@@ -127,30 +125,16 @@ public class HomePageMatchAdapter extends RecyclerView.Adapter<HomePageMatchAdap
                     Intent startChildActivityintent = new Intent(context, destinationActivity);
                     // getting text entered and passing along as an extra under the name of EXTRA_TEXT
                     startChildActivityintent.putExtra("HOMENAME", homeTeam.getText());
-                    startChildActivityintent.putExtra("AWAYNAME", homeTeam.getText());
-                    startChildActivityintent.putExtra("LOCATION", homeTeam.getText());
-                    startChildActivityintent.putExtra("DATE", homeTeam.getText());
+                    startChildActivityintent.putExtra("AWAYNAME", awayTeam.getText());
+                    startChildActivityintent.putExtra("LOCATION", location.getText());
+                    startChildActivityintent.putExtra("DATE", date.getText());
                     startChildActivityintent.putExtra("IMAGES", imagePath);
                     startChildActivityintent.putExtra("ID", id_match);
+                    startChildActivityintent.putExtra("MODE", mode);
+
                     context.startActivity(startChildActivityintent);
                 }
             });
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    onItemClickListener.onItemClick(getAdapterPosition(), v);
-//
-//                }
-//            });
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, View v);
     }
 }

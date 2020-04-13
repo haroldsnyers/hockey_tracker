@@ -1,5 +1,6 @@
 package ck.edu.com.hockey_tracker.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Adapters.HomePageMatchAdapter;
+import ck.edu.com.hockey_tracker.MainActivity;
 import ck.edu.com.hockey_tracker.R;
 
 
@@ -34,8 +36,7 @@ public class homeFragment extends Fragment {
     DatabaseHelper databaseHelper;
 
     FloatingActionButton floatingActionButtonAdd;
-    LinearLayout linearLayoutMatch;
-
+    private OnFragmentInteractionListener mListener;
     // private OnFragmentInteractionListener mListener;
 
     public homeFragment() {
@@ -62,7 +63,7 @@ public class homeFragment extends Fragment {
         floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new newMatchFragment());
+                mListener.onFragmentInteraction();
             }
         });
 
@@ -119,7 +120,39 @@ public class homeFragment extends Fragment {
 
     public void addItems() {
 
-        homePageMatchAdapter = new HomePageMatchAdapter(getActivity().getApplicationContext(), arrayList, R.layout.layout_match_view_model);
+        homePageMatchAdapter = new HomePageMatchAdapter(getActivity(), arrayList, R.layout.layout_match_view_model, "0");
         recyclerView.setAdapter(homePageMatchAdapter);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListenerSettings");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction();
     }
 }

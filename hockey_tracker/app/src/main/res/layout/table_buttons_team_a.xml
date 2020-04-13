@@ -26,67 +26,83 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginStart="25dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/shot_team_home_record"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/button_shape"
-            android:onClick="shot"
             android:layout_weight="1"
-            android:text="@string/shot"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/pc_team_home_record"
+            <Button
+                android:id="@+id/shot_team_home_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_shape"
+                android:onClick="shot"
+                android:layout_weight="1"
+                android:text="@string/shot"/>
+
+            <Button
+                android:id="@+id/fault_team_home_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:onClick="fault"
+                android:text="@string/fault"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/button_shape"
-            android:onClick="pc"
             android:layout_weight="1"
-            android:text="@string/pc"/>
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/stroke_team_home_record"
+            <Button
+                android:id="@+id/pc_team_home_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_shape"
+                android:onClick="pc"
+                android:layout_weight="1"
+                android:text="@string/pc"/>
+
+            <Button
+                android:id="@+id/outside_team_home_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:onClick="outside"
+                android:text="@string/outside"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/button_shape"
-            android:onClick="stroke"
             android:layout_weight="1"
-            android:text="@string/stroke"/>
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/stroke_team_home_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:onClick="stroke"
+                android:layout_weight="1"
+                android:text="@string/stroke"/>
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/fault_team_home_record"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/button_shape"
-            android:onClick="fault"
-            android:text="@string/fault"/>
-
-        <Button
-            android:id="@+id/outside_team_home_record"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/button_shape"
-            android:onClick="outside"
-            android:text="@string/outside"/>
 
     </LinearLayout>
 

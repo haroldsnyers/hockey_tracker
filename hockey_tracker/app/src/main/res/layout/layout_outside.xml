@@ -27,44 +27,30 @@
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:id="@+id/outside_radio_group"
-            android:checkedButton="@+id/position1" >
+            android:checkedButton="@+id/outside_clearance" >
 
-            <LinearLayout
+            <RadioButton
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="30dp"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/outside_clearance"
+                android:layout_marginEnd="10dp"
+                android:text="clearance" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/outside_clearance"
-                    android:layout_marginEnd="10dp"
-                    android:text="clearance" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/outside_side"
-                    android:layout_marginEnd="10dp"
-                    android:text="on the side" />
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="30dp"
-                android:layout_height="match_parent">
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/outside_corner"
-                    android:layout_marginEnd="10dp"
-                    android:text="corner" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/outside_side"
+                android:layout_marginEnd="10dp"
+                android:text="on the side" />
 
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/outside_corner"
+                android:layout_marginEnd="10dp"
+                android:text="corner" />
 
         </RadioGroup>
 

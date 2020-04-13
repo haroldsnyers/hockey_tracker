@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -21,20 +20,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ck.edu.com.hockey_tracker.Adapters.DetailMatchAdapter;
-import ck.edu.com.hockey_tracker.Adapters.HomePageMatchAdapter;
-import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.QuarterModel;
 import ck.edu.com.hockey_tracker.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Detailfragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Detailfragment#newInstance} factory method to
+ * Use the {@link DetailfragmentInternal#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Detailfragment extends Fragment {
+public class DetailfragmentInternal extends Fragment {
     ArrayList<QuarterModel> arrayList;
     RecyclerView recyclerView;
 
@@ -55,7 +50,7 @@ public class Detailfragment extends Fragment {
     private TextView awayQ2;
     private TextView awayQ3;
     private TextView awayQ4;
-    
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,12 +58,13 @@ public class Detailfragment extends Fragment {
     private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private long mParam1;
     private String mParam2;
     private String mParam3;
 
+    DatabaseHelper databaseHelper;
 
-    public Detailfragment() {
+    public DetailfragmentInternal() {
         // Required empty public constructor
     }
 
@@ -81,10 +77,10 @@ public class Detailfragment extends Fragment {
      * @return A new instance of fragment Detailfragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Detailfragment newInstance(String param1, String param2, String param3) {
-        Detailfragment fragment = new Detailfragment();
+    public static DetailfragmentInternal newInstance(long param1, String param2, String param3) {
+        DetailfragmentInternal fragment = new DetailfragmentInternal();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putLong(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
@@ -95,7 +91,7 @@ public class Detailfragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getLong(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
         }
@@ -107,7 +103,9 @@ public class Detailfragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detailfragment, container, false);
 
-        arrayList = new ArrayList<>();
+        databaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
+
+        arrayList = new ArrayList<>(databaseHelper.getQuarters(mParam1));
         objectMapper = new ObjectMapper();
 
         homeTeam = view.findViewById(R.id.team_home_name);
@@ -128,9 +126,6 @@ public class Detailfragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        homeTeam.setText(mParam2);
-        awayTeam.setText(mParam3);
-
         addItems();
 
         updateScore();
@@ -149,17 +144,14 @@ public class Detailfragment extends Fragment {
     }
 
     public void addItems() {
-        Log.d("TEST2", mParam1);
-        try {
-            arrayList = objectMapper.readValue(mParam1, new TypeReference<ArrayList<QuarterModel>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         detailMatchAdapter = new DetailMatchAdapter(getActivity().getApplicationContext(), arrayList, R.layout.statistics_detail);
         recyclerView.setAdapter(detailMatchAdapter);
     }
 
     public void updateScore() {
+        homeTeam.setText(mParam2);
+        awayTeam.setText(mParam3);
         homeTotal.setText(String.format("%d", arrayList.get(0).getGoalsHome()));
         homeQ1.setText(String.format("%d", arrayList.get(1).getGoalsHome()));
         homeQ2.setText(String.format("%d", arrayList.get(2).getGoalsHome()));
@@ -171,5 +163,4 @@ public class Detailfragment extends Fragment {
         awayQ3.setText(String.format("%d", arrayList.get(3).getGoalsAway()));
         awayQ4.setText(String.format("%d", arrayList.get(4).getGoalsAway()));
     }
-
 }

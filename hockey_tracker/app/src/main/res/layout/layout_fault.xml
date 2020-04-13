@@ -89,47 +89,33 @@
             android:id="@+id/fault_radio_group_cards"
             android:checkedButton="@+id/card_none" >
 
-            <LinearLayout
+            <RadioButton
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="30dp"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/card_none"
+                android:layout_marginEnd="10dp"
+                android:text="None" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/card_none"
-                    android:layout_marginEnd="10dp"
-                    android:text="None" />
-
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/card_green"
-                    android:layout_marginEnd="10dp"
-                    android:text="Green" />
-            </LinearLayout>
-
-            <LinearLayout
+            <RadioButton
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginEnd="30dp"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:id="@+id/card_green"
+                android:layout_marginEnd="10dp"
+                android:text="Green" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/card_yellow"
-                    android:layout_marginEnd="10dp"
-                    android:text="Yellow" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_yellow"
+                android:layout_marginEnd="10dp"
+                android:text="Yellow" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/card_red"
-                    android:layout_marginEnd="10dp"
-                    android:text="Red" />
-            </LinearLayout>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_red"
+                android:layout_marginEnd="10dp"
+                android:text="Red" />
 
         </RadioGroup>
 

@@ -12,11 +12,11 @@ public class Match implements Serializable {
     @Column(name="idmatches")
     private int id;
 
-    @Column(name="HomeTeam")
-    private String homeTeam;
+    @Column(name="homeTeam")
+    private String HomeTeam;
 
-    @Column(name="AwayTeam")
-    private String awayTeam;
+    @Column(name="awayTeam")
+    private String AwayTeam;
 
     @Column(name="ScoreTeamHome")
     private int scorehometeam;
@@ -40,8 +40,8 @@ public class Match implements Serializable {
     }
 
     public Match(String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, String date, String location, ArrayList<String> imagePathList) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
+        this.HomeTeam = homeTeam;
+        this.AwayTeam = awayTeam;
         this.scorehometeam = scoreTeamHome;
         this.scoreawayteam = scoreTeamAway;
         this.date = date;
@@ -51,8 +51,8 @@ public class Match implements Serializable {
 
     public Match(int id, String homeTeam, String awayTeam, int scoreTeamHome, int scoreTeamAway, ArrayList<String> imagePathList, String date, String location) {
         this.id = id;
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
+        this.HomeTeam = homeTeam;
+        this.AwayTeam = awayTeam;
         this.scorehometeam = scoreTeamHome;
         this.scoreawayteam = scoreTeamAway;
         this.date = date;
@@ -65,19 +65,19 @@ public class Match implements Serializable {
     }
 
     public void setHomeTeam(String homeTeam) {
-        this.homeTeam = homeTeam;
+        this.HomeTeam = homeTeam;
     }
 
     public String getHomeTeam() {
-        return homeTeam;
+        return HomeTeam;
     }
 
     public void setAwayTeam(String awayTeam) {
-        this.awayTeam = awayTeam;
+        this.AwayTeam = awayTeam;
     }
 
     public String getAwayTeam() {
-        return awayTeam;
+        return AwayTeam;
     }
 
     public void setScorehometeam(int scorehometeam) {

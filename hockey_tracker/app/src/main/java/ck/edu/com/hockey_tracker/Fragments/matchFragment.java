@@ -1,9 +1,9 @@
 package ck.edu.com.hockey_tracker.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -39,6 +38,9 @@ public class matchFragment extends Fragment {
 
     FloatingActionButton floatingActionButtonAdd;
     ObjectMapper objectMapper;
+
+    private OnFragmentInteractionListener mListener;
+
 
     private static final String ARG_PARAM1 = "";
     private String mParam1 = "";
@@ -78,7 +80,7 @@ public class matchFragment extends Fragment {
         floatingActionButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new newMatchFragment());
+                mListener.onFragmentInteraction();
             }
         });
 
@@ -117,7 +119,6 @@ public class matchFragment extends Fragment {
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     addItems();
                 }
-
             }
             @Override
             public void  onNothingSelected(AdapterView parent) {
@@ -128,37 +129,47 @@ public class matchFragment extends Fragment {
         return view;
     }
 
-    public void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame, fragment);
-        transaction.commit();
-    }
-
     public void addItems() {
         Log.d("TEST2", mParam1);
         try {
             arrayList = objectMapper.readValue(mParam1, new TypeReference<ArrayList<MatchModel>>(){});
-            Log.d("BZAR1", String.valueOf(arrayList.get(0).getID()));
-            Log.d("BZAR2", String.valueOf(arrayList.get(0).getHometeam()));
-            Log.d("BZAR3", String.valueOf(arrayList.get(0).getAwayteam()));
-            Log.d("BZAR4", String.valueOf(arrayList.get(0).getDate()));
-            Log.d("BZAR5", String.valueOf(arrayList.get(0).getID()));
-            Log.d("BZAR6", String.valueOf(arrayList.get(0).getID()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        homePageMatchAdapter = new HomePageMatchAdapter(getActivity().getApplicationContext(), arrayList, R.layout.layout_match_view_model);
+        homePageMatchAdapter = new HomePageMatchAdapter(getActivity().getApplicationContext(), arrayList, R.layout.layout_match_view_model, "1");
         recyclerView.setAdapter(homePageMatchAdapter);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListenerSettings");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     /**
      * This interface must be implemented by activities that contain this
-     * fragment_first to allow an interaction in this fragment_first to be communicated
+     * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentLoaded(boolean ok);
+        void onFragmentInteraction();
     }
 }

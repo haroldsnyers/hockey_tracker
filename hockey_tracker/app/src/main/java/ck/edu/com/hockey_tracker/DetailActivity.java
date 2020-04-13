@@ -3,7 +3,6 @@ package ck.edu.com.hockey_tracker;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,21 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ck.edu.com.hockey_tracker.Data.DownloadModel;
 import ck.edu.com.hockey_tracker.Fragments.Detailfragment;
+import ck.edu.com.hockey_tracker.Fragments.DetailfragmentInternal;
 import ck.edu.com.hockey_tracker.Fragments.ImageViewFragment;
-import ck.edu.com.hockey_tracker.Fragments.dummy.DummyContent;
+import ck.edu.com.hockey_tracker.Fragments.InfoMatchFragment;
 
-public class DetailActivity extends AppCompatActivity implements
-        Detailfragment.OnFragmentInteractionListener,
-        ImageViewFragment.OnListFragmentInteractionListener {
+public class DetailActivity extends AppCompatActivity  {
 
     String quarterList;
     String homeName;
@@ -36,6 +32,7 @@ public class DetailActivity extends AppCompatActivity implements
     String location;
     String imagePaths;
     int idMatch;
+    String mode;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,12 +41,17 @@ public class DetailActivity extends AppCompatActivity implements
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    new Download(DetailActivity.this, "GETMATCH", idMatch).execute();
+                    if (mode.equals("0")) {
+                        loadFragmentDetailH();
+                    } else if (mode.equals("1")) {
+                        new Download(DetailActivity.this, "GETMATCH", idMatch).execute();
+                    }
                     return true;
                 case R.id.navigation_dashboard:
                     loadFragmentImage();
                     return true;
                 case R.id.navigation_notifications:
+                    loadFragmentInfo();
                     return true;
             }
             return false;
@@ -78,11 +80,11 @@ public class DetailActivity extends AppCompatActivity implements
         // checks if intent has an extra data called EXTRA_TEXT
 
         if (intentThatStartedThisActivity.hasExtra("HOMENAME")) {
-            String queryEntered = intentThatStartedThisActivity.getStringExtra("HOME");
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("HOMENAME");
             homeName = queryEntered;
         }
         if (intentThatStartedThisActivity.hasExtra("AWAYNAME")) {
-            String queryEntered = intentThatStartedThisActivity.getStringExtra("AWAY");
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("AWAYNAME");
             awayName = queryEntered;
         }
         if (intentThatStartedThisActivity.hasExtra("DATE")) {
@@ -96,15 +98,21 @@ public class DetailActivity extends AppCompatActivity implements
         if (intentThatStartedThisActivity.hasExtra("IMAGES")) {
             String queryEntered = intentThatStartedThisActivity.getStringExtra("IMAGES");
             imagePaths = queryEntered;
-            Log.d("IMAGES", imagePaths);
         }
         if (intentThatStartedThisActivity.hasExtra("ID")) {
             String queryEntered = intentThatStartedThisActivity.getStringExtra("ID");
             idMatch = Integer.parseInt(queryEntered);
-            Log.d("TESTID", String.valueOf(idMatch));
+        }
+        if (intentThatStartedThisActivity.hasExtra("MODE")) {
+            String queryEntered = intentThatStartedThisActivity.getStringExtra("MODE");
+            mode = queryEntered;
         }
 
-        new Download(DetailActivity.this, "GETMATCH", idMatch).execute();
+        if (mode.equals("0")) {
+            loadFragmentDetailH();
+        } else if (mode.equals("1")) {
+            new Download(DetailActivity.this, "GETMATCH", idMatch).execute();
+        }
 
     }
 
@@ -120,7 +128,21 @@ public class DetailActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadFragmentDetail() {
+    public void loadFragmentInfo() {
+        InfoMatchFragment infoMatchFragment = InfoMatchFragment.newInstance(date, location);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameDetail, infoMatchFragment);
+        transaction.commit();
+    }
+
+    public void loadFragmentDetailH() {
+        DetailfragmentInternal detailfragment = DetailfragmentInternal.newInstance(idMatch, homeName, awayName);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameDetail, detailfragment);
+        transaction.commit();
+    }
+
+    public void loadFragmentDetailP() {
         Detailfragment detailfragment = Detailfragment.newInstance(quarterList, homeName, awayName);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameDetail, detailfragment);
@@ -134,11 +156,8 @@ public class DetailActivity extends AppCompatActivity implements
                 Stream.of(imagePaths.split(","))
                         .collect(Collectors.toCollection(ArrayList<String>::new));
         for (int i=0; i < list.size(); i++){
-            Log.d("IMAGESSTORAGE", list.get(i));
-            Log.d("IMAGESSTORAGEDDDD", list.get(i).substring(0, 1));
             if (list.get(i).substring(0, 1).equals("[")){
                 String newString = list.get(i).substring(1);
-                Log.d("IMAGESSTORAGEDDDD", newString);
                 list.set(i, newString);
             }
             if (list.get(i).substring(0, 1).equals(" ")) {
@@ -149,7 +168,6 @@ public class DetailActivity extends AppCompatActivity implements
                 String newString = list.get(i).substring(0, list.get(i).length()-1);
                 list.set(i, newString);
             }
-            Log.d("IMAGESSTORAGESSSSS", list.get(i));
         }
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("data", list);
@@ -157,16 +175,6 @@ public class DetailActivity extends AppCompatActivity implements
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameDetail, imageFragment);
         transaction.commit();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
     }
 
     public class Download extends DownloadModel {
@@ -192,7 +200,7 @@ public class DetailActivity extends AppCompatActivity implements
             mProgressDialog.dismiss();
             if (this.mode.equals("GETMATCH")) {
                 quarterList = answer;
-                loadFragmentDetail();
+                loadFragmentDetailP();
             }
 
         }

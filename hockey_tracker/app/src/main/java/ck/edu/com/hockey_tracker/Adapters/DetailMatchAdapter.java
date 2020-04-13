@@ -43,6 +43,12 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
 
     @Override
     public void onBindViewHolder(final DetailMatchAdapter.viewHolder viewHolder, final int i) {
+        if (arrayList.get(i).getQuarterNumber() == 0) {
+            viewHolder.quarterNumber.setText(context.getString(R.string.match_general_detail));
+        } else  {
+            viewHolder.quarterNumber.setText(context.getString(R.string.match_quarter) + " " + arrayList.get(i).getQuarterNumber() + " " + context.getString(R.string.detail));
+        } 
+        
         viewHolder.shotsHome.setText(String.valueOf(arrayList.get(i).getShotsHome()));
         viewHolder.shotsAway.setText(String.valueOf(arrayList.get(i).getShotsAway()));
         viewHolder.shotsHomeOnGoal.setText(String.valueOf(
@@ -146,14 +152,8 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
                 faultExtendedHome, faultExtendedAway, faultExtendedNKHome, faultExtendedNKAway,
                 faultExtendedNSHome, faultExtendedNSAway, faultExtendedNBHome, faultExtendedNBAway,
                 faultExtendedNOHome, faultExtendedNOAway, faultExtendedNUHome, faultExtendedNUAway,
-                faultExtendedGHome, faultExtendedGAway, faultExtendedYHome, faultExtendedYAway,
-                faultExtendedRHome, faultExtendedRAway, faultExtended25Home, faultExtended25Away,
-                faultExtended50Home, faultExtended50Away, faultExtended75Home, faultExtended75Away,
-                faultExtended100Home, faultExtended100Away, pcExtendedHome, pcExtendedAway, pcExtendedNKHome,
-                pcExtendedNKAway, pcExtendedNSHome, pcExtendedNSAway, pcExtendedNBHome, pcExtendedNBAway,
-                pcExtendedNOHome, pcExtendedNOAway, pcExtendedNUHome, pcExtendedNUAway, pcExtendedGHome,
-                pcExtendedGAway, pcExtendedYHome, pcExtendedYAway, pcExtendedRHome, pcExtendedRAway,
-                pcExtendedConvertedHome, pcExtendedConvertedAway;
+                faultExtended25Home, faultExtended25Away, faultExtended50Home, faultExtended50Away, faultExtended75Home, faultExtended75Away,
+                faultExtended100Home, faultExtended100Away;
 
         private int mOriginalHeight = 0;
         private boolean mIsViewExpanded = false;
@@ -163,6 +163,8 @@ public class DetailMatchAdapter extends RecyclerView.Adapter<DetailMatchAdapter.
             super(itemView);
             context = itemView.getContext();
 
+            quarterNumber = itemView.findViewById(R.id.detail_name);
+            
             shotsHome = itemView.findViewById(R.id.shots_statistics_shots_home);
             shotsAway = itemView.findViewById(R.id.shots_statistics_shots_away);
             shotsHomeOnGoal = itemView.findViewById(R.id.shots_statistics_shots_on_goal_home);

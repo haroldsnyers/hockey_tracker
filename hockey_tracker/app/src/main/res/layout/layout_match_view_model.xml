@@ -107,16 +107,6 @@
                 android:layout_marginTop="@dimen/standard_margins">
 
                 <TextView
-                    android:id="@+id/league_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="hello"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/League"/>
-
-                <TextView
                     android:id="@+id/matchday_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

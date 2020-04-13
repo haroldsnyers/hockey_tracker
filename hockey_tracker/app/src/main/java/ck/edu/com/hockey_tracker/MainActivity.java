@@ -3,7 +3,6 @@ package ck.edu.com.hockey_tracker;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,29 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.ArrayType;
-import org.codehaus.jackson.type.TypeReference;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import ck.edu.com.hockey_tracker.Data.DownloadModel;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
+import ck.edu.com.hockey_tracker.Fragments.InfoFragment;
+import ck.edu.com.hockey_tracker.Fragments.RulesFragment;
 import ck.edu.com.hockey_tracker.Fragments.SettingsFragment;
 import ck.edu.com.hockey_tracker.Fragments.homeFragment;
 import ck.edu.com.hockey_tracker.Fragments.matchFragment;
@@ -52,7 +34,9 @@ import ck.edu.com.hockey_tracker.Preferences.LocaleManager;
 public class MainActivity extends BaseActivity
         implements
             newMatchFragment.OnFragmentInteractionListener,
-            SettingsFragment.OnFragmentInteractionListenerSettings {
+            SettingsFragment.OnFragmentInteractionListenerSettings,
+            matchFragment.OnFragmentInteractionListener,
+            homeFragment.OnFragmentInteractionListener{
 
     DrawerLayout drawer;
     NavigationView navigationView;
@@ -65,7 +49,6 @@ public class MainActivity extends BaseActivity
 
     ArrayList<MatchModel> matchModelArrayList = new ArrayList<>();
     String matchList;
-    MatchModel matchModel;
 
     String mhomeTeam;
     String mawayTeam;
@@ -97,7 +80,6 @@ public class MainActivity extends BaseActivity
         });
         if (savedInstanceState != null) {
             currentFrag = savedInstanceState.getInt("CurrentFrag");
-            Log.d("CURRENT", String.valueOf(currentFrag));
         }
 
         toggle = new ActionBarDrawerToggle(
@@ -115,11 +97,11 @@ public class MainActivity extends BaseActivity
         } else if (currentFrag == 2) {
             new Download(MainActivity.this, "GETALL").execute();
         } else if (currentFrag == 3) {
-            loadFragment(new Fragment(), 3);
+            loadFragment(new RulesFragment(), 3);
         } else if (currentFrag == 4) {
             loadFragment(new SettingsFragment(), 4);
         } else {
-            loadFragment(new Fragment(), 5);
+            loadFragment(new InfoFragment(), 5);
         }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -134,18 +116,16 @@ public class MainActivity extends BaseActivity
                 } else if (id == R.id.nav_previous_match) {
                     new Download(MainActivity.this, "GETALL").execute();
                 } else if (id == R.id.nav_rules) {
-                    loadFragment(new Fragment(), 3);
+                    loadFragment(new RulesFragment(), 3);
                 } else if (id == R.id.nav_settings) {
                     loadFragment(new SettingsFragment(), 4);
                 } else if (id == R.id.nav_info) {
-                    loadFragment(new Fragment(), 5);
+                    loadFragment(new InfoFragment(), 5);
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
-        Log.d("CURRENTFRAG", String.valueOf(currentFrag));
-
     }
 
     @Override
@@ -211,6 +191,7 @@ public class MainActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            loadFragment(new SettingsFragment(), 4);
             return true;
         } else if (id == R.id.action_picture) {
             return true;
@@ -266,6 +247,11 @@ public class MainActivity extends BaseActivity
         mdate = date;
         mlocation = location;
 
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+        loadFragment(newMatchFragment, 1);
     }
 
     public class Download extends DownloadModel {

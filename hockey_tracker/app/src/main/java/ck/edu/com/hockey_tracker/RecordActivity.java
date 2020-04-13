@@ -213,14 +213,10 @@ public class RecordActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         int id = item.getItemId();
 
-//        if (id == R.id.home) {
-//            this.finish();
-//        } else
         if (id == R.id.action_save){
             safeMatch();
             return true;
         } else if (id == R.id.action_picture) {
-            Log.d("CAMERA", "start");
             captureImage();
             return true;
         }
@@ -296,14 +292,9 @@ public class RecordActivity extends AppCompatActivity {
             }
 
         }
-        Log.d("INTERNAL", "internal done");
-
-
 
         new Download(RecordActivity.this, "INSERT", matchModel, matchTotals, quarterModel1, quarterModel2,
                 quarterModel3, quarterModel4).execute();
-        Log.d("EXTERNAL", "external begin");
-
     }
     
     public QuarterModel getMatchTotals(long idMatch) {
@@ -318,52 +309,53 @@ public class RecordActivity extends AppCompatActivity {
                 outsideHomeCornerT=0, outsideAwaySideT=0, outsideAwayCornerT=0, outsideAwayClearanceT = 0;
         
         for (int q = 0; q < 4; q++) {
-            goalsHomeT = goalsHome[q];
-            goalsAwayT = goalsAway[q];
-            shotsHomeT = shotsHome[q];
-            shotsHomeMissedT = shotsHomeMissed[q];
-            shotsHomeMissedKeeperT = shotsHomeMissedKeeper[q];
-            shotsAwayT = shotsAway[q];
-            shotsAwayMissedT = shotsAwayMissed[q];
-            shotsAwayMissedKeeperT = shotsAwayMissedKeeper[q];
-            homeGreenCardsT = homeGreenCards[q];
-            homeYellowCardsT = homeYellowCards[q];
-            homeRedCardsT = homeRedCards[q];
-            awayGreenCardsT = awayGreenCards[q];
-            awayYellowCardsT = awayYellowCards[q];
-            awayRedCardsT = awayRedCards[q];
-            strokeConvertedHomeT = strokeConvertedHome[q];
-            strokeNotConvertedHomeT = strokeNotConvertedHome[q];
-            strokeConvertedAwayT = strokeConvertedAway[q];
-            strokeNotConvertedAwayT = strokeNotConvertedAway[q];
-            faultHomeBackstickT = faultHomeBackstick[q];
-            faultHomeKickT = faultHomeKick[q];
-            faultHomeUndercuttingT = faultHomeUndercutting[q];
-            faultHomeStickT = faultHomeStick[q];
-            faultHomeObstructionT = faultHomeObstruction[q];
-            faultAwayBackstickT = faultAwayBackstick[q];
-            faultAwayKickT = faultAwayKick[q];
-            faultAwayUndercuttingT = faultAwayUndercutting[q];
-            faultAwayStickT = faultAwayStick[q];
-            faultAwayObstructionT = faultAwayObstruction[q];
-            pcConvertedHomeT = pcConvertedHome[q];
-            pcNotConvertedHomeT = pcNotConvertedHome[q];
-            pcConvertedAwayT = pcConvertedAway[q];
-            pcNotConvertedAwayT = pcNotConvertedAway[q];
-            faultPosition25HomeT = faultPosition25Home[q];
-            faultPosition50HomeT = faultPosition50Home[q];
-            faultPosition75HomeT = faultPosition75Home[q];
-            faultPosition100HomeT = faultPosition100Home[q];
-            faultPosition25AwayT = faultPosition25Away[q];
-            faultPosition50AwayT = faultPosition50Away[q];
-            faultPosition75AwayT = faultPosition75Away[q];
-            faultPosition100AwayT = faultPosition100Away[q];
-            outsideHomeSideT = outsideHomeSide[q];
-            outsideHomeClearanceT = outsideHomeClearance[q];
-            outsideHomeCornerT = outsideHomeClearance[q];
-            outsideAwaySideT = outsideAwaySide[q];
-            outsideAwayClearanceT = outsideAwayClearance[q];
-            outsideAwayCornerT = outsideAwayCorner[q];
+            goalsHomeT += goalsHome[q];
+
+            goalsAwayT += goalsAway[q];
+            shotsHomeT += shotsHome[q];
+            shotsHomeMissedT += shotsHomeMissed[q];
+            shotsHomeMissedKeeperT += shotsHomeMissedKeeper[q];
+            shotsAwayT += shotsAway[q];
+            shotsAwayMissedT += shotsAwayMissed[q];
+            shotsAwayMissedKeeperT += shotsAwayMissedKeeper[q];
+            homeGreenCardsT += homeGreenCards[q];
+            homeYellowCardsT += homeYellowCards[q];
+            homeRedCardsT += homeRedCards[q];
+            awayGreenCardsT += awayGreenCards[q];
+            awayYellowCardsT += awayYellowCards[q];
+            awayRedCardsT += awayRedCards[q];
+            strokeConvertedHomeT += strokeConvertedHome[q];
+            strokeNotConvertedHomeT += strokeNotConvertedHome[q];
+            strokeConvertedAwayT += strokeConvertedAway[q];
+            strokeNotConvertedAwayT += strokeNotConvertedAway[q];
+            faultHomeBackstickT += faultHomeBackstick[q];
+            faultHomeKickT += faultHomeKick[q];
+            faultHomeUndercuttingT += faultHomeUndercutting[q];
+            faultHomeStickT += faultHomeStick[q];
+            faultHomeObstructionT += faultHomeObstruction[q];
+            faultAwayBackstickT += faultAwayBackstick[q];
+            faultAwayKickT += faultAwayKick[q];
+            faultAwayUndercuttingT += faultAwayUndercutting[q];
+            faultAwayStickT += faultAwayStick[q];
+            faultAwayObstructionT += faultAwayObstruction[q];
+            pcConvertedHomeT += pcConvertedHome[q];
+            pcNotConvertedHomeT += pcNotConvertedHome[q];
+            pcConvertedAwayT += pcConvertedAway[q];
+            pcNotConvertedAwayT += pcNotConvertedAway[q];
+            faultPosition25HomeT += faultPosition25Home[q];
+            faultPosition50HomeT += faultPosition50Home[q];
+            faultPosition75HomeT += faultPosition75Home[q];
+            faultPosition100HomeT += faultPosition100Home[q];
+            faultPosition25AwayT += faultPosition25Away[q];
+            faultPosition50AwayT += faultPosition50Away[q];
+            faultPosition75AwayT += faultPosition75Away[q];
+            faultPosition100AwayT += faultPosition100Away[q];
+            outsideHomeSideT += outsideHomeSide[q];
+            outsideHomeClearanceT += outsideHomeClearance[q];
+            outsideHomeCornerT += outsideHomeClearance[q];
+            outsideAwaySideT += outsideAwaySide[q];
+            outsideAwayClearanceT += outsideAwayClearance[q];
+            outsideAwayCornerT += outsideAwayCorner[q];
         }
 
         databaseHelper.addQuarter(0, goalsHomeT, goalsAwayT, shotsHomeT, shotsHomeMissedT,
@@ -491,35 +483,35 @@ public class RecordActivity extends AppCompatActivity {
             // find which radioButton is checked by id
             if (idButton == R.id.stroke_team_home_record) {
                 if(checkedId == R.id.card_green) {
-                    homeGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.card_yellow) {
-                    homeYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.card_red) {
-                    homeRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if (switchConverted.isChecked()) {
-                    goalsHome[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    goalsHome[CURRENT_QUARTER - 1] ++;
+                    strokeConvertedHome[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else {
-                    strokeNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    strokeNotConvertedHome[CURRENT_QUARTER - 1] ++;
                 }
             } else if (idButton == R.id.stroke_team_away_record) {
                 if(checkedId == R.id.card_green) {
-                    awayGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.card_yellow) {
-                    awayYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.card_red) {
-                    awayRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if (switchConverted.isChecked()) {
-                    goalsAway[CURRENT_QUARTER - 1] =+ 1;
-                    strokeConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    goalsAway[CURRENT_QUARTER - 1] ++;
+                    strokeConvertedAway[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else {
-                    strokeNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    strokeNotConvertedAway[CURRENT_QUARTER - 1] ++;
                 }
             }
             mPopupWindow.dismiss();
@@ -572,24 +564,24 @@ public class RecordActivity extends AppCompatActivity {
             int checkedId = radioGroup.getCheckedRadioButtonId();
             // find which radioButton is checked by id
             if (idButton == R.id.shot_team_home_record) {
-                shotsHome[CURRENT_QUARTER - 1] =+ 1;
+                shotsHome[CURRENT_QUARTER - 1] ++;
                 if(checkedId == R.id.shot_goal) {
-                    goalsHome[CURRENT_QUARTER - 1] =+ 1;
+                    goalsHome[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else if(checkedId == R.id.shot_missed_outside) {
-                    shotsHomeMissed[CURRENT_QUARTER - 1] =+ 1;
+                    shotsHomeMissed[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.shot_missed_keeper) {
-                    shotsHomeMissedKeeper[CURRENT_QUARTER - 1] =+ 1;
+                    shotsHomeMissedKeeper[CURRENT_QUARTER - 1] ++;
                 }
             } else if (idButton == R.id.shot_team_away_record) {
-                shotsAway[CURRENT_QUARTER - 1] =+ 1;
+                shotsAway[CURRENT_QUARTER - 1] ++;
                 if(checkedId == R.id.shot_goal) {
-                    goalsAway[CURRENT_QUARTER - 1] =+ 1;
+                    goalsAway[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else if(checkedId == R.id.shot_missed_outside) {
-                    shotsAwayMissed[CURRENT_QUARTER - 1] =+ 1;
+                    shotsAwayMissed[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.shot_missed_keeper) {
-                    shotsAwayMissedKeeper[CURRENT_QUARTER - 1] =+ 1;
+                    shotsAwayMissedKeeper[CURRENT_QUARTER - 1] ++;
                 }
             }
             mPopupWindow.dismiss();
@@ -634,59 +626,59 @@ public class RecordActivity extends AppCompatActivity {
             // find which radioButton is checked by id
             if (idButton == R.id.pc_team_home_record) {
                 if(checkedIdCards == R.id.card_green) {
-                    homeGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_yellow) {
-                    homeYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_red) {
-                    homeRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdfault == R.id.fault_kick) {
-                    faultHomeKick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeKick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_backstick) {
-                    faultHomeBackstick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeBackstick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_stick) {
-                    faultHomeStick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeStick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_undercutting) {
-                    faultHomeUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeUndercutting[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_obstruction) {
-                    faultHomeObstruction[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeObstruction[CURRENT_QUARTER - 1] ++;
                 }
 
                 if (switchConverted.isChecked()) {
-                    goalsHome[CURRENT_QUARTER - 1] =+ 1;
-                    pcConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    goalsHome[CURRENT_QUARTER - 1] ++;
+                    pcConvertedHome[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else {
-                    pcNotConvertedHome[CURRENT_QUARTER - 1] =+ 1;
+                    pcNotConvertedHome[CURRENT_QUARTER - 1] ++;
                 }
             } else if (idButton == R.id.pc_team_away_record) {
                 if(checkedIdCards == R.id.card_green) {
-                    awayGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_yellow) {
-                    awayYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_red) {
-                    awayRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdfault == R.id.fault_kick) {
-                    faultAwayKick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayKick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_backstick) {
-                    faultAwayBackstick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayBackstick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_stick) {
-                    faultAwayStick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayStick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_undercutting) {
-                    faultAwayUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayUndercutting[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_obstruction) {
-                    faultAwayObstruction[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayObstruction[CURRENT_QUARTER - 1] ++;
                 }
 
                 if (switchConverted.isChecked()) {
-                    goalsAway[CURRENT_QUARTER - 1] =+ 1;
-                    pcConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    goalsAway[CURRENT_QUARTER - 1] ++;
+                    pcConvertedAway[CURRENT_QUARTER - 1] ++;
                     updateScore();
                 } else {
-                    pcNotConvertedAway[CURRENT_QUARTER - 1] =+ 1;
+                    pcNotConvertedAway[CURRENT_QUARTER - 1] ++;
                 }
             }
             mPopupWindow.dismiss();
@@ -724,23 +716,23 @@ public class RecordActivity extends AppCompatActivity {
         Button buttonConfirm = outsideView.findViewById(R.id.outside_confirm);
         buttonConfirm.setOnClickListener(v -> {
             int checkedId = radioGroup.getCheckedRadioButtonId();
-            shotsHome[CURRENT_QUARTER - 1] =+ 1;
+            shotsHome[CURRENT_QUARTER - 1] ++;
             // find which radioButton is checked by id
             if (idButton == R.id.outside_team_home_record) {
                 if(checkedId == R.id.outside_clearance) {
-                    outsideHomeClearance[CURRENT_QUARTER - 1] =+ 1;
+                    outsideHomeClearance[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.outside_side) {
-                    outsideHomeSide[CURRENT_QUARTER - 1] =+ 1;
+                    outsideHomeSide[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.outside_corner) {
-                    outsideHomeCorner[CURRENT_QUARTER - 1] =+ 1;
+                    outsideHomeCorner[CURRENT_QUARTER - 1] ++;
                 }
             } else if (idButton == R.id.outside_team_away_record) {
                 if(checkedId == R.id.outside_clearance) {
-                    outsideAwayClearance[CURRENT_QUARTER - 1] =+ 1;
+                    outsideAwayClearance[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.outside_side) {
-                    outsideAwaySide[CURRENT_QUARTER - 1] =+ 1;
+                    outsideAwaySide[CURRENT_QUARTER - 1] ++;
                 } else if(checkedId == R.id.outside_corner) {
-                    outsideAwayCorner[CURRENT_QUARTER - 1] =+ 1;
+                    outsideAwayCorner[CURRENT_QUARTER - 1] ++;
                 }
             }
             mPopupWindow.dismiss();
@@ -786,65 +778,65 @@ public class RecordActivity extends AppCompatActivity {
             // find which radioButton is checked by id
             if (idButton == R.id.fault_team_home_record) {
                 if(checkedIdCards == R.id.card_green) {
-                    homeGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_yellow) {
-                    homeYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_red) {
-                    homeRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    homeRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdfault == R.id.fault_kick) {
-                    faultHomeKick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeKick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_backstick) {
-                    faultHomeBackstick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeBackstick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_stick) {
-                    faultHomeStick[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeStick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_undercutting) {
-                    faultHomeUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeUndercutting[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_obstruction) {
-                    faultHomeObstruction[CURRENT_QUARTER - 1] =+ 1;
+                    faultHomeObstruction[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdPosition == R.id.position1) {
-                    faultPosition25Home[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition25Home[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position2) {
-                    faultPosition50Home[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition50Home[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position3) {
-                    faultPosition75Home[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition75Home[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position4) {
-                    faultPosition100Home[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition100Home[CURRENT_QUARTER - 1] ++;
                 }
 
 
             } else if (idButton == R.id.fault_team_away_record) {
                 if(checkedIdCards == R.id.card_green) {
-                    awayGreenCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayGreenCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_yellow) {
-                    awayYellowCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayYellowCards[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdCards == R.id.card_red) {
-                    awayRedCards[CURRENT_QUARTER - 1] =+ 1;
+                    awayRedCards[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdfault == R.id.fault_kick) {
-                    faultAwayKick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayKick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_backstick) {
-                    faultAwayBackstick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayBackstick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_stick) {
-                    faultAwayStick[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayStick[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_undercutting) {
-                    faultAwayUndercutting[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayUndercutting[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdfault == R.id.fault_obstruction) {
-                    faultAwayObstruction[CURRENT_QUARTER - 1] =+ 1;
+                    faultAwayObstruction[CURRENT_QUARTER - 1] ++;
                 }
 
                 if(checkedIdPosition == R.id.position1) {
-                    faultPosition25Away[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition25Away[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position2) {
-                    faultPosition50Away[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition50Away[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position3) {
-                    faultPosition75Away[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition75Away[CURRENT_QUARTER - 1] ++;
                 } else if(checkedIdPosition == R.id.position4) {
-                    faultPosition100Away[CURRENT_QUARTER - 1] =+ 1;
+                    faultPosition100Away[CURRENT_QUARTER - 1] ++;
                 }
             }
             mPopupWindow.dismiss();
