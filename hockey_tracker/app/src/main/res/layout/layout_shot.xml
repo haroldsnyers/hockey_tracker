@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shot" />
+        android:text="@string/shot_pop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Converted? "/>
+            android:text="@string/converted"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -36,21 +36,21 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/shot_goal"
                 android:layout_marginEnd="10dp"
-                android:text="goal" />
+                android:text="@string/goal_pop" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/shot_missed_outside"
                 android:layout_marginEnd="10dp"
-                android:text="missed (outside)" />
+                android:text="@string/missed_outside" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/shot_missed_keeper"
                 android:layout_marginEnd="10dp"
-                android:text="missed (keeper)" />
+                android:text="@string/missed_keeper" />
 
         </RadioGroup>
 
@@ -66,13 +66,13 @@
             android:id="@+id/shot_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/shot_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"/>
+            android:text="@string/cancel"/>
 
     </LinearLayout>
 

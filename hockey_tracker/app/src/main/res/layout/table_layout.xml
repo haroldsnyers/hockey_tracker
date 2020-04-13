@@ -77,7 +77,7 @@
             android:layout_marginStart="30dp"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="RUSSIA"
+            android:text="@string/home_team_"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -157,7 +157,7 @@
             android:layout_marginStart="30dp"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="RUSSIA"
+            android:text="@string/away_team"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />

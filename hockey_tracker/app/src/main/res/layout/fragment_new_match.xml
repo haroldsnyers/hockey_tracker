@@ -17,7 +17,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20sp"
         android:background="@android:drawable/dialog_holo_light_frame"
-        android:hint="Enter home team name"
+        android:hint="@string/enter_home_team_name"
         android:inputType="text"
         android:padding="15dp"/>
 
@@ -27,7 +27,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20sp"
         android:background="@android:drawable/dialog_holo_light_frame"
-        android:hint="Enter away team name"
+        android:hint="@string/enter_away_team_name"
         android:inputType="text"
         android:padding="15dp"/>
 

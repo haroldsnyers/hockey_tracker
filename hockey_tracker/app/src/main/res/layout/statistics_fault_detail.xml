@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="5dip"
-            android:text="Fault Statistics extended"
+            android:text="@string/fault_statistics_extended"
             android:textAlignment="center"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dip"
-            android:text="Team Home"
+            android:text="@string/team_home"
             android:textAlignment="center"
             android:textSize="10sp" />
 
@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dip"
-            android:text="Team Away"
+            android:text="@string/team_away"
             android:textAlignment="center"
             android:textSize="10sp" />
     </TableRow>
@@ -53,7 +53,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of fault's total"
+            android:text="@string/number_of_fault_s_total"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -135,7 +135,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of Kick's"
+            android:text="@string/number_of_kick_s"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -177,7 +177,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of sticks"
+            android:text="@string/number_of_sticks"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -219,7 +219,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of Back sticks"
+            android:text="@string/number_of_back_sticks"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -261,7 +261,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of obstructions"
+            android:text="@string/number_of_obstructions"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -303,7 +303,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number of undercuttings"
+            android:text="@string/number_of_undercuttings"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -382,7 +382,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number faults in 25y"
+            android:text="@string/number_faults_in_25y"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -424,7 +424,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number faults in 50y"
+            android:text="@string/number_faults_in_50y"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -466,7 +466,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number faults in 75y"
+            android:text="@string/number_faults_in_75y"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -508,7 +508,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Number faults in 100y"
+            android:text="@string/number_faults_in_100y"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />

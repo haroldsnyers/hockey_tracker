@@ -39,8 +39,9 @@ import ck.edu.com.hockey_tracker.Data.DatabaseHelper;
 import ck.edu.com.hockey_tracker.Data.DownloadModel;
 import ck.edu.com.hockey_tracker.Data.MatchModel;
 import ck.edu.com.hockey_tracker.Data.QuarterModel;
+import ck.edu.com.hockey_tracker.Preferences.BaseActivity;
 
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends BaseActivity {
 
     private int CURRENT_QUARTER = 1;
     private TextView currentQuarterTextView;

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Penalty Corner" />
+        android:text="@string/penalty_corner" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="type of fault "/>
+            android:text="@string/type_of_fault"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -36,35 +36,35 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fault_kick"
                 android:layout_marginEnd="10dp"
-                android:text="kick" />
+                android:text="@string/kick" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fault_backstick"
                 android:layout_marginEnd="10dp"
-                android:text="backstick" />
+                android:text="@string/backstick" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fault_stick"
                 android:layout_marginEnd="10dp"
-                android:text="stick interference" />
+                android:text="@string/stick_interference" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fault_undercutting"
                 android:layout_marginEnd="10dp"
-                android:text="undercutting" />
+                android:text="@string/undercutting" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fault_obstruction"
                 android:layout_marginEnd="10dp"
-                android:text="obstruction" />
+                android:text="@string/obstruction" />
 
         </RadioGroup>
 
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="cards? "/>
+            android:text="@string/cards"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -94,28 +94,28 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/card_none"
                 android:layout_marginEnd="10dp"
-                android:text="None" />
+                android:text="@string/none" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_green"
                 android:layout_marginEnd="10dp"
-                android:text="Green" />
+                android:text="@string/green" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_yellow"
                 android:layout_marginEnd="10dp"
-                android:text="Yellow" />
+                android:text="@string/yellow" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_red"
                 android:layout_marginEnd="10dp"
-                android:text="Red" />
+                android:text="@string/red" />
 
         </RadioGroup>
 
@@ -128,7 +128,7 @@
         android:padding="10dp"
         android:switchPadding="10dp"
         android:switchMinWidth="46dp"
-        android:text="Converted:"
+        android:text="@string/converted"
         android:textOff="OFF"
         android:textOn ="ON"/>
 
@@ -141,13 +141,13 @@
             android:id="@+id/pc_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/pc_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"/>
+            android:text="@string/confirm"/>
 
     </LinearLayout>
 

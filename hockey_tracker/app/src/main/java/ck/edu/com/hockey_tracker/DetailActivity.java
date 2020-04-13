@@ -22,8 +22,9 @@ import ck.edu.com.hockey_tracker.Fragments.Detailfragment;
 import ck.edu.com.hockey_tracker.Fragments.DetailfragmentInternal;
 import ck.edu.com.hockey_tracker.Fragments.ImageViewFragment;
 import ck.edu.com.hockey_tracker.Fragments.InfoMatchFragment;
+import ck.edu.com.hockey_tracker.Preferences.BaseActivity;
 
-public class DetailActivity extends AppCompatActivity  {
+public class DetailActivity extends BaseActivity {
 
     String quarterList;
     String homeName;

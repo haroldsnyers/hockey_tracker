@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:padding="5dip"
-            android:text="Cards Statistics"
+            android:text="@string/cards_statistics"
             android:layout_weight="2"
             android:textAlignment="center"
             android:textSize="15sp"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:padding="5dip"
             android:textAlignment="center"
-            android:text="Team Home"
+            android:text="@string/team_home"
             android:textSize="10sp" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dip"
-            android:text="Team Away"
+            android:text="@string/team_away"
             android:textAlignment="center"
             android:textSize="10sp" />
     </TableRow>
@@ -53,7 +53,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Total cards"
+            android:text="@string/total_cards"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -99,7 +99,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Total green cards "
+            android:text="@string/total_green_cards"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -141,7 +141,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Total yellow cards "
+            android:text="@string/total_yellow_cards"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -183,7 +183,7 @@
             android:layout_weight="2"
             android:background="@drawable/cell_shape_except_left"
             android:padding="10dip"
-            android:text="Total red cards "
+            android:text="@string/total_red_cards"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />

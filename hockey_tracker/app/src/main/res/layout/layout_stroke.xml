@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stroke" />
+        android:text="@string/stroke_pop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="cards? "/>
+            android:text="@string/cards"/>
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -36,28 +36,28 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/card_none"
                 android:layout_marginEnd="10dp"
-                android:text="None" />
+                android:text="@string/none" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_green"
                 android:layout_marginEnd="10dp"
-                android:text="Green" />
+                android:text="@string/green" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_yellow"
                 android:layout_marginEnd="10dp"
-                android:text="Yellow" />
+                android:text="@string/yellow" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_red"
                 android:layout_marginEnd="10dp"
-                android:text="Red" />
+                android:text="@string/red" />
 
         </RadioGroup>
 
@@ -70,7 +70,7 @@
         android:padding="10dp"
         android:switchPadding="10dp"
         android:switchMinWidth="46dp"
-        android:text="Converted:"
+        android:text="@string/converted"
         android:textOff="OFF"
         android:textOn ="ON"/>
 
@@ -83,13 +83,13 @@
             android:id="@+id/stroke_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/stroke_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"/>
+            android:text="@string/confirm"/>
 
     </LinearLayout>
 
